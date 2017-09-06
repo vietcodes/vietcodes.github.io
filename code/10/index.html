@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Codechef July 17 - Whats in the name - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="codechef-july-17---whats-in-the-name">Codechef July 17 - Whats in the name</h3>
+<ul>
+  <li>Đề bài: <a href="https://www.codechef.com/problems/NITIKA">https://www.codechef.com/problems/NITIKA</a></li>
+  <li>Keywords: string, simple</li>
+  <li>Ngôn ngữ: Python 3</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <h3 id="tóm-tắt-đề">Tóm tắt đề</h3>
+
+<p>Cho chuỗi là tên của một người, gồm 1 hoặc nhiều từ,
+cách nhau bằng khoảng trắng. Chuẩn hoá tên bằng cách viết hoa kí tự
+đầu tiên của mỗi từ. Sau đó thực hiện rút rọn tên như sau:
+các từ ngoại trừ từ cuối cùng đề được viết tắt bằng 2 kí tự,
+kí tự đầu tiên của từ và dấu chấm. Ví dụ:</p>
+
+<ul>
+  <li>Jon Snow: J. Snow</li>
+  <li>John VoN neuMan: J. V. Neumann</li>
+  <li>Bronn: Bronn</li>
+  <li>Mohndas KaramChand ganDh: M. K. Gandhi</li>
+</ul>
+
+<h3 id="cách-giải">Cách giải</h3>
+<p>Bài này khá đơn giản, chỉ cần tách chuỗi thành nhiều từ rồi
+xử lý từng từ một như trong đề.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.py</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/10/main.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.py">Download <i class="fa fa-lg fa-download"></i></a>
+
+                    <table width="100%" style="margin-top:.5em;">
+                        <tr>
+                            <td>
+                                <pre style="text-align:right; word-break:keep-all; border-right:0; padding-right:4px;"><code>1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+                            </td>
+                            <td width="100%">
+                                
+<div class="language-python selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">'.'</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</code></pre>
+</div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

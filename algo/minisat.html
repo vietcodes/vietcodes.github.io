@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Dùng MiniSat để giải các bài toán NP - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Dùng MiniSat để giải các bài toán NP</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Dùng MiniSat để giải các bài toán NP</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#sat-minisat">SAT, MiniSat</a></li>
+<li class="toc-entry toc-h2"><a href="#định-nghĩa-bài-toán-sat">Định nghĩa bài toán SAT</a></li>
+<li class="toc-entry toc-h2"><a href="#nhập-input-cho-minisat">Nhập input cho MiniSat</a></li>
+<li class="toc-entry toc-h2"><a href="#output-của--minisat">Output của  MiniSat</a></li>
+<li class="toc-entry toc-h1"><a href="#giải-bài-8-quân-hậu-bằng-minisat">Giải bài 8 quân hậu bằng MiniSat</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+</ul>
+                    </div>
+                    <p>MiniSat là một công cụ nguồn mở để giải bài toán SAT (boolean satisfiability problem).
+Nhiều bài toán NP khác có thể được đưa về SAT, từ đó sử dụng MiniSat để giải.</p>
+
+<p>Trước khi sử dụng, ta cần cài MiniSat, do MiniSat chạy trên Linux nên ta cần Cygwin
+hoặc Bash (Windows 10) để có thể cài được.</p>
+
+<p>Dùng MiniSat có thể đảm bảo kết quả ra chính xác, code chạy nhanh.
+Vì vậy có thể dùng MiniSat để kiểm tra xem code của mình có chạy đúng không.</p>
+
+<h1 id="sat-minisat">SAT, MiniSat</h1>
+
+<h2 id="định-nghĩa-bài-toán-sat">Định nghĩa bài toán SAT</h2>
+
+<p>SAT có tên gốc là boolean satisfiability problem, nghĩa là tìm cách thoả mãn một biểu thức boolean.</p>
+
+<p>Ví dụ: tìm <script type="math/tex">x, y, z</script> để biểu thức <script type="math/tex">(x \lor y) \land (\neg x \lor z) \land (y \lor z)</script> cho giá trị đúng.</p>
+
+<h2 id="nhập-input-cho-minisat">Nhập input cho MiniSat</h2>
+
+<p>Để nhập input cho MiniSat, ta cần biến đổi biểu thức về dạng chuẩn (Conjunctive Normal Form - CNF),
+nghĩa là biểu thức được viết dưới dạng các vế, trong mỗi vế gồm các biến được nối nhau bởi phép OR,
+và các vế được nối nhau bởi phép AND.</p>
+
+<p>Ví dụ ở trên là một biểu thức chuẩn. Ngoài ra, mọi biểu thức boolean đều có thể đưa về dạng chuẩn,
+ví dụ như biểu thức <script type="math/tex">(x \land y) \to z</script> được đưa về dạng chuẩn là <script type="math/tex">\neg x \lor \neg y \lor z</script>.</p>
+
+<p>Sau khi đã đưa được về dạng chuẩn, ta đánh số các biến bắt đầu từ 1, sau đó tạo input cho MiniSat.
+Mỗi vế trong input được viết trên một dòng kết thúc bằng số 0, và <script type="math/tex">\neg x</script> được viết thành <script type="math/tex">-x</script>.
+Ngoài ra, ở đầu file ta ghi dòng sau:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>p cnf &lt;số biến&gt; &lt;số vế&gt;
+</code></pre>
+</div>
+
+<p>Ví dụ biểu thức <script type="math/tex">(x \lor y) \land (\neg x \lor z) \land (y \lor z)</script> cho input là:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>p cnf 3 3
+1 2 0
+-1 3 0
+2 3 0
+</code></pre>
+</div>
+
+<p>Biểu thức <script type="math/tex">\neg x \lor \neg y \lor z</script> cho input là:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>p cnf 3 1
+-1 -2 3 0
+</code></pre>
+</div>
+
+<h2 id="output-của--minisat">Output của  MiniSat</h2>
+
+<p>Sau khi tạo được file input, ta chạy MiniSat và được file output. Ví dụ input:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>p cnf 5 3
+1 -5 4 0
+-1 5 3 4 0
+-3 -4 0
+</code></pre>
+</div>
+
+<p>Có output sau:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>SAT
+1 2 -3 4 5 0
+</code></pre>
+</div>
+
+<p>Với ý nghĩa biến thứ 1, 2, 4, 5 có giá trị TRUE, biến thứ 3 có giá trị FALSE.</p>
+
+<p>Nếu không giải được, MiniSat sẽ xuất <code class="highlighter-rouge">UNSAT</code>.</p>
+
+<h1 id="giải-bài-8-quân-hậu-bằng-minisat">Giải bài 8 quân hậu bằng MiniSat</h1>
+
+<p>Ta sẽ chuyển bài toán quân hậu về SAT để giải bằng cách gán mỗi ô trên bàn cờ
+với một biến boolean <script type="math/tex">x_{ij}</script>.</p>
+
+<p>Vì mỗi hàng cần có ít nhất một quân hậu nên ta có <script type="math/tex">x_{i1} \lor x_{i2} \lor ... \lor x_{i8}</script>
+với mỗi hàng <script type="math/tex">i</script>.</p>
+
+<p>Ta sẽ xây dựng biểu thức cho điều kiện mỗi hàng có nhiều nhất 1 quân hậu. Xét hàng 1, giả sử ô (1, 1) có quân hậu thì tất cả các ô còn lại không được có hậu. Ta có điều kiện:</p>
+
+<script type="math/tex; mode=display">x_1 \to (\neg x_2 \land \neg x_3 \land ... \land \neg x_8) \\
+\Leftrightarrow \neg x_1 \lor (\neg x_2 \land \neg x_3 \land ... \land \neg x_8) \\
+\Leftrightarrow (\neg x_1 \lor \neg x_2) \land (\neg x_1 \lor \neg x_3) \land ... \land (\neg x_1 \lor \neg x_8)</script>
+
+<p>Làm tương tự với các ô khác, cột khác và các đường chéo. Xem code (Python 3):</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">itertools</span> <span class="kn">as</span> <span class="nn">it</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">clauses</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c"># each row contains at least one queen</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+
+<span class="c"># each row contains at most one queen</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
+
+<span class="c"># each column contains at most one queen</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j</span><span class="p">)])</span>
+
+<span class="c"># no two queens stay on the same diagonal</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i2</span> <span class="o">-</span> <span class="n">i1</span> <span class="o">==</span> <span class="nb">abs</span><span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">j1</span><span class="p">):</span>
+            <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'tmp.cnf'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"p cnf {} {}</span><span class="se">\n</span><span class="s">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clauses</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clauses</span><span class="p">:</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"minisat tmp.cnf tmp.sat"</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"tmp.sat"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">satfile</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">satfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"UNSAT"</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"There is no solution"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"SAT"</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">assignment</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+
+            <span class="c">#print("-" * (2 * n + 1))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"|"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">assignment</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s">"x|"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s">" |"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+                <span class="c">#print("-" * (2 * n + 1))</span>
+</code></pre>
+</div>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li><a href="https://www.dwheeler.com/essays/minisat-user-guide.html" target="_blank">MiniSat User Guide</a></li>
+  <li><a href="/code/8/" target="_blank">Code giải quân hậu bằng MiniSat</a></li>
+  <li><a href="/code/9/" target="_blank">Code giải Sudoku bằng MiniSat</a></li>
+</ul>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+            <div class="panel window hide" id="disqus-window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Comments</span>
+                </div>
+                <div class="panel-body" id="disqus_thread">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/minisat";
+    this.page.identifier = "https://vietcodes.github.io/algo/minisat";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

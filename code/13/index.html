@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Codechef July 17 - IPC Trainers - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="codechef-july-17---ipc-trainers">Codechef July 17 - IPC Trainers</h3>
+<ul>
+  <li>Đề bài: <a href="https://www.codechef.com/problems/IPCTRAIN">https://www.codechef.com/problems/IPCTRAIN</a></li>
+  <li>Keywords: greedy, set, heap</li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Ta dùng tư tưởng tham lam để giải bài toán này.</p>
+
+<p>Đầu tiên sắp xếp danh sách các trainer theo S giảm dần. Sau đó duyệt trên danh sách đã sắp xếp:</p>
+
+<p>Với mỗi trainer thì ta chọn nhiều ngày nhất có thể trong những ngày còn trống để gán cho trainer này.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.cpp</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/13/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+
+                    <table width="100%" style="margin-top:.5em;">
+                        <tr>
+                            <td>
+                                <pre style="text-align:right; word-break:keep-all; border-right:0; padding-right:4px;"><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</code></pre>
+                            </td>
+                            <td width="100%">
+                                
+<div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;set&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cp">#define LL long long
+</span><span class="k">struct</span> <span class="n">pack</span> <span class="p">{</span> <span class="n">LL</span> <span class="n">d</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span> <span class="p">};</span>
+<span class="kt">bool</span> <span class="nf">sort_cmp</span><span class="p">(</span><span class="n">pack</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">pack</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">s</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">T</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">T</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">LL</span> <span class="n">d</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">i</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">.</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">.</span><span class="n">s</span><span class="p">;</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">sort_cmp</span><span class="p">);</span>
+        <span class="n">set</span><span class="o">&lt;</span><span class="n">LL</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">LL</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="n">LL</span> <span class="n">kq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">i</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">LL</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">auto</span> <span class="n">first</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+            <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(;</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">.</span><span class="n">t</span> <span class="o">&amp;&amp;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">it</span><span class="p">);</span>
+            <span class="n">kq</span> <span class="o">+=</span> <span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">t</span> <span class="o">-</span> <span class="n">count</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">.</span><span class="n">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">kq</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

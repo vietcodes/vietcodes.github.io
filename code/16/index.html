@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Codechef July 17 - Two Coins - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="codechef-july-17---two-coins">Codechef July 17 - Two Coins</h3>
+<ul>
+  <li>Đề bài: <a href="https://www.codechef.com/problems/TWOCOINS">https://www.codechef.com/problems/TWOCOINS</a></li>
+  <li>Keywords: tree, greedy</li>
+  <li>Tài liệu:
+    <ul>
+      <li><a href="https://discuss.codechef.com/questions/105381/two-coins-problem-in-july-2017-long-contest?page=1#105518">https://discuss.codechef.com/questions/105381/two-coins-problem-in-july-2017-long-contest?page=1#105518</a></li>
+      <li><a href="https://discuss.codechef.com/questions/105597/twocoins-editorial">https://discuss.codechef.com/questions/105597/twocoins-editorial</a></li>
+    </ul>
+  </li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Sau đây là cách giải tham lam của bài này, có thể xem cách sử dụng quy hoạch động ở trên.</p>
+
+<p>Từ comment của tác giả:</p>
+
+<blockquote>
+  <p>If a node has no coin then there must be a coin in at least one of its children (from this follows that there must be a coin in every leaf).</p>
+
+  <p>Do DFS maintaining the following state for each node:</p>
+
+  <ul>
+    <li>count - the number of coins in the subtree rooted at that node</li>
+    <li>s - whether there is a coin in the node (1, 0 otherwise)</li>
+    <li>d - whether it requires a coin from an ancestor (0 - no, 1 - parent or grandparent, 2 - parent)</li>
+  </ul>
+
+  <p>Place a coin in the node if there are no children with a coin or if there is a child demanding a coin from its parent (that includes any demand passed from a grandchild).</p>
+</blockquote>
+
+<p>Cụ thể, sau khi gọi đệ quy các con của u, ta tính s và d như sau:</p>
+
+<ul>
+  <li>Nếu không có con nào của u được đặt xu hoặc có ít nhất một con của u có d = 2 thì ta đặt xu ở u (s = 1), và tính d như sau:
+    <ul>
+      <li>Nếu u là lá thì d = 1, ngược lại d = 0</li>
+    </ul>
+  </li>
+  <li>Trong trường hợp ngược lại, ta không đặt xu ở u (s = 0), và tính d như sau:
+    <ul>
+      <li>Nếu có ít nhất một con của u cần đồng xu ở nút tổ tiên (có d khác 0) hoặc số con được đặt xu của u bé hơn 2 thì ta gán d của u bằng 2, ngược lại ta gán 0.</li>
+    </ul>
+  </li>
+</ul>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.cpp</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/16/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+
+                    <table width="100%" style="margin-top:.5em;">
+                        <tr>
+                            <td>
+                                <pre style="text-align:right; word-break:keep-all; border-right:0; padding-right:4px;"><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53</code></pre>
+                            </td>
+                            <td width="100%">
+                                
+<div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dsk</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">pack</span> <span class="p">{</span><span class="kt">int</span> <span class="n">count</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span> <span class="p">};</span>
+ 
+<span class="n">pack</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">dsk</span> <span class="o">&amp;</span><span class="n">ke</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ss</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ws</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">pack</span> <span class="n">r</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">ke</span><span class="p">);</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="n">r</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">s</span><span class="p">)</span> <span class="n">ss</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">ws</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="kt">int</span> <span class="n">ns</span><span class="p">,</span> <span class="n">nd</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ss</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ss</span> <span class="o">||</span> <span class="n">ws</span><span class="p">)</span> <span class="n">nd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">nd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">||</span> <span class="n">ss</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="n">nd</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">nd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">count</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">nd</span><span class="p">};</span>
+<span class="p">}</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">T</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">T</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"-1</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">dsk</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
+            <span class="n">u</span><span class="o">--</span><span class="p">,</span> <span class="n">v</span><span class="o">--</span><span class="p">;</span>
+            <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+            <span class="n">ke</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">pack</span> <span class="n">r</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ke</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">r</span><span class="p">.</span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">r</span><span class="p">.</span><span class="n">count</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

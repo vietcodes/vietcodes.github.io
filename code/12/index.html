@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Codechef July 17 - Calculator - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="codechef-july-17---calculator">Codechef July 17 - Calculator</h3>
+<ul>
+  <li>Đề bài: <a href="https://www.codechef.com/problems/CALC">https://www.codechef.com/problems/CALC</a></li>
+  <li>Keywords: math, maximize, parabolic function</li>
+  <li>Ngôn ngữ: Python 3</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Ta dễ thấy rằng, cách để đạt được kết quả cao nhất là bấm phím thứ nhất
+nhiều lần, sau đó tiếp tục bấm phím thứ hai, chứ không bấm xen kẽ 2 phím
+này.</p>
+
+<p>Gọi số lần bấm phím thứ nhất là <script type="math/tex">x</script>, số lần bấm phím thứ 2 là <script type="math/tex">y</script>.
+Ta cần tìm max của <script type="math/tex">xy</script> với <script type="math/tex">x + By \le N</script>.</p>
+
+<p>Dễ thấy <script type="math/tex">xy</script> đạt cực đại thì <script type="math/tex">x + By = N</script>. Thay <script type="math/tex">x = N - By</script> vào <script type="math/tex">xy</script>, ta có:</p>
+
+<script type="math/tex; mode=display">xy = (N - By)\times y = -By^2 + Ny</script>
+
+<p>Hàm số trên đạt cực đại khi <script type="math/tex">y = \frac{N}{2B}</script>.</p>
+
+<p>Vì <script type="math/tex">y</script> trong đề là số nguyên nên ta dùng hàm <code class="highlighter-rouge">round</code> để làm tròn về
+giá trị nguyên gần nhất.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.py</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/12/main.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.py">Download <i class="fa fa-lg fa-download"></i></a>
+
+                    <table width="100%" style="margin-top:.5em;">
+                        <tr>
+                            <td>
+                                <pre style="text-align:right; word-break:keep-all; border-right:0; padding-right:4px;"><code>1
+2
+3
+4</code></pre>
+                            </td>
+                            <td width="100%">
+                                
+<div class="language-python selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())):</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+</code></pre>
+</div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>
