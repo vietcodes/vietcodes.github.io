@@ -4,18 +4,16 @@
 #include <cassert>
 using namespace std;
 
-class bit {
-public:
-    vector<int> f;
+struct Fenwick {
     int n;
-    bit() {}
-    bit(int n): f(n+1, 0), n(n) {}
-    void up(int x, int i) {
-        while (i <= n) f[i] ^= x, i += i & (-i);
+    vector<int> f;
+    Fenwick(int n): n(n), f(n+1, 0) {}
+    void set(int x, int i) {
+        for (; i<=n; i += i&(-i)) f[i] ^= x;
     }
     int get(int i) const {
         int r = 0;
-        while (i >= 1) r ^= f[i], i -= i & (-i);
+        for (; i>=1; i -= i&(-i)) r ^= f[i];
         return r;
     }
     int get(int l, int r) const {
@@ -23,7 +21,7 @@ public:
     }
 };
 
-typedef vector<vector<int> > dsk;
+typedef vector<vector<int>> dsk;
 
 int prepare(int u, vector<int> &nChild, dsk &ke, vector<int> &cha, vector<int> &bac) {
     nChild[u] = 1;
@@ -88,7 +86,7 @@ int main() {
             cin >> queries[i].u >> queries[i].v >> queries[i].c;
         }
         sort(queries.begin(), queries.end(), [](edge &a, edge &b){return a.c < b.c;});
-        bit f(n);
+        Fenwick f(n);
         vector<int> w(n+1, 0);
         auto it = edges.begin();
         for (auto &q: queries) {
@@ -97,8 +95,8 @@ int main() {
                     if (cha[it->u] == it->v) w[it->u] = it->c;
                     else w[it->v] = it->c;
                 } else {
-                    if (cha[it->u] == it->v) f.up(it->c, pos[it->u]);
-                    else f.up(it->c, pos[it->v]);
+                    if (cha[it->u] == it->v) f.set(it->c, pos[it->u]);
+                    else f.set(it->c, pos[it->v]);
                 }
                 it++;
             }

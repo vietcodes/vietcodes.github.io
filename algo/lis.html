@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Dãy con tăng dài nhất - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Dãy con tăng dài nhất</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Dãy con tăng dài nhất</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#bài-toán">Bài toán</a></li>
+<li class="toc-entry toc-h1"><a href="#công-thức-qhđ">Công thức QHĐ</a></li>
+<li class="toc-entry toc-h1"><a href="#cách-cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cách cải tiến sử dụng tìm kiếm nhị phân</a></li>
+</ul>
+                    </div>
+                    <p>Dãy con tăng dài nhất là một trong những bài toán QHĐ kinh điển.</p>
+
+<h1 id="bài-toán">Bài toán</h1>
+
+<p>Cho dãy số A có N phần tử, bài toán yêu cầu tìm dãy con dài nhất của dãy A
+sao cho phần tử sau của dãy con luôn lớn hơn phần tử trước. Dãy con của một dãy số là
+dãy có được sau khi loại bớt một số phần tử, các phần tử khác giữ
+nguyên vị trí.</p>
+
+<p>Nói cách khác, dãy con tăng của A là một dãy <script type="math/tex">A(i_1), A(i_2),...,A(i_k)</script> thỏa mãn
+<script type="math/tex">% <![CDATA[
+i_1 < i_2 < ... < i_k %]]></script> và <script type="math/tex">% <![CDATA[
+A(i_1) < A(i_2) < ... < A(i_k) %]]></script>.</p>
+
+<h1 id="công-thức-qhđ">Công thức QHĐ</h1>
+
+<p>Gọi <script type="math/tex">F(i)</script> là dãy con tăng dài nhất kết thúc ở <script type="math/tex">A(i)</script>, ta có công thức tính:</p>
+
+<script type="math/tex; mode=display">F(1) = 1\\
+F(i) = max\{F(j) + 1\}</script>
+
+<p>Với <script type="math/tex">j</script> thỏa <script type="math/tex">% <![CDATA[
+1 \leq j < i %]]></script> và <script type="math/tex">% <![CDATA[
+A(j) < A(i) %]]></script>.</p>
+
+<p>Kết quả bài toán là <script type="math/tex">max\{F\}</script>.</p>
+
+<p>Có thể cài đặt công thức trên với độ phức tạp <script type="math/tex">O(N^2)</script>:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Xem code dùng công thức trên để giải bài LIQ: <a href="/code/81/index.html">LIQ</a>.</p>
+
+<h1 id="cách-cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cách cải tiến sử dụng tìm kiếm nhị phân</h1>
+
+<p>Trong công thức ở trên, nếu ta gán <script type="math/tex">B(F(i))=A(i)</script> thì ta sẽ có mảng B với ý
+nghĩa: <script type="math/tex">B(k)</script> là giá trị kết thúc của dãy con tăng độ dài <script type="math/tex">k</script> (tại thời điểm
+đang tính).</p>
+
+<p>Có thể chứng minh B là dãy tăng. Giả sử đang duyệt đến vị trí <script type="math/tex">i</script>, đã tính được <script type="math/tex">F(i)=k</script>.
+Ta gán <script type="math/tex">B(k)=A(i)</script> như trên, nếu có <script type="math/tex">B(k) \geq B(k+1)</script> thì ta đã tính <script type="math/tex">F(i)</script> sai, vì trước <script type="math/tex">A(i)</script> có
+một phần tử <script type="math/tex">A(j) \leq A(i)</script> mà lại có <script type="math/tex">F(j)</script> lớn hơn <script type="math/tex">F(i)</script>. Tương tự cũng có thể
+thấy <script type="math/tex">B(k-1)>=B(k)</script> là điều vô lý.</p>
+
+<p>Từ nhận xét B là dãy tăng, ta sử dụng tìm kiếm nhị phân để tìm dãy con tăng dài nhất
+trong <script type="math/tex">O(N\log N)</script> như sau:</p>
+
+<ul>
+  <li>Khởi tạo dãy B có N phần tử, <script type="math/tex">B(0) = -\infty</script>, các phần tử khác bằng <script type="math/tex">+\infty</script>.</li>
+  <li>Duyệt <script type="math/tex">i</script> từ 1 đến N, mỗi lần duyệt ta tìm vị trí <script type="math/tex">k</script> đầu tiên có <script type="math/tex">B(k)\geq A(i)</script>
+(sử dụng tìm kiếm nhị phân), gán <script type="math/tex">B(k)=A(i)</script> (và <script type="math/tex">F(i)=k</script> nếu cần).</li>
+</ul>
+
+<p>Độ dài dãy con tăng dài nhất là vị trí <script type="math/tex">k</script> cuối cùng mà <script type="math/tex">B(k)\neq+\infty</script>, hoặc cũng có thể lấy max trong quá
+trình duyệt.</p>
+
+<p>Đoạn code ở dưới sử dụng hàm <a href="http://www.cplusplus.com/reference/algorithm/lower_bound/">lower_bound</a>
+để tìm <script type="math/tex">k</script>:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">lower_bound</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Xem code dùng TKNP để giải bài LIS: <a href="/code/82/index.html">LIS</a>.</p>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+            <div class="panel window hide" id="disqus-window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Comments</span>
+                </div>
+                <div class="panel-body" id="disqus_thread">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/lis";
+    this.page.identifier = "https://vietcodes.github.io/algo/lis";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>
