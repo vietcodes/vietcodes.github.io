@@ -216,17 +216,16 @@ với mỗi hàng <script type="math/tex">i</script>.</p>
             </div>
 
             <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
-            <div class="panel window hide" id="disqus-window">
-                <div class="panel-heading">
-                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
-                    <span class="title">Comments</span>
-                </div>
-                <div class="panel-body" id="disqus_thread">
-                </div>
-            </div>
-        </div>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
     </div>
-    <script>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
 var disqus_config = function () {
     this.page.url = "https://vietcodes.github.io/algo/minisat";
     this.page.identifier = "https://vietcodes.github.io/algo/minisat";
@@ -234,6 +233,8 @@ var disqus_config = function () {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
+        </div>
+    </div>
 </div>
 
         <footer class="page-footer">
