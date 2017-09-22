@@ -292,7 +292,7 @@ pre.highlight {
 /* Name.Variable.Instance */
 body {
   background-color: #cccccc;
-  font-size: 15px; }
+  font-size: 16px; }
 
 .MJXc-display {
   text-align: left !important;
@@ -321,7 +321,7 @@ body {
 
 pre code {
   font-family: 'Ubuntu Mono', monospace;
-  font-size: 15px;
+  font-size: 16px;
   overflow: scroll;
   word-wrap: normal;
   overflow-wrap: normal;
