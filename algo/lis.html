@@ -50,7 +50,12 @@
                         <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#bài-toán">Bài toán</a></li>
 <li class="toc-entry toc-h1"><a href="#công-thức-qhđ">Công thức QHĐ</a></li>
-<li class="toc-entry toc-h1"><a href="#cách-cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cách cải tiến sử dụng tìm kiếm nhị phân</a></li>
+<li class="toc-entry toc-h1"><a href="#cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cải tiến sử dụng tìm kiếm nhị phân</a></li>
+<li class="toc-entry toc-h1"><a href="#cải-tiến-bằng-bit">Cải tiến bằng BIT</a></li>
+<li class="toc-entry toc-h2"><a href="#phương-pháp-nén-số">Phương pháp nén số</a></li>
+<li class="toc-entry toc-h3"><a href="#cách-làm">Cách làm</a></li>
+<li class="toc-entry toc-h3"><a href="#cài-đặt-ý-tưởng">Cài đặt ý tưởng</a></li>
+<li class="toc-entry toc-h3"><a href="#giải-thích">Giải thích</a></li>
 </ul>
                     </div>
                     <p>Dãy con tăng dài nhất là một trong những bài toán QHĐ kinh điển.</p>
@@ -95,7 +100,7 @@ A(j) < A(i) %]]></script>.</p>
 
 <p>Xem code dùng công thức trên để giải bài LIQ: <a href="/code/81/index.html">LIQ</a>.</p>
 
-<h1 id="cách-cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cách cải tiến sử dụng tìm kiếm nhị phân</h1>
+<h1 id="cải-tiến-sử-dụng-tìm-kiếm-nhị-phân">Cải tiến sử dụng tìm kiếm nhị phân</h1>
 
 <p>Trong công thức ở trên, nếu ta gán <script type="math/tex">B(F(i))=A(i)</script> thì ta sẽ có mảng B với ý
 nghĩa: <script type="math/tex">B(k)</script> là giá trị kết thúc của dãy con tăng độ dài <script type="math/tex">k</script> (tại thời điểm
@@ -130,7 +135,72 @@ trình duyệt.</p>
 </code></pre>
 </div>
 
-<p>Xem code dùng TKNP để giải bài LIS: <a href="/code/82/index.html">LIS</a>.</p>
+<p>Xem code dùng TKNP để giải bài LIS: <a href="/code/82/index.html#main.cpp">LIS</a>.</p>
+
+<h1 id="cải-tiến-bằng-bit">Cải tiến bằng BIT</h1>
+
+<p>Đọc về BIT ở đây: <a href="/algo/fenwick">Fenwick tree - Cây chỉ số nhị phân</a></p>
+
+<p>Ngược với cách cải tiến bên trên, ta gán <script type="math/tex">B(A(i))=F(i)</script> (ở trên là <script type="math/tex">B(F(i))=A(i)</script>). Mảng B có ý nghĩa
+<script type="math/tex">B(x)</script> là độ dài dãy con tăng dài nhất kết thúc tại phần tử có giá trị là <script type="math/tex">x</script>.</p>
+
+<p>Để tính <script type="math/tex">F(i)</script>, ta cần tìm max từ đầu dãy <script type="math/tex">B</script> đến <script type="math/tex">B(A(i)-1)</script>, sau đó gán <script type="math/tex">F(i) = max + 1</script> và ta cập nhật lại
+<script type="math/tex">B(A(i))</script>. Sử dụng BIT để tìm max và cập nhật, độ phức tạp của thuật toán là <script type="math/tex">O(N\log C)</script>, với <script type="math/tex">C</script> là giới hạn
+giá trị của số trong dãy <script type="math/tex">A</script>.</p>
+
+<p>Ở đây phát sinh thêm vấn đề là các số trong dãy <script type="math/tex">A</script> quá lớn, ta giải quyến vấn đề này bằng cách “nén” số lại.
+Sau khi nén, giá trị các số chỉ từ 1 đến N và ta có thể sử dụng BIT để giải.</p>
+
+<p>Xem code: <a href="/code/82/index.html#bit.cpp">Tìm dãy con chung dài nhất bằng BIT</a></p>
+
+<h2 id="phương-pháp-nén-số">Phương pháp nén số</h2>
+
+<p>Nén số tức là ta gán lại giá trị của mảng. Mảng sau khi nén có giá trị của các phần tử nhỏ hơn và vẫn giữ được quan hệ lớn
+bé giữ các phần tử.</p>
+
+<p>Ví dụ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>A = [1000, 20, 5000, 10000, 5000, 9999999] nén thành B = [2, 1, 3, 4, 3, 5]
+</code></pre>
+</div>
+
+<p>Có thể xem bài viết <a href="http://vnoi.info/forum/5/4954/" target="_blank">Rời rạc hóa và ứng dụng</a> của VNOI.</p>
+
+<h3 id="cách-làm">Cách làm</h3>
+
+<p>Cách làm cơ bản nhất là sắp xếp lại mảng, loại bỏ các phần tử bị trùng, sau đó, với mỗi phần tử
+<script type="math/tex">A(i)</script> trong mảng ban đầu, ta tìm chỉ số của phần tử đó trong mảng đã sắp xếp rồi gán lại <script type="math/tex">A(i)</script>
+bằng chỉ số đó.</p>
+
+<h3 id="cài-đặt-ý-tưởng">Cài đặt ý tưởng</h3>
+
+<p>Code sau sử dụng các tiện ích trong C++ STL để nhanh chóng cài đặt ý tưởng trên:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">compress</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">lower_bound</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="giải-thích">Giải thích</h3>
+
+<p>2 dòng</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</code></pre>
+</div>
+<p>sẽ sắp xếp lại mảng <code class="highlighter-rouge">a</code> và loại bỏ các phần tử bị trùng bằng cách chuyển <code class="highlighter-rouge">a</code> sang
+<a href="http://www.cplusplus.com/reference/set/set/" target="_blank">std::set</a> rồi chuyển về lại
+<a href="http://www.cplusplus.com/reference/vector/vector/" target="_blank">std::vector</a>.
+Phải chuyển về vector vì ta không thể tìm chỉ số của phần tử trong set.</p>
+
+<p>Vòng for ở phía sau dùng hàm <a href="http://www.cplusplus.com/reference/algorithm/lower_bound/">lower_bound</a>
+để tìm phần tử <code class="highlighter-rouge">x</code>, sau đó trừ cho <code class="highlighter-rouge">b.begin()</code> để lấy chỉ số phần tử. Cộng thêm cho 1 vì ta muốn giá trị các phần tử
+bắt đầu từ 1.</p>
 
                 </div>
             </div>

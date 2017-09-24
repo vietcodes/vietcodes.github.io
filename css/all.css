@@ -394,3 +394,5 @@ body {
     font-weight: bold; }
   .toc .toc-h2 {
     margin-left: 1.5em; }
+  .toc .toc-h3 {
+    margin-left: 3em; }
