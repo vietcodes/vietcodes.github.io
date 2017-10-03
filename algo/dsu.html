@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Disjoint Set Union - Cấu trúc các tập không giao nhau - VietCodes </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" /> 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Disjoint Set Union - Cấu trúc các tập không giao nhau</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Disjoint Set Union - Cấu trúc các tập không giao nhau</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#cải-tiến-nén-đường">Cải tiến nén đường</a></li>
+<li class="toc-entry toc-h1"><a href="#cải-tiến-hợp-dùng-hạng">Cải tiến hợp dùng hạng</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h1"><a href="#disjoint-set-ngẫu-nhiên">Disjoint Set ngẫu nhiên</a></li>
+</ul>
+                    </div>
+                    <p>Disjoint Set Union (DSU) là một cấu trúc dữ liệu hỗ trợ các thao tác sau:</p>
+
+<ul>
+  <li>Tìm xem X thuộc tập hợp nào.</li>
+  <li>Gộp 2 tập hợp A B lại làm một.</li>
+</ul>
+
+<p>Xem đề bài <a href="http://vn.spoj.com/problems/IOIBIN/" target="_blank">IOIBIN</a> để
+hiểu rõ hơn các thao tác ở trên.</p>
+
+<p>DSU còn có các tên gọi khác như Disjoint-Set Data Structure, Union-Find.</p>
+
+<p>Ta xem mỗi tập hợp là một cây, như vậy DSU là một rừng gồm nhiều cây. Để cho đơn giản
+thì ban đầu mỗi tập hợp chỉ có một phần tử, và ta quy ước nếu X là gốc của cây thì
+<code class="highlighter-rouge">X.cha = X</code>.</p>
+
+<p>Ta có thể cài đặt phép hợp và phép tìm tập như sau (mã giả):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function Tìm(X)
+    Nếu X.cha == X
+        return X
+    Ngược lại
+        return Tìm(X.cha)
+
+function Hợp(X, Y)
+    A = Tìm(X)
+    B = Tìm(Y)
+    Nếu A == B
+        return
+    A.cha = B
+</code></pre>
+</div>
+
+<p>Có thể thấy thao tác tìm trong cách cài đặt trên không hiệu quả, mỗi lần tìm có độ phức tạp là
+<script type="math/tex">O(N)</script>. Nên ta có các cải tiến sau.</p>
+
+<h1 id="cải-tiến-nén-đường">Cải tiến nén đường</h1>
+
+<p>Sau khi tìm được tập hợp chứa X (gọi là A), ta có thể gán lại <code class="highlighter-rouge">X.cha = A</code> để các lần tìm sau
+không cần phải lặp lại việc tìm kiếm đã được thực hiện trước đó.</p>
+
+<p>Thao tác tìm mới như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function Tìm(X)
+    Nếu X.cha == X
+        return X
+    Ngược lại
+        X.cha = Tìm(X.cha)
+        return X.cha
+</code></pre>
+</div>
+
+<h1 id="cải-tiến-hợp-dùng-hạng">Cải tiến hợp dùng hạng</h1>
+
+<p>Trong cải tiến này ta tìm cách để giảm độ sâu của cây. Sử dụng một biến <code class="highlighter-rouge">rank</code> để quản lý độ sâu
+cây (lưu ý là chỉ quản lý một cách tương đối, do đã sử dụng kĩ thuật nén đường ở trên nên không
+thể biết chính xác độ sâu cây), ta sẽ gán lại cây nhỏ hơn làm con của cây lớn hơn. Thao tác hợp mới:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function Hợp(X, Y)
+    A = Tìm(X)
+    B = Tìm(Y)
+    Nếu A == B
+        return
+
+    Nếu A.rank == B.rank
+        Tăng A.rank
+
+    Nếu A.rank &lt; B.rank
+        A.cha = B
+    Ngược lại
+        B.cha = A
+</code></pre>
+</div>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Trong thực tế ta sử dụng 2 mảng <code class="highlighter-rouge">cha</code> và <code class="highlighter-rouge">rank</code> để code đơn giản.</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cha</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">rank</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">rank</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">rank</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">cha</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="disjoint-set-ngẫu-nhiên">Disjoint Set ngẫu nhiên</h1>
+
+<p>Ngoài cách làm trên, còn có thể cài đặt phép hợp bằng cách chọn ngẫu nhiên một
+trong 2 đỉnh để làm gốc:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdlib.h&gt; // rand()
+</span>
+<span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">cha</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/dsu";
+    this.page.identifier = "https://vietcodes.github.io/algo/dsu";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>
