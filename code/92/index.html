@@ -66,7 +66,7 @@
 
 <p>Lần lượt duyệt các phần tử trong mảng đã sắp lại. Ở <script type="math/tex">S[i]</script>, vì đề yêu cầu tổng của dãy con phải không nhỏ
 hơn <script type="math/tex">p</script> nên ta cần tìm <script type="math/tex">j</script> lớn nhất thỏa <script type="math/tex">S[i]-S[j]\geq p</script>. Khi đó dãy con dài nhất tại <script type="math/tex">S[i]</script> là
-<script type="math/tex">I[i]-min{I[k] \mid 0 \leq k \leq j}</script>, <script type="math/tex">I</script> là mảng chỉ số ban đầu của các phần tử trong dãy <script type="math/tex">S</script>.</p>
+<script type="math/tex">I[i]-min\{I[k] \mid 0 \leq k \leq j\}</script>, <script type="math/tex">I</script> là mảng chỉ số ban đầu của các phần tử trong dãy <script type="math/tex">S</script>.</p>
 
 <p>Để tìm <script type="math/tex">j</script>, có thể sử dụng tìm kiếm nhị phân, cho độ phức tạp của lời giải là <script type="math/tex">O(N \log N)</script>.
 Tuy nhiên, do ta duyệt <script type="math/tex">i</script> tăng dần nên <script type="math/tex">j</script> cũng sẽ tăng dần theo <script type="math/tex">i</script> Từ đó có cách làm
