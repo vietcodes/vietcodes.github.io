@@ -55,6 +55,26 @@
             </div>
 
             
+            <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Ta tính mảng tổng <script type="math/tex">S[i]</script> là tổng từ <script type="math/tex">A[1]</script> đến <script type="math/tex">A[i]</script>, <script type="math/tex">S[0] = 0</script>. Sau đó sắp xếp lại mảng
+<script type="math/tex">S</script> tăng dần (có lưu lại chỉ số ban đầu của phần tử).</p>
+
+<p>Lần lượt duyệt các phần tử trong mảng đã sắp lại. Ở <script type="math/tex">S[i]</script>, vì đề yêu cầu tổng của dãy con phải không nhỏ
+hơn <script type="math/tex">p</script> nên ta cần tìm <script type="math/tex">j</script> lớn nhất thỏa <script type="math/tex">S[i]-S[j]\geq p</script>. Khi đó dãy con dài nhất tại <script type="math/tex">S[i]</script> là
+<script type="math/tex">I[i]-min{I[k] \mid 0 \leq k \leq j}</script>, <script type="math/tex">I</script> là mảng chỉ số ban đầu của các phần tử trong dãy <script type="math/tex">S</script>.</p>
+
+<p>Để tìm <script type="math/tex">j</script>, có thể sử dụng tìm kiếm nhị phân, cho độ phức tạp của lời giải là <script type="math/tex">O(N \log N)</script>.
+Tuy nhiên, do ta duyệt <script type="math/tex">i</script> tăng dần nên <script type="math/tex">j</script> cũng sẽ tăng dần theo <script type="math/tex">i</script> Từ đó có cách làm
+<script type="math/tex">O(N)</script> như bên dưới, tại mỗi bước ta tăng <script type="math/tex">j</script> trong khi điều kiện <script type="math/tex">S[i]-S[j]\geq p</script> còn thỏa.</p>
+
+                </div>
+            </div>
+            
 
             
             <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
@@ -102,7 +122,8 @@
 30
 31
 32
-33</code></pre>
+33
+34</code></pre>
                             </td>
                             <td width="100%">
                                 
@@ -126,12 +147,13 @@
 
     <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">l</span><span class="o">&lt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="o">-</span><span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">first</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">s</span><span class="p">[</span><span class="o">++</span><span class="n">l</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">min_index</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">j</span><span class="o">&lt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="o">-</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">first</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">min_index</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_index</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="o">++</span><span class="n">j</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span> <span class="o">-</span> <span class="n">f</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span> <span class="o">-</span> <span class="n">min_index</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 

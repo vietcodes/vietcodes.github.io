@@ -18,12 +18,13 @@ int main() {
 
     sort(s.begin(), s.end());
     int res = 0;
-    for (int i=0, l=-1, f=n; i<=n; i++) {
-        while (l<n && s[i].first-s[l+1].first >= p) {
-            f = min(f,s[++l].second);
+    int min_index = n;
+    for (int i=0, j=-1; i<=n; i++) {
+        while (j<n && s[i].first-s[j+1].first >= p) {
+            min_index = min(min_index, s[++j].second);
         }
-        if (l>=0) {
-            res = max(res, s[i].second - f);
+        if (j>=0) {
+            res = max(res, s[i].second - min_index);
         }
     }
 
