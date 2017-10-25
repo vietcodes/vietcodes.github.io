@@ -1,27 +1,20 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
-vector<int> z_algo(const string &s) {
-    int n(s.size());
+vector<int> z_algo(const char *s, int n) {
     vector<int> z(n);
 
-    int l(0), r(0);
+    int l = 0, r = 0;
     for (int i=1; i<n; i++) {
-        if (i > r) {
-            l = r = i;
-            while (r<n && s[r-l]==s[r]) r += 1;
-            z[i] = r - l;
+        if (z[i-l] < r-i+1) z[i] = z[i-l];
+        else {
+            r = max(r, i);
+            while (s[r-i] == s[r]) r += 1;
+            z[i] = r - i;
             r -= 1;
-        } else if (z[i-l] < r-i+1) {
-            z[i] = z[i-l];
-        } else {
             l = i;
-            while (r<n && s[r-l]==s[r]) r += 1;
-            z[i] = r - l;
-            r -= 1;
         }
     }
 
@@ -30,17 +23,14 @@ vector<int> z_algo(const string &s) {
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0);
-    
-    string a, b;
-    cin >> a >> b;
+    string a, b; cin >> a >> b;
 
-    vector<int> z = z_algo(b + ' ' + a);
+    string s = b + ' ' + a;
+    vector<int> z = z_algo(s.data(), s.size());
 
     int m = b.size();
     for (int i=m; i<(int)z.size(); i++) {
-        if (z[i] == m) {
-            cout << i-m << ' ';
-        }
+        if (z[i] == m) cout << i-m << ' ';
     }
     return 0;
 }

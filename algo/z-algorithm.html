@@ -55,18 +55,22 @@
                     </div>
                     <p>Bài dịch từ <a href="http://codeforces.com/blog/entry/3107">Codeforces blog</a>.</p>
 
-<p>Z là thuật toán xử lý xâu khá hay, ứng dụng phổ biến nhất của Z là
+<p>Z là một phương pháp xử lý xâu khá hay, ứng dụng phổ biến nhất của Z là
 dùng để tìm kiếm xâu (tìm các vị trí mà xâu A xuất hiện trong xâu B).</p>
+
+<p>Thuật toán Z có đầu vào là một xâu, kết quả sau khi thực hiện là một mảng <script type="math/tex">Z</script>
+(được định nghĩa cụ thể ở dưới), từ mảng này có thể ứng dụng cho nhiều bài toán trên xâu
+khác.</p>
 
 <h1 id="mô-tả-thuật-toán">Mô tả thuật toán</h1>
 
 <p>Cho xâu <script type="math/tex">S</script> với độ dài <script type="math/tex">n</script>, thuật toán Z sẽ tạo ra mảng <script type="math/tex">Z</script> với ý nghĩa <script type="math/tex">Z[i]</script> là
-độ dài xâu con dài nhất bắt đầu từ <script type="math/tex">i</script> và giống với đoạn đầu của <script type="math/tex">S</script>. Định nghĩa một
+độ dài xâu con dài nhất bắt đầu từ <script type="math/tex">i</script> và là tiền tố của S. Định nghĩa một
 cách bài bản hơn, ta có <script type="math/tex">Z[i]</script> là số lớn nhất sao cho <script type="math/tex">S[j] = S[i+j]</script> với <script type="math/tex">0 \leq j \leq Z[i]</script>.
 Ta gọi đoạn con như vậy là prefix-substring.</p>
 
 <p>Duyệt <script type="math/tex">i</script> từ <script type="math/tex">1</script> đến <script type="math/tex">n-1</script> (mảng bắt đầu từ 0), ở mỗi vị trí ta quản lí một đoạn <script type="math/tex">[l, r]</script>,
-<script type="math/tex">r</script> lớn nhất có thể sao cho xâu con từ <script type="math/tex">l</script> tới <script type="math/tex">r</script> là đầu của xâu <script type="math/tex">S</script> (prefix) (Lưu ý là chỉ
+<script type="math/tex">r</script> lớn nhất có thể sao cho xâu con từ <script type="math/tex">l</script> tới <script type="math/tex">r</script> là tiền tố của xâu <script type="math/tex">S</script> (prefix) (Lưu ý là chỉ
 yêu cầu <script type="math/tex">r</script> lớn nhất chứ cả đoạn <script type="math/tex">[l, r]</script> không cần phải lớn nhất). Ta sẽ tính <script type="math/tex">Z[i]</script> chung trong
 vòng lặp trên. Ban đầu <script type="math/tex">l = r = 0</script>.</p>
 
@@ -74,15 +78,15 @@ vòng lặp trên. Ban đầu <script type="math/tex">l = r = 0</script>.</p>
 trường hợp để cập nhật l, r, và Z[i] như sau:</p>
 
 <ul>
-  <li>Nếu i &gt; r, trong trường hợp này không có prefix-substring nào bắt đầu trước i và kết thúc sau i,
+  <li>Nếu i &gt; r, trong trường hợp này không có tiền tố nào bắt đầu trước i và kết thúc sau i,
 vì vậy ta gán lại <script type="math/tex">l=i</script>, và cho <script type="math/tex">r</script> chạy từ <script type="math/tex">i</script> trở lên để tìm đoạn <script type="math/tex">[l,r]</script> mới. Sau đó tính <script type="math/tex">Z[i]=r-l+1</script>.</li>
-  <li>Trường hợp ngược lại, <script type="math/tex">i \leq r</script>. Đặt <script type="math/tex">k = l - i</script>, ta thấy xâu <script type="math/tex">S[k...]</script> và xâu <script type="math/tex">S[i...]</script> giống nhau ở
+  <li>Trường hợp ngược lại, <script type="math/tex">i \leq r</script>. Đặt <script type="math/tex">k = i - l</script>, ta thấy xâu <script type="math/tex">S[k...]</script> và xâu <script type="math/tex">S[i...]</script> giống nhau ở
 ít nhất <script type="math/tex">r - i + 1</script> phần tử đầu, vì vậy có thể tận dụng <script type="math/tex">Z[k]</script> để tính <script type="math/tex">Z[i]</script>. Ta có: <script type="math/tex">Z[i] \geq min(Z[k],r-i+1)</script>.
     <ul>
       <li>Nếu <script type="math/tex">% <![CDATA[
 Z[k]<r-i+1 %]]></script>, ta có <script type="math/tex">Z[i]=Z[k]</script> vì nếu <script type="math/tex">Z[i]</script> lớn hơn thì <script type="math/tex">Z[k]</script> đã phải có giá trị lớn hơn
 giá trị hiện tại.</li>
-      <li>Nếu <script type="math/tex">Z[k] \geq r-i+1</script>, trong trường hợp này prefix-substring bắt đầu từ <script type="math/tex">i</script> có thể vượt quá <script type="math/tex">r</script> nên ta gán lại
+      <li>Nếu <script type="math/tex">Z[k] \geq r-i+1</script>, trong trường hợp này tiền tố bắt đầu từ <script type="math/tex">i</script> có thể vượt quá <script type="math/tex">r</script> nên ta gán lại
 <script type="math/tex">l=i</script> và cho <script type="math/tex">r</script> tiếp tục tăng để tìm đoạn <script type="math/tex">[l,r]</script> mới. Sau đó cũng có <script type="math/tex">Z[i]=r-l+1</script> như trên.</li>
     </ul>
   </li>
@@ -90,7 +94,7 @@ giá trị hiện tại.</li>
 
 <p><strong>Một số lưu ý:</strong></p>
 <ul>
-  <li>Độ phức tạp của thuật toán là <script type="math/tex">O(N)</script>.</li>
+  <li>Độ phức tạp của thuật toán là <script type="math/tex">O(N)</script>, vì <script type="math/tex">i</script> và <script type="math/tex">r</script> luôn tăng trong quá trình chạy.</li>
   <li>Không cần quan tâm tới giá trị của <script type="math/tex">Z[0]</script> (theo định nghĩa thì <script type="math/tex">Z[0]=n</script>).</li>
 </ul>
 
