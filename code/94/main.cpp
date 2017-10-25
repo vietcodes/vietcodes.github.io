@@ -1,49 +1,51 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-#define rep(i,a,b) for (int i=a; i<=b; i++)
 
-int c[101][101];
-int trace[101][101];
+#define rep(i,a,b) for (int i=a; i<=b; i++)
+#define N 101
+int C[N][N];
+int T[N][N];
+
+vector<int> trace(int u, int v) {
+    vector<int> path;
+    do {
+        path.push_back(u);
+        u = T[u][v];
+    } while (path.back() != v);
+    return path;
+}
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0);
+    rep(i,1,N) rep(j,1,N) C[i][j] = 1e9;
+    rep(i,1,N) C[i][i] = 0;
 
-    int n,m,q;
+    int n, m, q;
     cin >> n >> m >> q;
-    rep(i,1,n) rep(j,1,n) c[i][j]=1e9;
-    rep(i,1,n) c[i][i] = 0, trace[i][i] = i;
     rep(_,1,m) {
         int u, v, w;
         cin >> u >> v >> w;
-        c[u][v] = w;
-        c[v][u] = w;
-        trace[u][v] = v;
-        trace[v][u] = u;
+        C[u][v] = C[v][u] = w;
+        T[u][v] = v;
+        T[v][u] = u;
     }
 
-
     rep(k,1,n) rep(i,1,n) rep(j,1,n) {
-        if (c[i][j] > c[i][k] + c[k][j]) {
-            c[i][j] = c[i][k] + c[j][k];
-            trace[i][j] = trace[i][k];
+        if (C[i][j] > C[i][k] + C[k][j]) {
+            C[i][j] = C[i][k] + C[k][j];
+            T[i][j] = T[i][k];
         }
     }
 
     rep(_,1,q) {
-        int k, u, v;
+        int k,u,v;
         cin >> k >> u >> v;
         if (k) {
-            vector<int> path;
-            do {
-                path.push_back(u);
-                u = trace[u][v];
-            } while (path.back() != v);
+            auto path = trace(u,v);
             cout << path.size() << ' ';
-            for (int x: path) cout << x << ' ';
-        } else cout << c[u][v];
+            for (int u: path) cout << u << ' ';
+        } else cout << C[u][v];
         cout << '\n';
     }
-
-    return 0;
 }
