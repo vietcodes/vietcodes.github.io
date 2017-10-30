@@ -1,7 +1,5 @@
 #include <cmath>
-#include <cassert>
 #include <iostream>
-#include <cstdio>
 using namespace std;
 
 #define rep(i, a, b) for(int i=a; i<b; i++)
@@ -39,12 +37,12 @@ int reverse(int n) {
     return r;
 }
 
-complex* fft(complex *a, double d) {
+complex* fft(complex *a, bool inv=false) {
     complex *b = new complex[N];
     rep(i, 0, N) b[i] = a[reverse(i)];
     rep(s, 0, S) {
         int len = 1 << s;
-        complex w(d * M_PI / len);
+        complex w((inv? -1:1) * M_PI / len);
         int i = 0, j = 0;
         for (int count = N >> (s + 1); count--;) {
             i = j;
@@ -60,33 +58,28 @@ complex* fft(complex *a, double d) {
         swap(a, b);
     }
     delete[] a;
+    if (inv)  rep(i,0,N) b[i] /= N;
     return b;
+}
+
+template<class T> T read() {
+    T t; cin >> t; return t;
 }
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0);
-    int m; cin >> m;
+    int m = read<int>();
     complex *a = new complex[N];
-    for (int _ = m; _--;) {
-        int c; cin >> c;
-        a[c + 50000].r += 1.0;
-    }
-    a = fft(a, 1);
     complex *b = new complex[N];
-    for (int _ = m; _--;) {
-        int c; cin >> c;
-        b[c + 50000].r += 1.0;
-    }
-    b = fft(b, 1);
+    rep(i,0,m) a[read<int>() + 50000].r += 1.0;
+    rep(i,0,m) b[read<int>() + 50000].r += 1.0;
+    a = fft(a);
+    b = fft(b);
     rep(i,0,N) a[i] = a[i] * b[i];
-    a = fft(a, -1);
-    rep(i,0,N) a[i] /= N;
+    a = fft(a, true);
     long long kq = 0;
-    for (int _ = m; _--;) {
-        int c; cin >> c;
-        kq += round(a[c + 100000].r);
-    }
-    cout << kq << '\n';
+    rep(i,0,m) kq += round(a[read<int>() + 100000].r);
+    cout << kq;
     delete[] a;
     delete[] b;
     return 0;
