@@ -42,7 +42,7 @@ complex* fft(complex *a, bool inv=false) {
     rep(i, 0, N) b[i] = a[reverse(i)];
     rep(s, 0, S) {
         int len = 1 << s;
-        complex w((inv? -1:1) * M_PI / len);
+        complex w((inv? 1:-1) * M_PI / len);
         int i = 0, j = 0;
         for (int count = N >> (s + 1); count--;) {
             i = j;
