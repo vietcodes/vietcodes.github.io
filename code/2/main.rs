@@ -46,11 +46,6 @@ impl Node {
             self.value += value;
             self.lazy += value;
         } else if self.range.l < self.range.r {
-            if self.left.is_none() || self.right.is_none() {
-                let mid = self.range.mid();
-                self.left = Some(Box::new(Node::new(Interval::new(self.range.l, mid))));
-                self.right = Some(Box::new(Node::new(Interval::new(mid + 1, self.range.r))));
-            }
             self.lazy_down();
             self.value = {
                 let (left, right) = self.get_child();
@@ -75,6 +70,11 @@ impl Node {
         }
     }
     fn lazy_down(&mut self) {
+        if self.left.is_none() || self.right.is_none() {
+            let mid = self.range.mid();
+            self.left = Some(Box::new(Node::new(Interval::new(self.range.l, mid))));
+            self.right = Some(Box::new(Node::new(Interval::new(mid + 1, self.range.r))));
+        }
         {
             let t = self.lazy;
             let (left, right) = self.get_child();
@@ -88,23 +88,16 @@ impl Node {
 }
 
 fn main() {
-    use std::io::stdin as inp;
+    use std::io::Read;
+    let mut text = String::new();
+    std::io::stdin().read_to_string(&mut text).unwrap();
+    let mut iter = text.split_whitespace();
+    let mut next = || iter.next().unwrap().parse::<i64>().unwrap();
 
-    let (n, m) = {
-        let mut text = String::new();
-        inp().read_line(&mut text).unwrap();
-        let mut i = text.split_whitespace();
-        (i.next().unwrap().parse::<i64>().unwrap(), i.next().unwrap().parse::<usize>().unwrap())
-    };
-
+    let (n, m) = (next(), next());
     let mut tree = Node::new(Interval::new(1, n));
     for _ in 0..m {
-        let (l, r, k) = {
-            let mut text = String::new();
-            inp().read_line(&mut text).unwrap();
-            let mut i = text.split_whitespace().map(|x| x.parse::<i64>().unwrap());
-            (i.next().unwrap(), i.next().unwrap(), i.next().unwrap())
-        };
+        let (l, r, k) = (next(), next(), next());
         tree.update(&Interval::new(l, r), k);
     }
     println!("{}", tree.get(&Interval::new(1, n)));
