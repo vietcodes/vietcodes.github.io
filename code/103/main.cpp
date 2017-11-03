@@ -7,7 +7,7 @@ typedef vector<vector<int>> dsk;
 
 #define N 30001
 bool visited[N];
-int bac[N], active[N];
+int active[N];
 vector<int> stack;
 
 int root[N];
@@ -30,7 +30,6 @@ void dfs(int u, const dsk &ke) {
     }
 
     for (int v: ke[u]) if (!visited[v]) {
-        bac[v] = bac[u] + 1;
         active[u] = v;
         dfs(v, ke);
     }
