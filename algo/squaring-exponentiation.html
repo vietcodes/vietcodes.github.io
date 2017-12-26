@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Tính lũy thừa nhanh bằng bình phương và nhân - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Tính lũy thừa nhanh bằng bình phương và nhân</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Tính lũy thừa nhanh bằng bình phương và nhân</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#công-thức-truy-hồi">Công thức truy hồi</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt-đệ-quy">Cài đặt đệ quy</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt-không-đệ-quy">Cài đặt không đệ quy</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+</ul>
+                    </div>
+                    <p>Bình phương và nhân là thuật toán dùng để tính nhanh lũy thừa với cơ số tự nhiên. Thuật toán thường được áp dụng trong trường hợp cần tính lũy thừa và lấy dư theo một module nào đó.</p>
+
+<h1 id="công-thức-truy-hồi">Công thức truy hồi</h1>
+
+<p>Thông thường, khi tính <script type="math/tex">x^{21}</script>, ta phải thực hiện 21 bước. Tuy nhiên, ta thấy: <script type="math/tex">x^{21} = x (x^{10})^2</script> nên chỉ cần tính đến <script type="math/tex">x^{10}</script>, sau đó bình phương và nhân thêm cho <script type="math/tex">x</script>.</p>
+
+<p>Ý tưởng trên dẫn đến công thức sau:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\large x^n = 
+  \begin{cases}
+    (x^{\frac{n}{2}})^2       & \quad \text{khi } n \text{ chẵn}\\
+    x(x^{\frac{n-1}{2}})^2  & \quad \text{khi } n \text{ lẻ}\\
+  \end{cases} %]]></script>
+
+<p>Độ phức tạp:</p>
+
+<p>Do <script type="math/tex">n</script> giảm theo lũy thừa của 2 nên độ phức tạp của thuật toán là <script type="math/tex">O(\log n)</script>.</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Vì kết quả lũy thừa thường rất lớn nên ta sẽ tính phần dư khi chia cho <script type="math/tex">M</script>. Khi cài đặt cần chú ý tránh tràn số.</p>
+
+<h2 id="cài-đặt-đệ-quy">Cài đặt đệ quy</h2>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#define M 10000
+</span><span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">temp</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">temp</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">%</span> <span class="n">M</span> <span class="o">*</span> <span class="n">x</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="cài-đặt-không-đệ-quy">Cài đặt không đệ quy</h2>
+
+<p>Giả sử <script type="math/tex">n</script> có dạng nhị phân là <script type="math/tex">b_m b_{m-1}...b_2 b_1 b_0</script>, ta có:</p>
+
+<script type="math/tex; mode=display">\large
+x^n = x^{b_0 2^0 + b_1 2^1 +...+ b_m 2^m} = x^{b_0} x^{2b_1} x^{4b_2} x^{8b_3} x^{16b_4} ...</script>
+
+<p>Ta sẽ lưu các giá trị <script type="math/tex">x, x^2, x^4, x^8, ...</script> trong biến <code class="highlighter-rouge">temp</code>. Đoạn code như sau:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="n">t</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Exponentiation_by_squaring">Exponentiation by squaring</a></li>
+</ul>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/squaring-exponentiation";
+    this.page.identifier = "https://vietcodes.github.io/algo/squaring-exponentiation";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

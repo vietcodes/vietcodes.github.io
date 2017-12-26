@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Thuật toán Floyd - Tìm đường đi ngắn nhất giữa mọi cặp đỉnh - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Thuật toán Floyd - Tìm đường đi ngắn nhất giữa mọi cặp đỉnh</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Thuật toán Floyd - Tìm đường đi ngắn nhất giữa mọi cặp đỉnh</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#tìm-đường-đi-ngắn-nhất">Tìm đường đi ngắn nhất</a></li>
+<li class="toc-entry toc-h1"><a href="#truy-vết-đường-đi">Truy vết đường đi</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h1"><a href="#phát-hiện-chu-trình-âm">Phát hiện chu trình âm</a></li>
+</ul>
+                    </div>
+                    <p>Floyd hay còn gọi là Floyd-Warshall là thuật toán để tìm đường đi ngắn nhất
+giữa mọi cặp đỉnh. Floyd hoạt động được trên đồ thị có hướng, có thể có trọng
+số âm, tuy nhiên không có chu trình âm. Ngoài ra, Floyd còn có thể được dùng
+để phát hiện chu trình âm.</p>
+
+<h1 id="tìm-đường-đi-ngắn-nhất">Tìm đường đi ngắn nhất</h1>
+
+<p>Gọi <script type="math/tex">C</script> là ma trận kề của đồ thị và <script type="math/tex">D[u][v]</script> là độ dài đường đi ngắn nhất từ <script type="math/tex">u</script> đến <script type="math/tex">v</script>.</p>
+
+<p>Ban đầu ta khởi tạo <script type="math/tex">D</script> như sau:</p>
+<ul>
+  <li><script type="math/tex">D[u][u] = 0</script> với mọi đỉnh <script type="math/tex">u</script></li>
+  <li><script type="math/tex">D[u][v] = C[u][v]</script> nếu có cạnh nối từ <script type="math/tex">u</script> đến <script type="math/tex">v</script>, ngược lại <script type="math/tex">D[u][v] = \infty</script></li>
+</ul>
+
+<p>Sau khi đã khởi tạo, ta tính D như sau:</p>
+
+<div class="language-pascal highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">k</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+            <span class="k">if</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="p">+</span> <span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">then</span>
+                <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="p">+</span> <span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>Ý nghĩa của đoạn code trên rất đơn giản, lần lượt duyệt tất cả các cặp <script type="math/tex">(k,i,j)</script>, nếu
+đường hiện tại từ <script type="math/tex">i</script> đến <script type="math/tex">j</script> dài hơn đường đi từ <script type="math/tex">i</script> qua <script type="math/tex">k</script> rồi từ <script type="math/tex">k</script> qua <script type="math/tex">j</script>
+thì ta cập nhật lại <script type="math/tex">D[i][j]</script> bằng đường đi qua trung gian <script type="math/tex">k</script> này.</p>
+
+<p>Lưu ý là ta phải duyệt <script type="math/tex">k</script> trước <script type="math/tex">i</script> và <script type="math/tex">j</script> thì thuật toán mới chạy đúng.</p>
+
+<h1 id="truy-vết-đường-đi">Truy vết đường đi</h1>
+
+<p>Để truy vết đường đi, ta thêm một mảng <script type="math/tex">T</script> với ý nghĩa <script type="math/tex">T[u][v]</script> là đỉnh kề với đỉnh
+<script type="math/tex">u</script> trên đường đi ngắn nhất từ <script type="math/tex">u</script> đến <script type="math/tex">v</script>.</p>
+
+<p>Khởi tạo T như sau:</p>
+<ul>
+  <li><script type="math/tex">T[u][v] = v</script> nếu có cạnh nối từ <script type="math/tex">u</script> đến <script type="math/tex">v</script></li>
+</ul>
+
+<p>Sau đó ta kết hợp tính <script type="math/tex">T</script> trong quá trình tính <script type="math/tex">D</script>:</p>
+
+<div class="language-pascal highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">k</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">:=</span><span class="m">1</span> <span class="k">to</span> <span class="n">n</span> <span class="k">do</span>
+            <span class="k">if</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="p">+</span> <span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">then</span>
+                <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="p">+</span> <span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>Đoạn code sau trả về danh sách các đỉnh trên đường đi ngắn nhất từ <script type="math/tex">u</script> đến <script type="math/tex">v</script>:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">trace</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">path</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">pack</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">!=</span> <span class="n">v</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Phần sau là code giải bài <a href="http://vn.spoj.com/problems/FLOYD/" target="_blank">FLOYD</a>
+sử dụng thuật toán Floyd.</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cp">#define rep(i,a,b) for (int i=a; i&lt;=b; i++)
+#define N 101
+</span><span class="kt">int</span> <span class="n">C</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">trace</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">path</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">!=</span> <span class="n">v</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">path</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
+    <span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">rep</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">w</span><span class="p">;</span>
+        <span class="n">C</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">rep</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">rep</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">k</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">path</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">);</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">path</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">' '</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="o">:</span> <span class="n">path</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="sc">' '</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">C</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">];</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="phát-hiện-chu-trình-âm">Phát hiện chu trình âm</h1>
+
+<p>Floyd có thể dùng để phát hiện chu trình âm. Sau khi chạy thuật toán, nếu <script type="math/tex">% <![CDATA[
+D[u][u] < 0 %]]></script> thì có
+chu trình âm đi qua đỉnh <script type="math/tex">u</script></p>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/floyd";
+    this.page.identifier = "https://vietcodes.github.io/algo/floyd";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

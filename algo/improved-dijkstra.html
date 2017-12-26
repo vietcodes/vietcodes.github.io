@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Dijkstra Heap cải tiến - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Dijkstra Heap cải tiến</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Dijkstra Heap cải tiến</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#mô-tả-thuật-toán">Mô tả thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#đánh-giá-thuật-toán">Đánh giá thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+</ul>
+                    </div>
+                    <p>Như đã biết, trong các kì thi, thuật toán Dijkstra thường được cài
+bằng cấu trúc Binary Heap hoặc <code class="highlighter-rouge">priority_queue</code> của C++, cách cài
+đặt này cho độ phức tạp là <script type="math/tex">O((E+V)\log V)</script>, <script type="math/tex">E</script> là số cạnh,
+<script type="math/tex">V</script> là số đỉnh.</p>
+
+<p>Với một số bài, cách này sẽ không chạy được trong thời gian cho phép
+(Ví dụ bài <a href="http://vn.spoj.com/problems/TOURS13">TOURS13</a>). Trong trường
+hợp đó ta có thể dùng Fibonacci Heap để đạt được độ phức tạp là
+<script type="math/tex">O(E+V\log V)</script>, tuy nhiên cách cài này rất phức tạp, không phù
+hợp để sử dụng khi thi.</p>
+
+<p>Bài viết này sẽ giới thiệu một kĩ thuật cải tiến Dijkstra Heap thông
+thường để có độ phức tạp tương đương với Fibonacci Heap.</p>
+
+<h1 id="mô-tả-thuật-toán">Mô tả thuật toán</h1>
+
+<p>Trước tiên ta xét một cách cài đặt Dijkstra hơi khác như sau:</p>
+
+<p>Ở bước sửa nhãn, thay vì sửa nhãn đỉnh v: <script type="math/tex">d(v) = d(u) + c(u, v)</script> rồi cập
+nhật lại heap, ta thêm một cặp <script type="math/tex">(v, d(u)+c(u, v))</script> vào heap.</p>
+
+<p>Trong bước cố định nhãn, ta chỉ cần tìm phần tử <script type="math/tex">(u, c)</script> có đỉnh <script type="math/tex">u</script>
+chưa được cố định nhãn và <script type="math/tex">c</script> nhỏ nhất.</p>
+
+<p>Từ cách cài đặt trên, ta có thể cải tiến như sau: trước tiên ta sắp xếp danh
+sách kề của mỗi đỉnh theo trọng số cạnh tăng dần. Ở bước sửa nhãn, ta thấy không
+cần thêm tất cả các đỉnh kề với u vào heap mà chỉ cần thêm đỉnh có trọng số
+cạnh nhỏ nhất, sau khi đỉnh đó bị loại ra khỏi heap thì ta mới thêm đỉnh tiếp
+theo trong danh sách kề. Cách cải tiến này sẽ giúp giảm bớt số thao tác update
+trên heap.</p>
+
+<h1 id="đánh-giá-thuật-toán">Đánh giá thuật toán</h1>
+
+<p>Phần sắp xếp lại cạnh có độ phức tạp khoảng <script type="math/tex">O(E\log E)</script>.</p>
+
+<p>Phần thuật toán Dijkstra có độ phức tạp trong trường hợp tốt nhất là <script type="math/tex">O(V\log V)</script>
+hoặc <script type="math/tex">O(V\log E)</script> tùy theo cách cài đặt, và trong trường hợp xấu nhất là <script type="math/tex">O(E\log V)</script>.</p>
+
+<p>Vì vậy thuật toán này chỉ hiệu quả hơn trong trường hợp cần chạy Dijkstra nhiều lần.</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Xem cài đặt trong code của bài <a href="/code/33/">TOURS13</a>.</p>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/improved-dijkstra";
+    this.page.identifier = "https://vietcodes.github.io/algo/improved-dijkstra";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

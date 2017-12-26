@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Nhân nhanh số lớn với Karatsuba - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Nhân nhanh số lớn với Karatsuba</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Nhân nhanh số lớn với Karatsuba</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#công-thức">Công thức</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+<li class="toc-entry toc-h2"><a href="#bài-tập-áp-dụng">Bài tập áp dụng</a></li>
+</ul>
+                    </div>
+                    <p>Karatsuba là thuật toán nhân số lớn dựa trên tư tưởng chia để trị,
+có độ phức tạp <script type="math/tex">O(n^{\log_23})</script>, với <script type="math/tex">n</script> là số chữ số.</p>
+
+<h1 id="công-thức">Công thức</h1>
+
+<p>Giả sử 2 số cần nhân là <script type="math/tex">x</script> và <script type="math/tex">y</script> trong hệ cơ số <script type="math/tex">B</script>.
+Đầu tiên ta chia mỗi số <script type="math/tex">x</script> và <script type="math/tex">y</script> thành 2 số nhỏ hơn như sau:</p>
+
+<script type="math/tex; mode=display">x = x_1 \times B^m + x_0 \\
+y = y_1 \times B^m + y_0</script>
+
+<p>Với <script type="math/tex">% <![CDATA[
+x_0, y_0 < B^m, x_0 < x_1, y_0 < y_1 %]]></script>.</p>
+
+<p>Khi đó <script type="math/tex">x \times y</script> được tính bởi công thức:</p>
+
+<script type="math/tex; mode=display">xy = (B^{2m} + B^m)x_1y_1 + (B^m + 1)x_0y_0 - B^m(x_1 - x_0)(y_1 - y_0)</script>
+
+<p>Việc tính <script type="math/tex">x \times y</script> được đưa về 3 phép nhân các số có độ dài nhỏ hơn
+<script type="math/tex">x_0y_0</script>, <script type="math/tex">x_1y_1</script> và <script type="math/tex">(x_1 - x_0)(y_1 - y_0)</script>.
+Các phép nhân với <script type="math/tex">B^m</script> được thực hiện đơn giản bằng cách dịch chuyển các chữ số.</p>
+
+<p>Thuật toán Karatsuba hiệu quả nhất khi ta chọn <script type="math/tex">m</script> gần với <script type="math/tex">n / 2</script>
+và khi số chữ số của <script type="math/tex">x</script> và <script type="math/tex">y</script> nhỏ hơn một giá trị nhất định (16 trong bản cài đặt ở dưới)
+ta dùng thuật toán nhân thông thường, chi tiết xem phần cài đặt phía sau.</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Ta sẽ cài thuật toán Karatsuba để giải bài <a href="http://www.spoj.com/problems/VFMUL/">VFMUL</a>.
+Yêu cầu của đề là nhân 2 số nguyên dương mỗi số có độ dài tối đa là <script type="math/tex">300000</script>.</p>
+
+<p>Ta sẽ chọn cơ số <script type="math/tex">B = 10^8</script>, lưu số trong mảng 1 chiều, kí số nhỏ đứng trước. Tính <script type="math/tex">m</script> như sau:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">split_size</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">m</span> <span class="o">==</span> <span class="n">m</span> <span class="o">||</span> <span class="n">b</span> <span class="o">-</span> <span class="n">m</span> <span class="o">==</span> <span class="n">m</span><span class="p">)</span> <span class="k">return</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Với <script type="math/tex">a, b</script> lần lượt là độ dài của <script type="math/tex">x, y</script>. Sau đó ta tìm <script type="math/tex">x_0, x_1, y_0, y_1</script> đơn giản
+bằng cách chia mỗi mảng <script type="math/tex">x, y</script> thành 2 mảng con, <script type="math/tex">x_0</script> là <script type="math/tex">m</script> phần tử đầu tiên của <script type="math/tex">x</script>,
+<script type="math/tex">x_1</script> là các phần tử còn lại.</p>
+
+<p>Với cách tính này, ta đảm bảo <script type="math/tex">% <![CDATA[
+x_0 < x_1 %]]></script> và <script type="math/tex">% <![CDATA[
+y_0 < y_1 %]]></script>,
+đồng thời <script type="math/tex">m</script> cũng gần với <script type="math/tex">n / 2</script> nhất có thể.</p>
+
+<p>Vì ta cài đặt hoàn toàn bằng C nên cần tạo một kiểu dữ liệu để lưu mảng số và số chữ số của số,
+quy ước số 0 luôn có số chữ số là 0. Để tránh tràn số khi tính toán,
+ta lưu mỗi phần tử của mảng bằng kiểu <code class="highlighter-rouge">long long</code>:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cp">#define LL long long
+</span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// độ dài số
+</span>    <span class="n">LL</span> <span class="o">*</span><span class="n">d</span><span class="p">;</span> <span class="c1">// mảng các chữ số của số
+</span><span class="p">}</span> <span class="n">num</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>Full chương trình trong C như sau:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+</span>
+<span class="cp">#define LL long long
+#define min(x, y) ((x)&lt;(y)?(x):(y))
+</span>
+<span class="k">const</span> <span class="n">LL</span> <span class="n">B</span> <span class="o">=</span> <span class="mi">100000000</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">LL</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> <span class="c1">// độ dài của mỗi chữ số
+</span><span class="k">const</span> <span class="n">LL</span> <span class="n">M</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">};</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">LL</span> <span class="o">*</span><span class="n">d</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">num</span><span class="p">;</span>
+
+<span class="c1">// in số ra stdout
+</span><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">num</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"0"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">;)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"%08lld"</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// tạo một số mới, có số chữ số là `size`
+</span><span class="n">num</span> <span class="nf">alloc</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">LL</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">LL</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">num</span> <span class="nf">zero</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">num</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// xoá các số 0 vô nghĩa
+</span><span class="kt">void</span> <span class="nf">shift</span><span class="p">(</span><span class="n">num</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">LL</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">d</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">n</span><span class="o">--</span><span class="p">,</span> <span class="n">i</span><span class="o">--</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// đọc số từ chuỗi
+</span><span class="n">num</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">slen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">slen</span> <span class="o">/</span> <span class="n">SIZE</span> <span class="o">+</span> <span class="p">(</span><span class="n">slen</span> <span class="o">%</span> <span class="n">SIZE</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">num</span> <span class="n">r</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">slen</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">r</span><span class="p">.</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">SIZE</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span><span class="n">c</span><span class="o">++</span><span class="p">,</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="n">r</span><span class="p">.</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">M</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="mi">48</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">shift</span><span class="p">(</span><span class="o">&amp;</span><span class="n">r</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// xoá nội dung của chuỗi sau khi đọc xong
+</span>    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// x += a
+</span><span class="kt">void</span> <span class="nf">sum</span><span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">num</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">LL</span> <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">a</span><span class="p">.</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">e</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rem</span> <span class="o">&gt;=</span> <span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">-</span> <span class="n">B</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(;</span><span class="n">rem</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rem</span> <span class="o">&gt;=</span> <span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">-</span> <span class="n">B</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// x -= a
+</span><span class="kt">void</span> <span class="nf">sub</span><span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">num</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">LL</span> <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">a</span><span class="p">.</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">e</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rem</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">+</span> <span class="n">B</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(;</span><span class="n">rem</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rem</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">+</span> <span class="n">B</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">rem</span><span class="p">;</span>
+            <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// a += b * x
+</span><span class="kt">void</span> <span class="nf">mul</span><span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">num</span> <span class="n">b</span><span class="p">,</span> <span class="n">LL</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">LL</span> <span class="n">rem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">LL</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">b</span><span class="p">.</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">e</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">%</span> <span class="n">B</span><span class="p">;</span>
+        <span class="n">rem</span> <span class="o">/=</span> <span class="n">B</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(;</span><span class="n">rem</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rem</span> <span class="o">+=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">a</span><span class="o">++</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">%</span> <span class="n">B</span><span class="p">;</span>
+        <span class="n">rem</span> <span class="o">/=</span> <span class="n">B</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// tính `m` trong công thức trên
+</span><span class="kt">int</span> <span class="nf">split_size</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">r</span> <span class="o">==</span> <span class="n">r</span> <span class="o">||</span> <span class="n">y</span> <span class="o">-</span> <span class="n">r</span> <span class="o">==</span> <span class="n">r</span><span class="p">)</span> <span class="k">return</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// chia `x` thành `x0` và `x1`
+</span><span class="kt">void</span> <span class="nf">split</span><span class="p">(</span><span class="n">num</span> <span class="n">x</span><span class="p">,</span> <span class="n">num</span> <span class="o">*</span><span class="n">x0</span><span class="p">,</span> <span class="n">num</span> <span class="o">*</span><span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">x0</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">x0</span><span class="o">-&gt;</span><span class="n">d</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+    <span class="n">x1</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">x1</span><span class="o">-&gt;</span><span class="n">d</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">shift</span><span class="p">(</span><span class="n">x0</span><span class="p">);</span>
+    <span class="n">shift</span><span class="p">(</span><span class="n">x1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">num</span> <span class="nf">copy</span><span class="p">(</span><span class="n">num</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num</span> <span class="n">r</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">LL</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">num</span> <span class="nf">karatsuba</span><span class="p">(</span><span class="n">num</span> <span class="n">x</span><span class="p">,</span> <span class="n">num</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">y</span><span class="p">.</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">zero</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">num</span> <span class="n">t</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// thực hiện phép nhân thông thường nếu 1 trong 2 số x, y có độ dài &lt;= 16
+</span>        <span class="n">num</span> <span class="n">r</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">+</span> <span class="n">y</span><span class="p">.</span><span class="n">n</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">y</span><span class="p">.</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">mul</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">.</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="c1">// lưu ý xoá các số 0 vô nghĩa, nếu không thuật toán sẽ chạy sai
+</span>        <span class="n">shift</span><span class="p">(</span><span class="o">&amp;</span><span class="n">r</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">num</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">split_size</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="p">,</span> <span class="n">y</span><span class="p">.</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+    <span class="n">split</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y1</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+    <span class="n">num</span> <span class="n">xy0</span> <span class="o">=</span> <span class="n">karatsuba</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">);</span> <span class="c1">// xy0 = x0 * y0
+</span>    <span class="n">num</span> <span class="n">xy1</span> <span class="o">=</span> <span class="n">karatsuba</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">);</span> <span class="c1">// xy1 = x1 * y1
+</span>    <span class="n">num</span> <span class="n">r</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">n</span> <span class="o">+</span> <span class="n">y</span><span class="p">.</span><span class="n">n</span><span class="p">);</span> <span class="c1">// kết quả
+</span>    <span class="n">memcpy</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">xy0</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">xy0</span><span class="p">.</span><span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">LL</span><span class="p">));</span> <span class="c1">// r = x0 * y0
+</span>    <span class="n">sum</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="n">xy0</span><span class="p">);</span> <span class="c1">// r += x0*y0*B^m
+</span>    <span class="n">sum</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="n">xy1</span><span class="p">);</span> <span class="c1">// r += x1*y1*B^m
+</span>    <span class="n">sum</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="n">xy1</span><span class="p">);</span> <span class="c1">// r += x1*y1*b^2m
+</span>    <span class="n">free</span><span class="p">(</span><span class="n">xy0</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">xy1</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="c1">// sx = x1 - x0
+</span>    <span class="n">num</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">x1</span><span class="p">);</span>
+    <span class="n">sub</span><span class="p">(</span><span class="n">sx</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">x0</span><span class="p">);</span>
+    <span class="n">shift</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sx</span><span class="p">);</span>
+    <span class="c1">// sy = y1 - y0
+</span>    <span class="n">num</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">y1</span><span class="p">);</span>
+    <span class="n">sub</span><span class="p">(</span><span class="n">sy</span><span class="p">.</span><span class="n">d</span><span class="p">,</span> <span class="n">y0</span><span class="p">);</span>
+    <span class="n">shift</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sy</span><span class="p">);</span>
+    <span class="c1">// xy = (x1 - x0) * (y1 - y0)
+</span>    <span class="n">num</span> <span class="n">xy</span> <span class="o">=</span> <span class="n">karatsuba</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">);</span>
+    <span class="n">sub</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">d</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="n">xy</span><span class="p">);</span> <span class="c1">// r -= B^m * (x1 - x0) * (y1 - y0)
+</span>    <span class="n">shift</span><span class="p">(</span><span class="o">&amp;</span><span class="n">r</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">xy</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">sx</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">sy</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">300001</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+        <span class="n">num</span> <span class="n">a</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+        <span class="n">num</span> <span class="n">b</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="n">num</span> <span class="n">ab</span> <span class="o">=</span> <span class="n">karatsuba</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+        <span class="n">print</span><span class="p">(</span><span class="n">ab</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">ab</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">d</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Karatsuba_algorithm">https://en.wikipedia.org/wiki/Karatsuba_algorithm</a></li>
+</ul>
+
+<h2 id="bài-tập-áp-dụng">Bài tập áp dụng</h2>
+
+<ul>
+  <li>SPOJ: <a href="http://www.spoj.com/problems/VFMUL">VFMUL</a>, <a href="http://www.spoj.com/problems/MUL">MUL</a>, <a href="http://www.spoj.com/problems/TMUL">TMUL</a></li>
+  <li>Hackerrank: <a href="https://www.hackerrank.com/challenges/extra-long-factorials">Extra Long Factorials</a></li>
+</ul>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/karatsuba";
+    this.page.identifier = "https://vietcodes.github.io/algo/karatsuba";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

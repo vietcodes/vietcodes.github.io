@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Giải sudoku bằng Minisat - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="giải-sudoku-bằng-minisat">Giải sudoku bằng Minisat</h3>
+<ul>
+  <li>Keywords: sat, minisat, sudoku, np-hard</li>
+  <li>Tài liệu:
+    <ul>
+      <li><a href="/algo/minisat">Dùng MiniSat để giải các bài toán NP</a></li>
+      <li><a href="https://www.dwheeler.com/essays/minisat-user-guide.html" target="blank">https://www.dwheeler.com/essays/minisat-user-guide.html</a></li>
+    </ul>
+  </li>
+  <li>Ngôn ngữ: Python 3</li>
+  <li>Dependencies:
+    <ul>
+      <li>Linux / Cygwin</li>
+      <li>Minisat</li>
+    </ul>
+  </li>
+</ul>
+
+                </div>
+            </div>
+
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="sudokusolver.py">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">sudokusolver.py</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/9/sudokusolver.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="sudokusolver.py">Download <i class="fa fa-lg fa-download"></i></a>
+                    
+<div class="language-python selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">puzzle</span><span class="o">=</span><span class="p">[</span>
+    <span class="s">"5***1***4"</span><span class="p">,</span>
+    <span class="s">"***2*6***"</span><span class="p">,</span>
+    <span class="s">"**8*9*6**"</span><span class="p">,</span>
+    <span class="s">"*4*****1*"</span><span class="p">,</span>
+    <span class="s">"7*1*8*4*6"</span><span class="p">,</span>
+    <span class="s">"*5*****3*"</span><span class="p">,</span>
+    <span class="s">"**6*4*1**"</span><span class="p">,</span>
+    <span class="s">"***5*2***"</span><span class="p">,</span>
+    <span class="s">"2***6***8"</span>
+<span class="p">]</span>
+
+<span class="n">clauses</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">digits</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">digits</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">digits</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">100</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span>
+
+
+<span class="k">def</span> <span class="nf">exactly_one_of</span><span class="p">(</span><span class="n">literals</span><span class="p">):</span>
+    <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">literals</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">literals</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">])</span>
+
+
+<span class="c"># cell [i,j] contains exactly one digit</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">digits</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">exactly_one_of</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">])</span>
+
+<span class="c"># k appears exactly once in row i</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">digits</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">exactly_one_of</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">])</span>
+
+<span class="c"># k appears exactly once in column j</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">digits</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">exactly_one_of</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">])</span>
+
+<span class="c"># k appears exactly once in a 3x3 block</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+        <span class="n">exactly_one_of</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">deltai</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">deltaj</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">deltai</span><span class="p">,</span> <span class="n">deltaj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)])</span>
+
+
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">digits</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">puzzle</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s">"*"</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">puzzle</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">)</span>
+        <span class="c"># [i,j] already contains k:</span>
+        <span class="n">clauses</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)])</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'tmp.cnf'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"p cnf {} {}</span><span class="se">\n</span><span class="s">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">999</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clauses</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clauses</span><span class="p">:</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"minisat tmp.cnf tmp.sat"</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"tmp.sat"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">satfile</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">satfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"UNSAT"</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"There is no solution"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"SAT"</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">assignment</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="n">assignment</span><span class="p">:</span>
+                            <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+                            <span class="k">break</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+
+
+</code></pre>
+</div>
+
+                </div>
+            </div>
+            
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/9/";
+    this.page.identifier = "https://vietcodes.github.io/code/9/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Cây khung nhỏ nhất - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Cây khung nhỏ nhất</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Cây khung nhỏ nhất</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#cây-khung---cây-khung-nhỏ-nhất">Cây khung - Cây khung nhỏ nhất</a></li>
+<li class="toc-entry toc-h1"><a href="#các-tính-chất-cây-khung-lớn-nhất">Các tính chất cây khung lớn nhất</a></li>
+<li class="toc-entry toc-h2"><a href="#đường-đi-rộng-nhất">Đường đi rộng nhất</a></li>
+<li class="toc-entry toc-h2"><a href="#tính-duy-nhất">Tính duy nhất</a></li>
+<li class="toc-entry toc-h2"><a href="#tính-chất-chu-trình">Tính chất chu trình</a></li>
+<li class="toc-entry toc-h2"><a href="#tính-chất-cắt">Tính chất cắt</a></li>
+<li class="toc-entry toc-h2"><a href="#tính-chất-cạnh-nhỏ-nhất">Tính chất cạnh nhỏ nhất</a></li>
+<li class="toc-entry toc-h1"><a href="#tìm-cây-khung-nhỏ-nhất">Tìm cây khung nhỏ nhất</a></li>
+</ul>
+                    </div>
+                    <p>Bài này đề cập lý thuyết về cây khung và cây khung nhỏ nhất, để xem thuật toán tìm
+cây khung nhỏ/lớn nhất, xem <a href="/">thuật toán Kruskal</a> và <a href="/">thuật toán Prim</a>.</p>
+
+<h1 id="cây-khung---cây-khung-nhỏ-nhất">Cây khung - Cây khung nhỏ nhất</h1>
+
+<p>Cho đồ thị vô hướng, cây khung (spanning tree) của đồ thị là một cây con chứa tất cả các đỉnh của
+đồ thị. Nói cách khác, cây khung là một tập hợp các cạnh của đồ thị, không chứa chu trình
+và kết nối tất cả các đỉnh của đồ thị.</p>
+
+<p>Trong đồ thị có trọng số, cây khung nhỏ nhất là cây khung có tổng trọng số các cạnh nhỏ nhất. Định
+nghĩa tương tự với cây khung lớn nhất.</p>
+
+<h1 id="các-tính-chất-cây-khung-lớn-nhất">Các tính chất cây khung lớn nhất</h1>
+<h2 id="đường-đi-rộng-nhất">Đường đi rộng nhất</h2>
+
+<p>Gọi độ rộng của một đường đi trên đồ thị là trọng số nhỏ nhất trong các trọng số trên đường đi đó. Khi đó ta có: đường đi
+giữa 2 đỉnh u và v trên cây khung lớn nhất chính là đường đi rộng nhất giữa 2 đỉnh đó.</p>
+
+<p>Mở rộng hơn, ta có đường đi trên cây khung nhỏ nhất chính là đường đi có cạnh lớn nhất là nhỏ nhất, còn đường đi trên cây khung
+lớn nhất có cạnh nhỏ nhất là lớn nhất.</p>
+
+<p>Cần chú ý tính chất này vì nó được sử dụng trong nhiều bài tập.</p>
+
+<h2 id="tính-duy-nhất">Tính duy nhất</h2>
+
+<p>Nếu tất cả các cạnh đều có trọng số khác nhau thì chỉ có duy một cây khung nhỏ nhất. Ngược lại,
+nếu một vài cạnh có trọng số giống nhau thì có thể có nhiều hơn một cây khung nhỏ nhất.</p>
+
+<h2 id="tính-chất-chu-trình">Tính chất chu trình</h2>
+
+<p>Trong một chu trình <script type="math/tex">C</script> bất kì, nếu cạnh <script type="math/tex">e</script> có trọng số lớn hơn tất cả các cạnh còn lại thì <script type="math/tex">e</script> không
+thể nằm trong cây khung nhỏ nhất.</p>
+
+<h2 id="tính-chất-cắt">Tính chất cắt</h2>
+
+<p>Xét một lát cắt <script type="math/tex">C</script> bất kì, gọi <script type="math/tex">E</script> là tập hợp các cạnh trong lát cắt đó (các cạnh bị loại bỏ để đồ thị bị chia
+làm 2 thành phần liên thông). Nếu <script type="math/tex">e</script> là cạnh trong <script type="math/tex">E</script> và <script type="math/tex">e</script> có trọng số nhỏ hơn tất cả các cạnh khác của <script type="math/tex">E</script> thì
+<script type="math/tex">e</script> nằm trong cây khung nhỏ nhất của đồ thị.</p>
+
+<h2 id="tính-chất-cạnh-nhỏ-nhất">Tính chất cạnh nhỏ nhất</h2>
+
+<p>Nếu <script type="math/tex">e</script> là cạnh có trọng số nhỏ nhất của đồ thị, và không có cạnh nào có trọng số bằng <script type="math/tex">e</script> thì <script type="math/tex">e</script> nằm trong mọi cây khung nhỏ
+nhất của đồ thị.</p>
+
+<h1 id="tìm-cây-khung-nhỏ-nhất">Tìm cây khung nhỏ nhất</h1>
+
+<p>Kruskal và Prim là 2 thuật toán thường dùng để tìm cây khung nhỏ nhất. Xem các bài viết tương ứng:</p>
+
+<ul>
+  <li><a href="/algo/kruskal">Thuật toán Kruskal</a></li>
+  <li><a href="/algo/prim">Thuật toán Prim</a></li>
+</ul>
+
+<p>Xem code Prim và Kruskal ở <a href="/code/89/index.html">đây</a>.</p>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/mst";
+    this.page.identifier = "https://vietcodes.github.io/algo/mst";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

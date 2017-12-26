@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Thuật toán Kruskal - Tìm cây khung nhỏ nhất - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Thuật toán Kruskal - Tìm cây khung nhỏ nhất</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Thuật toán Kruskal - Tìm cây khung nhỏ nhất</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#định-nghĩa-cây-khung---cây-khung-nhỏ-nhất">Định nghĩa cây khung - Cây khung nhỏ nhất</a></li>
+<li class="toc-entry toc-h1"><a href="#thuật-toán-kruskal">Thuật toán Kruskal</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+</ul>
+                    </div>
+                    <p>Thuật toán Kruskal sử dụng tư tưởng tham lam để tìm cây khung nhỏ nhất của
+đồ thị.</p>
+
+<h1 id="định-nghĩa-cây-khung---cây-khung-nhỏ-nhất">Định nghĩa cây khung - Cây khung nhỏ nhất</h1>
+
+<p>Cho đồ thị vô hướng, cây khung (spanning tree) của đồ thị là một cây con chứa tất cả các đỉnh của
+đồ thị. Nói cách khác, cây khung là một tập hợp các cạnh của đồ thị, không chứa chu trình
+và kết nối tất cả các đỉnh của đồ thị.</p>
+
+<p>Trong đồ thị có trọng số, cây khung nhỏ nhất là cây khung có tổng trọng số các cạnh nhỏ nhất. Định
+nghĩa tương tự với cây khung lớn nhất.</p>
+
+<h1 id="thuật-toán-kruskal">Thuật toán Kruskal</h1>
+
+<p>Ban đầu mỗi đỉnh là một cây riêng biệt, ta tìm cây khung nhỏ nhất bằng
+cách duyệt các cạnh theo trọng số từ nhỏ đến lớn, rồi hợp nhất các cây lại
+với nhau.</p>
+
+<p>Cụ thể hơn, giả sử cạnh đang xét nối 2 đỉnh <script type="math/tex">u</script> và <script type="math/tex">v</script>, nếu 2 đỉnh này
+nằm ở 2 cây khác nhau thì ta thêm cạnh này vào cây khung, đồng thời hợp nhất
+2 cây chứa <script type="math/tex">u</script> và <script type="math/tex">v</script>.</p>
+
+<p>Để thực hiện thao tác trên một cách nhanh chóng, ta sử dụng cấu trúc
+<a href="/algo/dsu">Disjoint Set</a>, độ phức tạp của toàn bộ thuật toán là <script type="math/tex">O(M\log M)</script>
+với M là số cạnh.</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Đoạn code dưới cài đặt thuật toán Kruskal, có thể dùng để nộp bài
+<a href="http://vn.spoj.com/problems/QBMST/" target="_blank">QBMST</a>.</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt; // Hàm sort
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// Cấu trúc để lưu cạnh đồ thị,
+// u, v là 2 đỉnh, w là trọng số cạnh
+</span><span class="k">struct</span> <span class="n">edge</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// Hàm so sánh để dùng trong hàm sort ở dưới
+</span><span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="k">const</span> <span class="n">edge</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">edge</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">w</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Số đỉnh tối đa trong đề bài
+</span><span class="cp">#define N 10005
+</span>
+<span class="c1">// 2 mảng sử dụng trong Disjoint Set
+</span><span class="kt">int</span> <span class="n">cha</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">hang</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="c1">// Tìm xem u thuộc cây nào
+</span><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// Hợp nhất 2 cây chứ u và v,
+// Trả về false nếu không thể hợp nhất
+</span><span class="kt">bool</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">);</span> <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hang</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">hang</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">hang</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hang</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">hang</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">cha</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">=</span><span class="n">u</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Thêm dòng này để cin, cout chạy nhanh
+</span>    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// Nhập vào số đỉnh và số cạnh
+</span>    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+
+    <span class="c1">// Nhập danh sách các cạnh
+</span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">edge</span><span class="o">&gt;</span> <span class="n">edges</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">edge</span> <span class="o">&amp;</span><span class="n">e</span><span class="o">:</span> <span class="n">edges</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+
+    <span class="c1">// Sắp xếp lại các cạnh theo trọng số tăng dần
+</span>    <span class="n">sort</span><span class="p">(</span><span class="n">edges</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">edges</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">cmp</span><span class="p">);</span>
+
+    <span class="c1">// Khởi tạo cấu trúc Disjoint Set
+</span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">hang</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Lưu tổng trọng số các cạnh trong cây khung nhỏ nhất
+</span>    <span class="kt">int</span> <span class="n">mst_weight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Duyệt qua các cạnh theo thứ tự đã sắp xếp
+</span>    <span class="k">for</span> <span class="p">(</span><span class="n">edge</span> <span class="o">&amp;</span><span class="n">e</span><span class="o">:</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Thử hợp nhất 2 cây chứa u và v
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">u</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+            <span class="c1">// Hợp nhất thành công, ta thêm e và kết quả
+</span>            <span class="n">mst_weight</span> <span class="o">+=</span> <span class="n">e</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Xuất kết quả
+</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mst_weight</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/kruskal";
+    this.page.identifier = "https://vietcodes.github.io/algo/kruskal";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

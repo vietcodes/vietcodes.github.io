@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> GSS - Đoạn con có tổng lớn nhất - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="gss---đoạn-con-có-tổng-lớn-nhất">GSS - Đoạn con có tổng lớn nhất</h3>
+<ul>
+  <li>Đề bài: <a href="http://vnoi.info/problems/show/GSS" target="_blank">http://vnoi.info/problems/show/GSS</a></li>
+  <li>Keywords: segment tree</li>
+  <li>Tài liệu: <a href="http://vnoi.info/wiki/algo/data-structures/segment-tree-extend" target="blank">http://vnoi.info/wiki/algo/data-structures/segment-tree-extend</a></li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Đầu tiên xét cách tìm đoạn con có tổng lớn nhất theo tư tưởng chia để trị như sau:</p>
+
+<p>Kí hiệu:</p>
+<ul>
+  <li><script type="math/tex">F[l, r]</script> là đoạn con có tổng lớn nhất trên đoạn <script type="math/tex">[l, r]</script> (kết quả của bài toán)</li>
+  <li><script type="math/tex">Sum[l, r]</script> là tổng tất cả các phần tử trên đoạn <script type="math/tex">[l, r]</script></li>
+  <li><script type="math/tex">T[l, r]</script> là đoạn con có tổng lớn nhất, bắt đầu từ <script type="math/tex">A[l]</script></li>
+  <li><script type="math/tex">S[l, r]</script> là đoạn con có tổng lớn nhất, kết thúc tại <script type="math/tex">A[r]</script></li>
+</ul>
+
+<p>Ta chia đoạn cần truy vấn <script type="math/tex">R</script> thành 2 đoạn con <script type="math/tex">U, V</script>,
+dễ thấy công thức tính:</p>
+
+<script type="math/tex; mode=display">Sum(R) = Sum(U) + Sum(V)\\
+
+T(R) = max
+\begin{cases}
+    T(U)\\
+    Sum(U) + T(V)\\
+\end{cases}\\
+
+S(R) = max
+\begin{cases}
+    S(V)\\
+    Sum(V) + S(U)\\
+\end{cases}\\
+
+F(R) = max
+\begin{cases}
+    F(U)\\
+    F(V)\\
+    S(U) + T(V)\\
+\end{cases}</script>
+
+<p>Trường hợp cơ sở: <script type="math/tex">F[i,i] = Sum[i,i] = T[i,i] = S[i,i] = A[i]</script></p>
+
+<p>Cách tính ở trên có độ phức tạp <script type="math/tex">O(N\log N)</script> cho mỗi truy vấn. Tuy nhiên ta
+có thể xây dựng một cây phân đoạn (segment tree) để giảm độ phức tạp truy vấn
+xuống còn <script type="math/tex">O(\log N)</script>.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.cpp</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/114/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+                    
+<div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;vector&gt;
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">value</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">postfix</span><span class="p">,</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">value</span> <span class="nf">combine</span><span class="p">(</span><span class="k">const</span> <span class="n">value</span> <span class="o">&amp;</span><span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">value</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">value</span> <span class="n">r</span><span class="p">;</span>
+    <span class="n">r</span><span class="p">.</span><span class="n">sum</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">sum</span> <span class="o">+</span> <span class="n">v</span><span class="p">.</span><span class="n">sum</span><span class="p">;</span>
+    <span class="n">r</span><span class="p">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">sum</span> <span class="o">+</span> <span class="n">v</span><span class="p">.</span><span class="n">prefix</span><span class="p">);</span>
+    <span class="n">r</span><span class="p">.</span><span class="n">postfix</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">postfix</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">sum</span> <span class="o">+</span> <span class="n">u</span><span class="p">.</span><span class="n">postfix</span><span class="p">);</span>
+    <span class="n">r</span><span class="p">.</span><span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">postfix</span> <span class="o">+</span> <span class="n">v</span><span class="p">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">res</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">res</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">range</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">inside</span><span class="p">(</span><span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">l</span><span class="o">&lt;=</span><span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">intersect</span><span class="p">(</span><span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">l</span> <span class="o">||</span> <span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="o">&lt;</span><span class="n">l</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="n">range</span> <span class="n">r</span><span class="p">;</span>
+    <span class="n">value</span> <span class="n">v</span><span class="p">;</span>
+    <span class="n">node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">node</span><span class="o">*</span> <span class="nf">build_tree</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">node</span> <span class="o">*&gt;</span> <span class="n">nodes</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">node</span> <span class="p">{{</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">},</span> <span class="p">{</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]},</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">nodes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">node</span> <span class="o">*&gt;</span> <span class="n">tmp</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">node</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">node</span> <span class="p">{</span>
+                <span class="p">{</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">.</span><span class="n">l</span><span class="p">,</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">.</span><span class="n">r</span><span class="p">},</span>
+                <span class="n">combine</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">,</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">),</span>
+                <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="p">};</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">tmp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">tmp</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="n">value</span> <span class="nf">query</span><span class="p">(</span><span class="k">const</span> <span class="n">node</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">r</span><span class="p">.</span><span class="n">inside</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span> <span class="n">p</span><span class="p">.</span><span class="n">v</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">.</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span> <span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">.</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span> <span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">combine</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">r</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">node</span> <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">l</span> <span class="o">&gt;&gt;</span> <span class="n">r</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="p">{</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">}).</span><span class="n">res</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+            
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/114/";
+    this.page.identifier = "https://vietcodes.github.io/code/114/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

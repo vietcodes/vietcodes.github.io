@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Tìm cặp điểm gần nhất - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Tìm cặp điểm gần nhất</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Tìm cặp điểm gần nhất</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#bài-toán">Bài toán</a></li>
+<li class="toc-entry toc-h1"><a href="#thuật-toán">Thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+</ul>
+                    </div>
+                    <p>Dịch từ <a href="http://e-maxx.ru/algo/nearest_points" target="_blank">e-maxx.ru</a></p>
+
+<h1 id="bài-toán">Bài toán</h1>
+
+<p>Cho N điểm trên mặt phẳng tọa độ, cần tìm 2 điểm sao cho khoảng cách giữa chúng là
+nhỏ nhất.</p>
+
+<p>Khoảng cách giữa 2 điểm được tính bằng công thức: <script type="math/tex">d(p_i, p_j) = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2}</script></p>
+
+<p>Bài viết này sẽ trình bày thuật toán chia để trị để tìm cặp điểm gần nhất trong <script type="math/tex">O(N\log N)</script></p>
+
+<h1 id="thuật-toán">Thuật toán</h1>
+
+<p>Áp dụng tư tưởng chia để trị:</p>
+<ul>
+  <li>Chia N điểm cần xử lý thành 2 tập hợp bằng một đường thẳng đứng</li>
+  <li>Gọi đệ quy tìm cặp điểm gần nhất cho tập bên trái và tập bên phải</li>
+  <li>Tìm khoảng cách ngắn nhất giữa một điểm thuộc tập bên trái và một điểm
+thuộc tập bên phải.</li>
+</ul>
+
+<p>Bước 3 là bước khó nhất trong các bước trên.</p>
+
+<p>Giả sử trong bước 1 ta chia N điểm thành 2 tập bằng đường thẳng có phương trình <script type="math/tex">x = a</script>,
+và trong bước 2, sau khi gọi đệ quy có được khoảng cách giữa cặp điểm gần nhất là <script type="math/tex">D</script>.
+Một cách tự nhiên, ta thấy trong bước 3 chỉ cần xét những điểm có <script type="math/tex">% <![CDATA[
+\mid x_i - a \mid < D %]]></script>
+vì các điểm bên ngoài khoảng đó chắc chắn sẽ cho khoảng cách lớn hơn <script type="math/tex">D</script>.</p>
+
+<p>Ngoài ra, với mỗi điểm <script type="math/tex">p_i</script> thỏa điều kiện ở trên, ta chỉ cần so nó với những điểm <script type="math/tex">p_j</script> cũng thỏa điều kiện
+ở trên và <script type="math/tex">p_j</script> có <script type="math/tex">% <![CDATA[
+y_i - D < y_j \leq y_i %]]></script> <code class="highlighter-rouge">(*)</code>.</p>
+
+<p>Để thực hiện nhanh bước 1 ta cần sắp xếp các điểm theo <script type="math/tex">x</script>, còn bước 3 cần phải sắp các điểm theo <script type="math/tex">y</script>.
+Để giải quyết vấn đề này, ta sắp các điểm theo <script type="math/tex">x</script> ngay từ đầu, rồi lồng việc sắp xếp theo <script type="math/tex">y</script> vào đệ quy bằng sắp xếp
+trộn.</p>
+
+<p>Thoạt nhìn thì phương pháp này không có độ phức tạp <script type="math/tex">O(N\log N)</script>, tuy nhiên có thể chứng minh được độ phức tạp là
+<script type="math/tex">O(N\log N)</script> do bước 3 có độ phức tạp <script type="math/tex">O(N)</script> (số điểm thỏa điều kiện <code class="highlighter-rouge">(*)</code> của mỗi điểm là hằng số, không phụ thuộc vào N).</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Code sau được dùng để nộp cho bài <a href="http://vnoi.info/problems/show/NEAREST/" target="_blank">NEAREST</a></p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">point</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">bool</span> <span class="nf">cmp_x</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="nf">cmp_y</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#define MAXN 100000
+</span><span class="n">point</span> <span class="n">a</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">double</span> <span class="n">mindist</span><span class="p">;</span> <span class="c1">// biến lưu kết quả bài toán
+</span>
+<span class="c1">// tính khoảng cách giữa a và b rồi update kết quả
+</span><span class="kt">void</span> <span class="nf">upd_ans</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dist</span> <span class="o">&lt;</span> <span class="n">mindist</span><span class="p">)</span> <span class="n">mindist</span> <span class="o">=</span> <span class="n">dist</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;=</span> <span class="n">l</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="c1">// đoạn [l,r] có 2 phần tử
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">upd_ans</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="p">]);</span>
+        <span class="c1">// sắp các phần tử lại theo y
+</span>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">cmp_y</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="p">]))</span> <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="p">]);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">midx</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">m</span><span class="p">].</span><span class="n">x</span><span class="p">;</span>
+    <span class="n">find</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+    <span class="n">find</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+
+    <span class="k">static</span> <span class="n">point</span> <span class="n">t</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+    <span class="c1">// trộn a[l,m] và a[m+1,r] lại, lưu vào mảng tạm t
+</span>    <span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">l</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cmp_y</span><span class="p">);</span>
+    <span class="c1">// copy từ t về lại a
+</span>    <span class="n">copy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">l</span><span class="p">);</span>
+
+    <span class="c1">// mảng t ở đây lưu các phần tử thỏa |x_i - midx| &lt; mindist,
+</span>    <span class="c1">// với số lượng phần tử là tm
+</span>    <span class="c1">// do đã sort nên các phần tử sẽ có y tăng dần
+</span>    <span class="kt">int</span> <span class="n">tm</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">r</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span><span class="o">-</span><span class="n">midx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">mindist</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">tm</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="o">-</span><span class="n">mindist</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span>
+            <span class="n">upd_ans</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="n">t</span><span class="p">[</span><span class="n">tm</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">;</span>
+
+    <span class="n">mindist</span> <span class="o">=</span> <span class="mf">1E20</span><span class="p">;</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">n</span><span class="p">,</span> <span class="n">cmp_x</span><span class="p">);</span>
+    <span class="n">find</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.3lf"</span><span class="p">,</span> <span class="n">mindist</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/closest-pair";
+    this.page.identifier = "https://vietcodes.github.io/algo/closest-pair";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

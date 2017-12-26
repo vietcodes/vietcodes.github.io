@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> VOI 2016 SEQ189 - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="voi-2016-seq189">VOI 2016 SEQ189</h3>
+<ul>
+  <li>Đề bài: <a href="http://vnoi.info/problems/show/SEQ198" target="_blank">http://vnoi.info/problems/show/SEQ198</a></li>
+  <li>Keywords: bitmask dp, sort</li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Chú ý: Input mẫu ở SPOJ bị sai, input đúng là dãy số như trong đề:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>6
+7 3 5 1 9 21
+</code></pre>
+</div>
+
+<p>Trước hết ta cần sắp xếp lại dãy số tăng dần, sau đó giải bằng QHĐ trạng thái.</p>
+
+<p>Đặt <script type="math/tex">F(i,k)</script> là dãy SEQ189 dài nhất chọn từ <script type="math/tex">A_1</script> đến <script type="math/tex">A_i</script>, với <script type="math/tex">k</script> là trạng thái
+được chọn/không được chọn của số:</p>
+
+<ul>
+  <li>Bit thứ j của k = 1 nếu trong dãy được chọn có số <script type="math/tex">A_i-j</script>.</li>
+</ul>
+
+<p>Vì ta chỉ quan tâm tới 10 giá trị gần nhất nên có <script type="math/tex">2^{10}</script> trạng thái cần xét.</p>
+
+<p>Kết quả của bài toán là <script type="math/tex">n - max(F)</script>.</p>
+
+<p>Ta tính <script type="math/tex">F(i)</script> từ <script type="math/tex">F(i-1)</script> như sau:</p>
+
+<ul>
+  <li>Lần lượt xét các trạng thái <script type="math/tex">k</script>, ta tạo trạng thái mới <script type="math/tex">k'</script> bằng cách
+dịch trái <script type="math/tex">k</script> đi <script type="math/tex">a_{i}-a_{i-1}</script> bit, sau đó AND với 1023 để lấy 10 bit cuối cùng.</li>
+  <li>Trường hợp không chọn <script type="math/tex">A_{i}</script>, <script type="math/tex">F(i,k') = F(i-1, k)</script>.</li>
+  <li>Trường hợp chọn <script type="math/tex">A_{i}</script>, <script type="math/tex">F(i, k'|1) = F(i-1, k) + 1</script>. Để chọn được <script type="math/tex">A_i</script> ta phải
+có các bit thứ 1, 8 và 9 của <script type="math/tex">k'</script> đều bằng 0.</li>
+</ul>
+
+<p>Vì có nhiều trạng thái <script type="math/tex">k</script> có thể sinh ra cùng một trạng thái <script type="math/tex">k'</script> nên ta sẽ lấy max
+như trong code.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.cpp</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/57/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+                    
+<div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">MASK189</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">9</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">a</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">;</span>
+
+    <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span> <span class="n">f1</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+        <span class="n">f1</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">1024</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">d</span><span class="o">&gt;=</span><span class="mi">10</span><span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="p">(</span><span class="n">k</span><span class="o">&lt;&lt;</span><span class="n">d</span><span class="p">)</span><span class="o">&amp;</span><span class="mi">1023</span><span class="p">;</span>
+                <span class="n">f1</span><span class="p">[</span><span class="n">k1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">f1</span><span class="p">[</span><span class="n">k1</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">k1</span> <span class="o">&amp;</span> <span class="n">MASK189</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">f1</span><span class="p">[</span><span class="n">k1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">f1</span><span class="p">[</span><span class="n">k1</span><span class="o">|</span><span class="mi">1</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">f1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">1024</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+            
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/57/";
+    this.page.identifier = "https://vietcodes.github.io/code/57/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> VOI 2012 TRAVEL12 - Hành trình du lịch - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Overview</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <h3 id="voi-2012-travel12---hành-trình-du-lịch">VOI 2012 TRAVEL12 - Hành trình du lịch</h3>
+<ul>
+  <li>Đề bài: <a href="http://vnoi.info/problems/show/TRAVEL12" target="_blank">http://vnoi.info/problems/show/TRAVEL12</a></li>
+  <li>Keywords: bruteforce, bitset</li>
+  <li>Tài liệu: <a href="http://www.cplusplus.com/reference/bitset/bitset" target="blank">http://www.cplusplus.com/reference/bitset/bitset</a></li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+                </div>
+            </div>
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">solution.md</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <p>Bài này ta cần chú ý là giữa 2 đỉnh có thể có nhiều hơn một đường đi.
+Ngoài ra, chỉ cần duyệt như sau:</p>
+
+<p>Với mỗi đỉnh <script type="math/tex">u</script>, ta xét các đỉnh kề của <script type="math/tex">u</script> và xem trong các đỉnh kề đó
+có 2 đỉnh nào cùng kề với một đỉnh khác <script type="math/tex">u</script> hay không, nếu có thì ta in
+kết quả.</p>
+
+<p>Độ phức tạp của thuật toán là <script type="math/tex">O(m \times n)</script>, nhưng do ta sử dụng
+cấu trúc <a href="http://www.cplusplus.com/reference/bitset/bitset">bitset</a>
+nên thuật toán sẽ chạy trong thời gian cho phép. Trên thực tế, số thao tác
+cần thực hiện khoảng <script type="math/tex">m \times n / 64</script>.</p>
+
+<p>Xem comment trong code để biết thêm chi tiết.</p>
+
+<p>Ngoài ra còn có cách làm <script type="math/tex">O(n^2)</script> do một bạn đề xuất như sau:</p>
+
+<blockquote>
+  <p>Với mỗi đỉnh u từ 1 đến n, duyệt tất cả các cặp đỉnh (v1, v2) kề với u, nếu f[v1][v2] chưa
+được đánh dấu thì tiến hành đánh dấu f[v1][v2], ngược lại thì ta tiến
+hành duyệt một lần nữa để tìm lại đỉnh v đã đánh dấu f[v1][v2], khi
+đó ta có chu trình u -&gt; v1 -&gt; v -&gt; v2 -&gt; u. Để tiết kiệm bộ nhớ thì ta
+dùng bitset để biểu diễn f.</p>
+</blockquote>
+
+<p>Tuy nhiên, với giới hạn của bài này thì cách làm <script type="math/tex">O(mn)</script> bên trên nhanh hơn.</p>
+
+                </div>
+            </div>
+            
+
+            
+            <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">main.cpp</span>
+                </div>
+                <div style="margin-top: 0;" class="panel-body content">
+                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/27/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+                    &bull;
+                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+                    
+<div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;bitset&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dsk</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="mi">10001</span><span class="o">&gt;</span> <span class="n">bs</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">dsk</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// bits[u] sẽ có giá trị true tại các vị
+</span>    <span class="c1">// trí tương ứng với các đỉnh kề với u
+</span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">bs</span><span class="o">&gt;</span> <span class="n">bits</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bits</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">test</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+            <span class="n">ke</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+            <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">set</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+            <span class="n">bits</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">set</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">u</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">u</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// f lưu các đỉnh kề với các đỉnh kề của u
+</span>        <span class="n">bs</span> <span class="n">f</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+            <span class="c1">// lệnh dưới kiểm tra xem f và bits[v]
+</span>            <span class="c1">// có chung bit 1 nào không.
+</span>            <span class="k">if</span> <span class="p">((</span><span class="n">f</span> <span class="o">&amp;</span> <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">]).</span><span class="n">any</span><span class="p">())</span> <span class="p">{</span>
+                <span class="c1">// trường hợp có ít nhất 1 bit 1 chung,
+</span>                <span class="c1">// ta sẽ có được chu trình:
+</span>                <span class="c1">//     u
+</span>                <span class="c1">//    / \
+</span>                <span class="c1">//   x   v
+</span>                <span class="c1">//    \ /
+</span>                <span class="c1">//     w
+</span>                <span class="c1">// truy vết tìm w và x, sau đó xuất kết quả
+</span>                <span class="n">f</span> <span class="o">&amp;=</span> <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+                <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="n">w</span><span class="o">++</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="k">if</span> <span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">x</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">w</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// cập nhật lại f
+</span>                <span class="n">f</span> <span class="o">|=</span> <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+            <span class="p">}</span>
+
+            <span class="n">bits</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+            </div>
+            
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/27/";
+    this.page.identifier = "https://vietcodes.github.io/code/27/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>

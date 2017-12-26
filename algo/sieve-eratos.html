@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Sàng nguyên tố Eratosthenes - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+});
+        </script>
+        
+    </head>
+
+    <body>
+        <p class="brand">
+<span class="host">Guest@</span><a href="/" class="host">vietcodes</a>:<span class="pwd">/</span>$ ls
+</p>
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a class="pwd" href="/algorithms">Algorithms</a></li>
+      <li><a class="pwd" href="/codehub">CodeHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+        <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 1px">
+            <div class="panel window" style="margin-bottom: 0.5em;">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Quảng cáo</span>
+                </div>
+                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ad-0 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2911647956237293"
+                         data-ad-slot="4249876710"
+                         data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <div class="panel window">
+                <div class="panel-heading">
+                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+                    <span class="title">Sàng nguyên tố Eratosthenes</span>
+                </div>
+                <div class="panel-body content">
+                    <p class="content-title">Sàng nguyên tố Eratosthenes</p>
+                    <div class="well toc">
+                        <p><b>Contents</b></p>
+                        <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#thuật-toán">Thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#ví-dụ">Ví dụ</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt-c">Cài đặt (C++)</a></li>
+<li class="toc-entry toc-h2"><a href="#cải-tiến-thuật-toán">Cải tiến thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+</ul>
+                    </div>
+                    <p>Mục đích của sàng nguyên tố Eratosthenes là tìm tất cả các số nguyên tố nhỏ hơn <script type="math/tex">N</script> cho trước.</p>
+
+<h1 id="thuật-toán">Thuật toán</h1>
+<ul>
+  <li>B1: Tạo danh sách các số nguyên từ 2 đến N: <script type="math/tex">(2, 3,..., N)</script>.</li>
+  <li>B2: Giả sử tất cả các số trong danh sách đều là số nguyên tố. Trong đó, <script type="math/tex">p = 2</script> là số nguyên tố đầu tiên.</li>
+  <li>B3: Tất cả các bội số của <script type="math/tex">p</script>: <script type="math/tex">2p, 3p, 4p,...</script> sẽ bị đánh dấu vì không phải là số nguyên tố.</li>
+  <li>B4: Tìm các số còn lại trong danh sách mà chưa bị đánh dấu và phải lớn hơn <script type="math/tex">p</script>. Nếu không còn số nào, dừng tìm kiếm. Ngược lại, gán cho <script type="math/tex">p</script> giá trị bằng số nguyên tố tiếp theo và quay lại bước 3.</li>
+</ul>
+
+<p>Khi giải thuật kết thúc, tất các số chưa bị đánh dấu trong danh sách là các số nguyên tố cần tìm.</p>
+
+<h1 id="ví-dụ">Ví dụ</h1>
+
+<p>Trong ví dụ sau chúng ta sẽ tìm tất cả các số nguyên tố nhỏ hơn 30. Dãy ban đầu:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+</code></pre>
+</div>
+<p>Số đầu tiên trong dãy là 2, ta xoá tất cả các bội số (khác 2) của 2:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2 3   5   7   9    11    13    15    17    19    21    23    25    27    29
+</code></pre>
+</div>
+
+<p>Số tiếp theo trong dãy là 3, ta tiếp tục xoá các bộ số của 3:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>2 3   5   7        11    13          17    19          23    25          29
+</code></pre>
+</div>
+
+<p>Lặp lại quá trình trên, ta được dãy các số nguyên tố nhỏ hơn 30:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>2 3   5   7        11    13          17    19          23                29
+</code></pre>
+</div>
+
+<p>Một ví dụ khác (nguồn Wikipedia):</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sieve_of_Eratosthenes_animation.gif" alt="text" /></p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Khi cài đặt thuật toán, chúng ta dùng một mảng để kiểm tra xem số đã bị xoá chưa.</p>
+
+<h2 id="cài-đặt-c">Cài đặt (C++)</h2>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Nhập n
+</span>    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="c1">// Mảng đánh dấu, mark[i] == true thì i là số nguyên tố
+</span>    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">mark</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="n">mark</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mark</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mark</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">+=</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">mark</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Xuất các số nguyên tố trong đoạn từ 1 đến n
+</span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mark</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="cải-tiến-thuật-toán">Cải tiến thuật toán</h2>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mark</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="c1">// Xuất phát từ `i*i` vì các hợp số trước đó đều đã bị đánh dấu
+</span>            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">+=</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">mark</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Độ phức tạp: <script type="math/tex">O(n \log \log n)</script></p>
+
+<p>Trong giới hạn thời gian 1 giây, thuật toán có thể chạy được đến khoảng <script type="math/tex">n = 10^7</script>.</p>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li>Bài tập áp dụng: <a href="http://vn.spoj.com/problems/PNUMBER/">PNUMBER</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes</a></li>
+</ul>
+
+                </div>
+            </div>
+
+            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="panel window hide" id="disqus-window">
+    <div class="panel-heading">
+        <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+        <span class="title">Comments</span>
+    </div>
+    <div class="panel-body" id="disqus_thread">
+    </div>
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/sieve-eratos";
+    this.page.identifier = "https://vietcodes.github.io/algo/sieve-eratos";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js" defer></script>
+    </body>
+</html>
