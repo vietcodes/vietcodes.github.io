@@ -1,5 +1,5 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct value {
@@ -10,128 +10,75 @@ struct value {
         if (max < v.max) max = v.max;
     }
 };
-struct bit {
-    int n;
-    vector<value> f, a;
-    bit(int n): n(n), f(n+1), a(n+1) {}
-    void update(int i, int v) {
-        a[i].min = a[i].max = v;
-        for (; i<=n; i+=i&-i) f[i].update(a[i]);
-    }
-    value get(int l, int r) {
-        value res;
-        while (l <= r) {
-            int rr = r - r&-r;
-            if (l <= rr) res.update(f[r]), r = rr;
-            else res.update(a[r]), r--;
-        }
-        return res;
-    }
-};
 
-struct Node {
-    int chainId, level, pos, next, cha;
-    Node() {
-        level = pos = next = cha = 0;
-    }
-};
-struct edge { int u, v, c; };
+struct Tarjan {
+    struct Edge { int v, c; };
+    struct Query { int v, id; };
+    struct Queue {int u, v, id; };
+    int n, k;
+    vector<vector<Edge>> ke;
+    vector<vector<Query>> q;
+    vector<vector<Queue>> queue;
+    vector<int> cha;
+    vector<bool> done;
+    vector<value> c, res;
 
-typedef vector<vector<int>> dsk;
-struct tree {
-    int n, nChain;
-    dsk ke;
-    vector<Node> node;
-    vector<int> chainHead;
-    vector<edge> edges;
-    bit f;
-
-    tree(int n): n(n), ke(n+1), node(n+1), f(n) {}
+    Tarjan(int n): n(n), k(0), ke(n+1), q(n+1), queue(n+1), cha(n+1), done(n+1, false), c(n+1)  {}
     void add_edge(int u, int v, int c) {
-        edges.push_back({u, v, c});
-        ke[u].push_back(v);
-        ke[v].push_back(u);
+        ke[u].push_back({v, c});
+        ke[v].push_back({u, c});
     }
-    int prepare(int u, int cha) {
-        for (int i=0; i<(int)ke[u].size(); i++) if (ke[u][i] == cha) {
-            ke[u][i] = ke[u].back();
-            ke[u].pop_back();
-            break;
-        }
-        int nChild = 1;
-        int max = 0;
-        for (int v: ke[u]) {
-            node[v].level = node[u].level + 1;
-            node[v].cha = u;
-            int vChild = prepare(v, u);
-            if (vChild > max) max = vChild, node[u].next = v;
-            nChild += vChild;
-        }
-        return nChild;
+    void add_query(int u, int v) {
+        q[u].push_back({v, k});
+        q[v].push_back({u, k});
+        k++;
     }
-    void dfs(int u, int &cnt) {
-        node[u].pos = ++cnt;
-        node[u].chainId = nChain-1;
-        if (node[u].next) dfs(node[u].next, cnt);
-        for (int v: ke[u]) if (v != node[u].next) {
-            nChain++;
-            chainHead.push_back(v);
-            dfs(v, cnt);
-        }
+    void solve() {
+        res.resize(k);
+        dfs(1, 0);
     }
-    void hld() {
-        prepare(1, 0);
-        nChain = 1;
-        chainHead.push_back(1);
-        int cnt = 0;
-        dfs(1, cnt);
-        for (edge e: edges) {
-            if (node[e.u].cha == e.v) swap(e.u, e.v);
-            f.update(node[e.v].pos, e.c);
+    int find(int u) {
+        if (cha[u] != u) {
+            int tmp = cha[u];
+            cha[u] = find(cha[u]);
+            c[u].update(c[tmp]);
         }
+        return cha[u];
     }
-    value query(int u, int v) {
-        value res;
-        while (node[u].chainId != node[v].chainId) {
-            int headU = chainHead[node[u].chainId];
-            int headV = chainHead[node[v].chainId];
-            if (node[headU].level < node[headV].level) {
-                swap(u, v);
-                swap(headU, headV);
-            }
-            res.update(f.get(node[headU].pos, node[u].pos));
-            u = node[headU].cha;
+    void dfs(int u, int dad) {
+        cha[u] = u;
+        for (auto e: ke[u]) if (e.v != dad) {
+            dfs(e.v, u);
+            cha[e.v] = u;
+            c[e.v].min = c[e.v].max = e.c;
         }
-        if (u != v) {
-            if (node[u].level > node[v].level) swap(u, v);
-            res.update(f.get(node[u].pos+1, node[v].pos));
+        done[u] = true;
+        for (auto p: q[u]) if (done[p.v]) {
+            queue[find(p.v)].push_back({u, p.v, p.id});
         }
-        return res;
-    }
-    value trau(int u, int v) {
-        value res;
-#define up(u) res.update(f.a[node[u].pos]), u = node[u].cha
-        while (node[u].level > node[v].level) up(u);
-        while (node[v].level > node[u].level) up(v);
-        while (u != v) up(u), up(v);
-        return res;
+        for (auto q: queue[u]) {
+            find(q.u), find(q.v);
+            value tmp = c[q.u];
+            tmp.update(c[q.v]);
+            res[q.id] = tmp;
+        }
     }
 };
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0);
     int n; cin >> n;
-    tree T(n);
+    Tarjan t(n);
     for (int i=1; i<n; i++) {
         int u, v, c; cin >> u >> v >> c;
-        T.add_edge(u, v, c);
+        t.add_edge(u, v, c);
     }
-    T.hld();
-    int m; cin >> m;
-    while (m--) {
+    int k; cin >> k;
+    while (k--) {
         int u, v; cin >> u >> v;
-        value res = T.query(u, v);
-        cout << res.min << ' ' << res.max << '\n';
+        t.add_query(u, v);
     }
+    t.solve();
+    for (auto v: t.res) cout << v.min << ' ' << v.max << '\n';
     return 0;
 }
