@@ -37,51 +37,43 @@
 </nav>
 
         <div class="container">
-    <div class="row">
-        <div class="col-md-12" style="padding: 1px">
-            <div class="panel window" style="margin-bottom: 0.5em;">
-                <div class="panel-heading">
-                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
-                    <span class="title">Quảng cáo</span>
-                </div>
-                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- ad-0 -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-2911647956237293"
-                         data-ad-slot="4249876710"
-                         data-ad-format="auto"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- ad-0 -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2911647956237293"
+           data-ad-slot="4249876710"
+           data-ad-format="auto"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
 
-            <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
-                <div class="panel-heading">
-                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
-                    <span class="title">Overview</span>
-                </div>
-                <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
-                    <h3 id="nkmaxseq---dãy-con-dài-nhất">NKMAXSEQ - Dãy con dài nhất</h3>
+      <div class="panel window" style="margin-bottom: 0.5em;" id="overview">
+        <div class="panel-heading">
+          <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+          <span class="title">Overview</span>
+        </div>
+        <div style="padding-bottom: 0.5em; padding-top: 0.5em;" class="panel-body content">
+          <h3 id="nkmaxseq---dãy-con-dài-nhất">NKMAXSEQ - Dãy con dài nhất</h3>
 <ul>
   <li>Đề bài: <a href="http://vnoi.info/problems/show/NKMAXSEQ" target="_blank">http://vnoi.info/problems/show/NKMAXSEQ</a></li>
   <li>Keywords: sum</li>
   <li>Ngôn ngữ: C++</li>
 </ul>
 
-                </div>
-            </div>
+        </div>
+      </div>
 
-            
-            <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
-                <div class="panel-heading">
-                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
-                    <span class="title">solution.md</span>
-                </div>
-                <div style="margin-top: 0;" class="panel-body content">
-                    <p>Ta tính mảng tổng <script type="math/tex">S[i]</script> là tổng từ <script type="math/tex">A[1]</script> đến <script type="math/tex">A[i]</script>, <script type="math/tex">S[0] = 0</script>. Sau đó sắp xếp lại mảng
+      
+      <div class="panel window" style="margin-bottom: 0.5em;" id="solution.md">
+        <div class="panel-heading">
+          <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+          <span class="title">solution.md</span>
+        </div>
+        <div style="margin-top: 0;" class="panel-body content">
+          <p>Ta tính mảng tổng <script type="math/tex">S[i]</script> là tổng từ <script type="math/tex">A[1]</script> đến <script type="math/tex">A[i]</script>, <script type="math/tex">S[0] = 0</script>. Sau đó sắp xếp lại mảng
 <script type="math/tex">S</script> tăng dần (có lưu lại chỉ số ban đầu của phần tử).</p>
 
 <p>Lần lượt duyệt các phần tử trong mảng đã sắp lại. Ở <script type="math/tex">S[i]</script>, vì đề yêu cầu tổng của dãy con phải không nhỏ
@@ -92,21 +84,21 @@ hơn <script type="math/tex">p</script> nên ta cần tìm <script type="math/te
 Tuy nhiên, do ta duyệt <script type="math/tex">i</script> tăng dần nên <script type="math/tex">j</script> cũng sẽ tăng dần theo <script type="math/tex">i</script> Từ đó có cách làm
 <script type="math/tex">O(N)</script> như bên dưới, tại mỗi bước ta tăng <script type="math/tex">j</script> trong khi điều kiện <script type="math/tex">S[i]-S[j]\geq p</script> còn thỏa.</p>
 
-                </div>
-            </div>
-            
+        </div>
+      </div>
+      
 
-            
-            <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
-                <div class="panel-heading">
-                    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
-                    <span class="title">main.cpp</span>
-                </div>
-                <div style="margin-top: 0;" class="panel-body content">
-                    <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/92/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
-                    &bull;
-                    <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-                    
+      
+      <div class="panel window" style="margin-bottom: 0.5em;" id="main.cpp">
+        <div class="panel-heading">
+          <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+          <span class="title">main.cpp</span>
+        </div>
+        <div style="margin-top: 0;" class="panel-body content">
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/92/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          
 <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;algorithm&gt;
@@ -144,11 +136,11 @@ Tuy nhiên, do ta duyệt <script type="math/tex">i</script> tăng dần nên <s
 </code></pre>
 </div>
 
-                </div>
-            </div>
-            
+        </div>
+      </div>
+      
 
-            <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
 <div class="panel window hide" id="disqus-window">
     <div class="panel-heading">
         <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
@@ -166,8 +158,8 @@ var disqus_config = function () {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-        </div>
     </div>
+  </div>
 </div>
 
 <script src="/js/codeview.js"></script>
