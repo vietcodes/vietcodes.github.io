@@ -1,46 +1,19 @@
 .brand {
   padding: 10px;
-  padding-bottom: 0;
   font-family: 'Ubuntu Mono', monospace;
-  background-color: #300a24;
+  background-color: #370d28;
   color: #fff;
-  font-size: 1.3em;
-  margin: 0; }
-  .brand .pwd {
-    color: #729fcf;
-    font-weight: bold; }
-  .brand .host {
-    color: #8ae234;
-    font-weight: bold; }
-
-.navbar {
-  background-color: #300a24;
-  font-family: 'Ubuntu Mono', monospace;
-  font-size: 1.2em;
-  border-radius: 0;
   margin: 0;
-  margin-bottom: 3px;
-  min-height: 40px;
+  margin-bottom: 8px;
   box-shadow: 0px 3px 3px black; }
-
-.navbar-nav > li {
-  font-weight: bold; }
-
-@keyframes hold {
-  from {
-    background-color: #300a24; }
-  to {
-    background-color: #23071b; } }
-.navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px; }
-
-.navbar-nav > li > a:hover {
-  background-color: #23071b;
-  animation: hold 0.25s; }
-
-.navbar-nav > li > a:focus {
-  background-color: #300a24; }
+  .brand .keyword {
+    color: #8ae230; }
+  .brand .string, .brand .string a {
+    color: #e5021c; }
+  .brand .string a:hover {
+    color: #fd0421; }
+  .brand .op {
+    color: #af5f00; }
 
 pre.highlight {
   background-color: #ffffff;
@@ -366,8 +339,8 @@ pre {
 .page-footer {
   background-color: #300a24;
   color: white;
-  height: 3.5em;
-  padding: 1.25em;
+  height: 3em;
+  padding: 1em;
   width: 100%;
   position: absolute;
   left: 0;
@@ -379,7 +352,7 @@ html {
 body {
   position: relative;
   min-height: 100%;
-  padding-bottom: 3.5em; }
+  padding-bottom: 3em; }
 
 .content {
   padding: 1.5em;

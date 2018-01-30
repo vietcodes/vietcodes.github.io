@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> OJ's Status - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        
+        <style>
+.pager {
+  display: inline-block;
+  width: 2em;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+.pager:hover {
+  cursor: pointer;
+}
+.current {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 0.3em;
+}
+.sorter:hover {
+  cursor: pointer;
+}
+</style>
+
+        
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-112397632-1');
+</script>
+    </head>
+    <body>
+        <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>];
+</p>
+
+        
+<script>document.body.style.backgroundColor="white";</script>
+<div id="app" class="container" style="margin-top: 10px" cloak>
+  <div class="form-group row">
+    <div class="col-sm-12 form-inline">
+      <select class="form-control" v-model="view.range">
+        <option v-bind:value="1">Hôm nay</option>
+        <option v-bind:value="7">7 ngày qua</option>
+        <option v-bind:value="15">15 ngày qua</option>
+        <option v-bind:value="30">30 ngày qua</option>
+      </select>
+      <select class="form-control" v-model="view.count">
+        <option v-bind:value="10">10 bài / trang</option>
+        <option v-bind:value="20">20 bài / trang</option>
+        <option v-bind:value="50">50 bài / trang</option>
+        <option v-bind:value="100">100 bài / trang</option>
+      </select>
+      <input class="form-control" type="text" placeholder="Tìm kiếm" v-model="view.searchText">
+      <template v-if="loading"><i class="fa fa-spinner fa-pulse fa-fw"></i> Đang tải</template>
+    </div>
+  </div> 
+  <div class="form-group form-inline row">
+    <div class="col-sm-12">
+      <b>Nguồn bài:</b>
+      <label class="checkbox-inline"><input type="checkbox" v-model="view.origins.VOJ">VOJ</label>
+      <label class="checkbox-inline"><input type="checkbox" v-model="view.origins.NTUCoder">NTUCoder</label>
+      <div class="pull-right" v-if="pages.length > 0">
+        <a class="btn" v-on:click="view.page = 0"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        <a class="btn" v-on:click="view.page = Math.max(0, view.page - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        <template v-for="p in pages">
+          <span class="pager current" v-if="p == view.page">{{ p }}</span>
+          <a class="pager" v-else v-on:click="view.page = p">{{ p }}</a>
+        </template>
+        <a class="btn" v-on:click="view.page = Math.min(max_page, view.page + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        <a class="btn" v-on:click="view.page = max_page"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+  <table class="table table-condensed">
+    <thead>
+      <tr class="row">
+        <th class="col-sm-2">Nguồn bài</th>
+        <th class="col-sm-8 sorter" v-on:click="sortBy('title')">Đề bài <sortus field="title" v-bind:order="view.order"></sortus></th>
+        <th class="col-sm-2 sorter" v-on:click="sortBy('count')">Số lượt nộp <sortus field="count" v-bind:order="view.order"></sortus></th>
+      </tr>
+    </thead>
+    <tbody v-if="!initiated || count > 0">
+      <tr class="row" v-for="item in table">
+        <td class="col-sm-2">{{ item.origin }}</td>
+        <td class="col-sm-8"><a v-bind:href="item.link" target="_blank">{{ item.title }}</a></td>
+        <td class="col-sm-2">{{ item.count }}</td>
+      </tr>
+    </tbody>
+    <tbody v-else>
+      <tr>
+        <td colspan="4" class="text-center"><i>Không có bài nộp nào.</i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+<script src="database.js"></script>
+<script src="app.js"></script>
+
+
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js"></script>
+    </body>
+</html>
