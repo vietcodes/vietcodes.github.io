@@ -64,6 +64,10 @@
 <li class="toc-entry toc-h2"><a href="#định-nghĩa">Định nghĩa</a></li>
 <li class="toc-entry toc-h2"><a href="#thao-tác-thêm">Thao tác thêm</a></li>
 <li class="toc-entry toc-h2"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
+<li class="toc-entry toc-h2"><a href="#thao-tác-xóa">Thao tác xóa</a></li>
+<li class="toc-entry toc-h3"><a href="#nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</a></li>
+<li class="toc-entry toc-h3"><a href="#nút-cần-xóa-có-1-nút-con">Nút cần xóa có 1 nút con</a></li>
+<li class="toc-entry toc-h3"><a href="#nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</a></li>
 </ul>
         </div>
         <p>Cây nhị phân tìm kiếm là một cấu trúc thường được sử dụng trong tin học. Điển hình là các kiểu dữ
@@ -210,7 +214,33 @@ hoặc trả về nút hiện tại tùy thuộc vào kết quả so sánh lớn
 
 <p>Việc khử đệ quy hàm trên khá dễ, bạn đọc có thể tự tìm hiểu.</p>
 
-<p>Còn tiếp…</p>
+<h2 id="thao-tác-xóa">Thao tác xóa</h2>
+
+<p>Xóa một nút phức tạp hơn so với việc thêm và tìm kiếm. Ta có 3 trường hợp:</p>
+
+<h3 id="nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</h3>
+
+<p>Ở trường hợp này, chỉ đơn giản là xóa đi nút đó, không làm gì thêm.</p>
+<h3 id="nút-cần-xóa-có-1-nút-con">Nút cần xóa có 1 nút con</h3>
+<p>Ở trường hợp này, ta thay nút cần xóa bằng nút con của nó.</p>
+
+<p>Ví dụ:</p>
+
+<p><img src="img/bst-3.png" alt="Remove" /></p>
+
+<h3 id="nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</h3>
+
+<p>Ở trường hợp này, ta tìm nút thay thế cho nút cần xóa, sau đó chuyển khóa của
+nút thay thế lên nút cần xóa, rồi cuối cùng mới xóa nút thay thế.</p>
+
+<p>Ví dụ:</p>
+
+<p><img src="img/bst-4.png" alt="Remove" /></p>
+
+<p>Ta thấy, nút thay thế phải là 1 trong 2 nút có khóa gần nhất với nút cần xóa, để
+việc chuyển khóa lên trên không vi phạm tính chất của cây.</p>
+
+<p>Khi xóa nút thay thế, cũng phải xét xem nó có bao nhiêu nút con như khi xóa một nút bình thường.</p>
 
         </div>
 </div>
