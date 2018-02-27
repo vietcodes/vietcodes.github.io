@@ -59,113 +59,158 @@
         <div class="well toc">
           <p><b>Contents</b></p>
           <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#cây-cây-nhị-phân">Cây, cây nhị phân</a></li>
+<li class="toc-entry toc-h1"><a href="#cây-nhị-phân">Cây nhị phân</a></li>
 <li class="toc-entry toc-h1"><a href="#cây-nhị-phân-tìm-kiếm">Cây nhị phân tìm kiếm</a></li>
 <li class="toc-entry toc-h2"><a href="#định-nghĩa">Định nghĩa</a></li>
-<li class="toc-entry toc-h2"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
 <li class="toc-entry toc-h2"><a href="#thao-tác-thêm">Thao tác thêm</a></li>
+<li class="toc-entry toc-h2"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
 </ul>
         </div>
-        <h1 id="cây-cây-nhị-phân">Cây, cây nhị phân</h1>
+        <p>Cây nhị phân tìm kiếm là một cấu trúc thường được sử dụng trong tin học. Điển hình là các kiểu dữ
+liệu <a href="http://www.cplusplus.com/reference/set/set/" target="_blank">set</a> và <a href="http://www.cplusplus.com/reference/map/map/" target="_blank">map</a>
+của C++ được cài đặt bằng cây nhị phân tìm kiếm. Bài viết này sẽ cung cấp những kiến thức cơ bản
+về cây nhị phân tìm kiếm và cách cài đặt một cây nhị phân tìm kiếm đơn giản (không hiệu quả).</p>
 
-<p>Nhắc lại định nghĩa về cây:</p>
+<p>Cách cài đặt trong bài này không được sử dụng trong thực tế tuy nhiên sẽ là nền tảng để nghiên cứu các
+cấu trúc cây nhị phân cao cấp hơn.</p>
 
-<ul>
-  <li>Cây là một đồ thị có hướng.</li>
-  <li>Nếu có cạnh từ <script type="math/tex">u</script> đến <script type="math/tex">v</script> thì ta nói <script type="math/tex">u</script> là cha của <script type="math/tex">v</script>, và <script type="math/tex">v</script> là con của <script type="math/tex">u</script>.</li>
-  <li>Cây có một đỉnh duy nhất không có cha, gọi là gốc của cây.</li>
-  <li>Mỗi đỉnh khác gốc có duy nhất một cha</li>
-  <li>Mỗi đỉnh có thể có hoặc không có con.</li>
-  <li>Các đỉnh không có con gọi là nút lá.</li>
-</ul>
+<h1 id="cây-nhị-phân">Cây nhị phân</h1>
 
-<p>Đối với cây nhị phân, số con của mỗi đỉnh không quá 2. Để cho tiện, ta gọi 2 con
-đó lần lượt là con bên trái và con bên phải. Cây con với gốc là đỉnh con bên trái
-gọi là cây con bên trái, tương tự với cây con bên phải.</p>
+<p>Cây nhị phân gồm nhiều nút, mỗi nút có nhiều nhất là 2 nút con, gọi là <strong>nút con trái</strong>
+và <strong>nút con phải</strong>. Các nút không có nút con nào gọi là <strong>nút lá</strong>.</p>
+
+<p>Ngoài ra, mỗi nút đều có duy nhất một nút cha, trừ <strong>nút gốc</strong> của cây không có cha.</p>
+
+<p>Mỗi nút có thể chứa thêm thông tin, gọi là <strong>khóa</strong>. Khóa của nút thường là một số nguyên, tuy nhiên
+có thể là bất cứ kiểu dữ liệu nào.</p>
+
+<p>Sau đây là ví dụ một cây nhị phân với khóa là các số nguyên:</p>
+
+<p><img src="img/bst-1.png" alt="example" /></p>
+
+<p>Ngoài ra, nếu cắt một nhánh của cây ta sẽ được một <strong>cây con</strong>:</p>
+
+<p><img src="img/bst-2.png" alt="sub-tree" /></p>
 
 <h1 id="cây-nhị-phân-tìm-kiếm">Cây nhị phân tìm kiếm</h1>
 
 <h2 id="định-nghĩa">Định nghĩa</h2>
 
-<p>Với cây nhị phân tìm kiếm, mỗi đỉnh có thêm một thuộc tính là khóa. Khóa của
-các đỉnh thỏa tính chất sau:</p>
+<p>Với cây nhị phân tìm kiếm, khóa của các đỉnh thỏa tính chất sau:</p>
 
 <ul>
   <li>Khóa của các đỉnh không trùng lặp, mỗi đỉnh có một khóa khác với tất cả các đỉnh
 còn lại.</li>
-  <li>Với mỗi đỉnh, khóa của tất cả các đỉnh trong cây con bên trái nhỏ hơn khóa của
+  <li>Với mỗi đỉnh, khóa của tất cả các đỉnh trong cây con bên <strong>trái nhỏ hơn</strong> khóa của
 đỉnh đó.</li>
-  <li>Với mỗi đỉnh, khóa của tất cả các đỉnh trong cây con bên phải lớn hơn khóa của
+  <li>Với mỗi đỉnh, khóa của tất cả các đỉnh trong cây con bên <strong>phải lớn hơn</strong> khóa của
 đỉnh đó.</li>
 </ul>
 
-<p>Trong thực tế khóa của đỉnh thường là một số nguyên. Tuy nhiên nó có thể là bất
-cứ kiểu dữ liệu nào mà có thể so sánh được.</p>
+<p>Khóa của đỉnh phải là một kiểu dữ liệu có thể so sánh được.</p>
 
-<p>Ví dụ một cây nhị phân tìm kiếm:</p>
+<p>Ví dụ một cây nhị phân tìm kiếm với khóa là số nguyên:</p>
 
 <p><img src="img/bst-0.png" alt="bst" /></p>
 
-<h2 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h2>
+<p>Khi cài đặt, ta cần một kiểu dữ liệu để lưu nút của cây:</p>
 
-<p>Cho sẵn một cây nhị phân, thao tác này sẽ duyệt cây để tìm một nút có khóa là K. Cài đặt mã giả như sau:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>function FindKey(root, K)
-    if root == NIL
-        return NIL
-    if K &gt; root.key
-        return FindKey(root.rightChild, K)
-    if K &lt; root.key
-        return FindKey(root.leftChild, K)
-    return root
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
+    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span><span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span> 
 </code></pre>
 </div>
 
-<p>Giải thích:</p>
-
+<p>Trong đó:</p>
 <ul>
-  <li>Nếu nút đang xét là nút rỗng thì trả về nút rỗng, ý là không tìm được nút nào có khóa K</li>
-  <li>Nếu khóa của nút đang xét bằng K thì trả về nút đang xét, qúa trình tìm kiếm thành công</li>
-  <li>Nếu K bé hơn khóa của nút đang xét, ta thấy nếu tồn tại một nút có khóa bằng K thì nó phải nằm
-ở cây con bên trái, vì vậy ta gọi đệ quy để tìm ở nút con trái</li>
-  <li>Tương tự với trường hợp K lớn hơn khóa của nút đang xét</li>
+  <li><code class="highlighter-rouge">left</code> là con trỏ đến nút con bên trái</li>
+  <li><code class="highlighter-rouge">right</code> là con trỏ đến nút con bên phải</li>
+  <li><code class="highlighter-rouge">key</code> là khóa của nút</li>
 </ul>
 
-<p>Ta thấy, có thể dễ dàng khử đệ quy quá trình trên:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>function FindKey(root, K)
-    while root != NIL
-        if K &lt; root.key
-            root = root.leftChild
-        else if K &gt; root.key
-            root = root.rightChild
-        else
-            break
-    return root
-</code></pre>
-</div>
+<p>Để cho thuận tiện, ta thêm một constructor cho kiểu dữ liệu vừa tạo.</p>
 
 <h2 id="thao-tác-thêm">Thao tác thêm</h2>
 
-<p>Hàm sau thêm một nút có khóa là K:</p>
+<p>Phần này sẽ trình bày thao tác thêm một nút có khóa <code class="highlighter-rouge">K</code> vào cây nhị phân tìm kiếm.
+Vì các khóa trong cây phải khác nhau nên nếu <code class="highlighter-rouge">K</code> đã tồn tại trên cây thì sẽ không có nút
+nào được thêm vào.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function InsertKey(root, K)
-    if root == NIL
-        return NewNode(K)
-    if K &gt; root.key
-        root.rightChild = InsertKey(root.rightChild, K)
-    if K &lt; root.key
-        root.leftChild = InsertKey(root.leftChild, K)
-    return root
+<p>Việc thêm một khóa được thực hiện một cách đệ quy:</p>
 
-// Một lời gọi mẫu
-root = InsertKey(root, 0)
+<ul>
+  <li>Nếu vị trí đang xét chưa tồn tại nút nào thì ta tạo tại đó một nút mới với khóa là khóa cần thêm.</li>
+  <li>Ngược lại, khi nút đang xét đã tồn tại thì có 3 trường hợp:
+    <ul>
+      <li>Khóa của nút đang xét bằng <code class="highlighter-rouge">K</code>, trong trường hợp này ta dừng, không thêm nữa.</li>
+      <li>Khóa của nút đang xét lớn hơn <code class="highlighter-rouge">K</code>, ta thấy nút cần thêm phải nằm trong cây con bên phải của nút
+  đang xét, vì vậy ta gọi đệ quy xuống cây con bên phải.</li>
+      <li>Khóa của nút đang xét nhỏ hơn <code class="highlighter-rouge">K</code>, ta gọi đệ quy xuống cây con bên trái.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Với quy trình như trên, nút mới luôn là nút lá. Cài đặt trong C++ như sau:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">Node</span><span class="o">*</span> <span class="nf">insert</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">node</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
-<p>Giải thích cũng tương tự như ở thao tác tìm kiếm.</p>
+<p>Ví dụ sử dụng hàm trên:</p>
 
-<p><strong>Còn tiếp…</strong></p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Chú ý khi gọi hàm, cần gán lại nút gốc như trên.</p>
+
+<h2 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h2>
+
+<p>Phần này trình bày thao tác tìm một nút có khóa bằng <code class="highlighter-rouge">K</code> trên cây. Trong trường hợp
+không tìm thấy, trả về <code class="highlighter-rouge">NULL</code>.</p>
+
+<p>Thao tác tìm kiếm cũng được thực hiện đệ quy tương tự như trên. Cụ thể:</p>
+
+<ul>
+  <li>Nếu vị trí đang xét chưa có nút nào, trả về <code class="highlighter-rouge">NULL</code> với ý nghĩa là không tìm thấy.</li>
+  <li>Ngược lại, ta so sánh <code class="highlighter-rouge">K</code> với khóa của nút đang xét, sau đó đệ quy sang trái/phải
+hoặc trả về nút hiện tại tùy thuộc vào kết quả so sánh lớn hơn/bé hơn hoặc bằng.</li>
+</ul>
+
+<p>Cài đặt của thao tác này đơn giản hơn:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">Node</span><span class="o">*</span> <span class="nf">find</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">node</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Việc khử đệ quy hàm trên khá dễ, bạn đọc có thể tự tìm hiểu.</p>
+
+<p>Còn tiếp…</p>
 
         </div>
 </div>
