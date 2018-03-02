@@ -59,15 +59,16 @@
         <div class="well toc">
           <p><b>Contents</b></p>
           <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#cây-nhị-phân">Cây nhị phân</a></li>
-<li class="toc-entry toc-h1"><a href="#cây-nhị-phân-tìm-kiếm">Cây nhị phân tìm kiếm</a></li>
-<li class="toc-entry toc-h2"><a href="#định-nghĩa">Định nghĩa</a></li>
-<li class="toc-entry toc-h2"><a href="#thao-tác-thêm">Thao tác thêm</a></li>
-<li class="toc-entry toc-h2"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
-<li class="toc-entry toc-h2"><a href="#thao-tác-xóa">Thao tác xóa</a></li>
-<li class="toc-entry toc-h3"><a href="#nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</a></li>
+<li class="toc-entry toc-h1"><a href="#sơ-lược-về-cây-nhị-phân">Sơ lược về cây nhị phân</a></li>
+<li class="toc-entry toc-h1"><a href="#định-nghĩa-cây-nhị-phân-tìm-kiếm">Định nghĩa cây nhị phân tìm kiếm</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-thêm">Thao tác thêm</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-xóa">Thao tác xóa</a></li>
+<li class="toc-entry toc-h2"><a href="#nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</a></li>
 <li class="toc-entry toc-h3"><a href="#nút-cần-xóa-có-1-nút-con">Nút cần xóa có 1 nút con</a></li>
-<li class="toc-entry toc-h3"><a href="#nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</a></li>
+<li class="toc-entry toc-h2"><a href="#nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt">Cài đặt</a></li>
+<li class="toc-entry toc-h1"><a href="#độ-phức-tạp">Độ phức tạp</a></li>
 </ul>
         </div>
         <p>Cây nhị phân tìm kiếm là một cấu trúc thường được sử dụng trong tin học. Điển hình là các kiểu dữ
@@ -78,7 +79,7 @@ về cây nhị phân tìm kiếm và cách cài đặt một cây nhị phân t
 <p>Cách cài đặt trong bài này không được sử dụng trong thực tế tuy nhiên sẽ là nền tảng để nghiên cứu các
 cấu trúc cây nhị phân cao cấp hơn.</p>
 
-<h1 id="cây-nhị-phân">Cây nhị phân</h1>
+<h1 id="sơ-lược-về-cây-nhị-phân">Sơ lược về cây nhị phân</h1>
 
 <p>Cây nhị phân gồm nhiều nút, mỗi nút có nhiều nhất là 2 nút con, gọi là <strong>nút con trái</strong>
 và <strong>nút con phải</strong>. Các nút không có nút con nào gọi là <strong>nút lá</strong>.</p>
@@ -96,9 +97,7 @@ có thể là bất cứ kiểu dữ liệu nào.</p>
 
 <p><img src="img/bst-2.png" alt="sub-tree" /></p>
 
-<h1 id="cây-nhị-phân-tìm-kiếm">Cây nhị phân tìm kiếm</h1>
-
-<h2 id="định-nghĩa">Định nghĩa</h2>
+<h1 id="định-nghĩa-cây-nhị-phân-tìm-kiếm">Định nghĩa cây nhị phân tìm kiếm</h1>
 
 <p>Với cây nhị phân tìm kiếm, khóa của các đỉnh thỏa tính chất sau:</p>
 
@@ -136,7 +135,7 @@ còn lại.</li>
 
 <p>Để cho thuận tiện, ta thêm một constructor cho kiểu dữ liệu vừa tạo.</p>
 
-<h2 id="thao-tác-thêm">Thao tác thêm</h2>
+<h1 id="thao-tác-thêm">Thao tác thêm</h1>
 
 <p>Phần này sẽ trình bày thao tác thêm một nút có khóa <code class="highlighter-rouge">K</code> vào cây nhị phân tìm kiếm.
 Vì các khóa trong cây phải khác nhau nên nếu <code class="highlighter-rouge">K</code> đã tồn tại trên cây thì sẽ không có nút
@@ -185,7 +184,7 @@ nào được thêm vào.</p>
 
 <p>Chú ý khi gọi hàm, cần gán lại nút gốc như trên.</p>
 
-<h2 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h2>
+<h1 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h1>
 
 <p>Phần này trình bày thao tác tìm một nút có khóa bằng <code class="highlighter-rouge">K</code> trên cây. Trong trường hợp
 không tìm thấy, trả về <code class="highlighter-rouge">NULL</code>.</p>
@@ -214,11 +213,11 @@ hoặc trả về nút hiện tại tùy thuộc vào kết quả so sánh lớn
 
 <p>Việc khử đệ quy hàm trên khá dễ, bạn đọc có thể tự tìm hiểu.</p>
 
-<h2 id="thao-tác-xóa">Thao tác xóa</h2>
+<h1 id="thao-tác-xóa">Thao tác xóa</h1>
 
 <p>Xóa một nút phức tạp hơn so với việc thêm và tìm kiếm. Ta có 3 trường hợp:</p>
 
-<h3 id="nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</h3>
+<h2 id="nút-cần-xóa-không-có-nút-con-nào">Nút cần xóa không có nút con nào</h2>
 
 <p>Ở trường hợp này, chỉ đơn giản là xóa đi nút đó, không làm gì thêm.</p>
 <h3 id="nút-cần-xóa-có-1-nút-con">Nút cần xóa có 1 nút con</h3>
@@ -228,7 +227,7 @@ hoặc trả về nút hiện tại tùy thuộc vào kết quả so sánh lớn
 
 <p><img src="img/bst-3.png" alt="Remove" /></p>
 
-<h3 id="nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</h3>
+<h2 id="nút-cần-xóa-có-2-nút-con">Nút cần xóa có 2 nút con</h2>
 
 <p>Ở trường hợp này, ta tìm nút thay thế cho nút cần xóa, sau đó chuyển khóa của
 nút thay thế lên nút cần xóa, rồi cuối cùng mới xóa nút thay thế.</p>
@@ -241,6 +240,55 @@ nút thay thế lên nút cần xóa, rồi cuối cùng mới xóa nút thay th
 việc chuyển khóa lên trên không vi phạm tính chất của cây.</p>
 
 <p>Khi xóa nút thay thế, cũng phải xét xem nó có bao nhiêu nút con như khi xóa một nút bình thường.</p>
+
+<h2 id="cài-đặt">Cài đặt</h2>
+
+<p>Cài đặt trong C++:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">Node</span> <span class="o">*</span><span class="nf">find_remove</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Tìm nút thay thế
+</span>            <span class="n">Node</span> <span class="o">*</span><span class="n">successor</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">successor</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+                <span class="n">successor</span> <span class="o">=</span> <span class="n">successor</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+
+            <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="n">successor</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">;</span>
+            <span class="n">find_remove</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">successor</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">find_remove</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">find_remove</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Khi gọi hàm, tương tự như khi thêm nút, ta cũng phải gán:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">root</span> <span class="o">=</span> <span class="n">find_remove</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<h1 id="độ-phức-tạp">Độ phức tạp</h1>
+
+<p>Độ phức tạp của các thao tác trên tùy thuộc vào độ cao của cây khi truy vấn.
+Với dữ liệu ngẫu nhiên, cách cài đặt cây nhị phân trong bài này có độ phức tạp trung
+bình cho mỗi thao tác là <script type="math/tex">O(\log N)</script>, với <script type="math/tex">N</script> là số nút trên cây.</p>
+
+<p>Tuy nhiên, độ phức tạp trong trường hợp xấu nhất là <script type="math/tex">O(N)</script>, vì vậy cây này không
+được sử dụng trong thực tế.</p>
 
         </div>
 </div>

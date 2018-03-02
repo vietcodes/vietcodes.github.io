@@ -355,8 +355,7 @@ body {
   padding-bottom: 3em; }
 
 .content {
-  padding: 1.5em;
-  font-family: Arial, Helvetica; }
+  padding: 1.5em; }
   .content h2 {
     border-bottom: thin solid #aaa; }
   .content .content-title {
