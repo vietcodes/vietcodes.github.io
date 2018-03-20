@@ -120,10 +120,10 @@ còn lại.</li>
 <p>Khi cài đặt, ta cần một kiểu dữ liệu để lưu nút của cây:</p>
 
 <div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
-    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span><span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{}</span>
-<span class="p">};</span> 
+    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
 </code></pre>
 </div>
 
