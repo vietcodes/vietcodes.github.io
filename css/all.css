@@ -15,7 +15,7 @@
   .brand .op {
     color: #af5f00; }
 
-pre.highlight {
+pre, pre.highlight {
   background-color: #ffffff;
   color: #000000; }
 

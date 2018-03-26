@@ -76,10 +76,17 @@
 <li class="toc-entry toc-h1"><a href="#các-lệnh-điều-khiển">Các lệnh điều khiển</a></li>
 <li class="toc-entry toc-h2"><a href="#lệnh-nhảy">Lệnh nhảy</a></li>
 <li class="toc-entry toc-h2"><a href="#lệnh-rẽ-nhánh">Lệnh rẽ nhánh</a></li>
+<li class="toc-entry toc-h1"><a href="#thủ-tục-trong-hợp-ngữ">Thủ tục trong hợp ngữ</a></li>
+<li class="toc-entry toc-h2"><a href="#vị-trí-quay-về">Vị trí quay về</a></li>
+<li class="toc-entry toc-h2"><a href="#sp---bộ-nhớ-stack">$sp - Bộ nhớ stack</a></li>
+<li class="toc-entry toc-h2"><a href="#truyền-tham-số---giá-trị-trả-về">Truyền tham số - giá trị trả về</a></li>
+<li class="toc-entry toc-h1"><a href="#kham-khảo-thêm">Kham khảo thêm</a></li>
 </ul>
         </div>
         <p>Hợp ngữ (Assembly language) là ngôn ngữ có khả năng chuyển đổi 1-1 sang ngôn ngữ máy.
 Bài viết này sẽ trình bày hợp ngữ dành cho các dòng máy có kiến trúc MIPS.</p>
+
+<p>Để lập trình và chạy hợp ngữ MIPS, có thể dùng Mars: <a href="http://courses.missouristate.edu/KenVollmar/mars/" target="_blank">courses.missouristate.edu/KenVollmar/mars/</a></p>
 
 <h1 id="cisc-và-risc">CISC và RISC</h1>
 
@@ -508,6 +515,209 @@ j FOR
 END:
 </code></pre>
 </div>
+
+<h1 id="thủ-tục-trong-hợp-ngữ">Thủ tục trong hợp ngữ</h1>
+
+<p>Trong hợp ngữ, sử dụng thủ thục thực chất là nhảy đến đoạn code của thủ tục đó. Tuy nhiên có một số vấn đề phát sinh:</p>
+
+<ul>
+  <li>Làm thế nào để biết lệnh nào được thực thi sau khi kết thúc thủ tục?</li>
+  <li>Truyền các tham số vào thủ tục như thế nào?</li>
+  <li>Thanh ghi nào để lưu giá trị trả về?</li>
+  <li>Quản lý việc sử dụng thanh ghi giữa các thủ tục như thế nào? Vì thủ tục được gọi có thể thay đổi các thanh ghi
+được dùng trong thủ tục gọi.</li>
+</ul>
+
+<p>MIPS giải quyết các vấn đề này bằng một số quy ước, khi lập trình ta nên tuân thủ theo các quy ước này để code có
+tính tái sử dụng cao và hạn chế sai lầm từ người lập trình.</p>
+
+<h2 id="vị-trí-quay-về">Vị trí quay về</h2>
+
+<p>Ví dụ đoạn code C sau được dịch sang hợp ngữ ở dưới:</p>
+
+<div class="row"><div class="col-md-6">
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">die</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">man</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">die</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+</div><div class="col-md-6">
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">die:
+    nor <span class="nv">$s0</span>, <span class="nv">$0</span>, <span class="nv">$0</span>
+    j L1
+
+man:
+    j die
+    L1:
+    or <span class="nv">$s0</span>, <span class="nv">$0</span>, <span class="nv">$0</span></code></pre></figure>
+
+</div></div>
+
+<p>Sau khi thực hiện xong hàm <code class="highlighter-rouge">die</code> thì chương trình sẽ nhảy về L1 để tiếp tục thực
+thi hàm <code class="highlighter-rouge">man</code>. Nhưng chuyện xảy ra nếu có một hàm khác cũng gọi <code class="highlighter-rouge">die</code>:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">woman</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">die</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mh">0x0000ffff</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Ta thấy nếu hàm <code class="highlighter-rouge">woman</code> gọi <code class="highlighter-rouge">die</code> thì địa chỉ nhảy về sẽ khác với khi <code class="highlighter-rouge">woman</code> gọi <code class="highlighter-rouge">die</code>.</p>
+
+<p>Để giải quyết vấn đề này, MIPS cung cấp lệnh <code class="highlighter-rouge">jal</code> (jump and link). <code class="highlighter-rouge">jal</code> sẽ gán giá trị
+thanh ghi <code class="highlighter-rouge">$ra</code> bằng với địa chỉ của lệnh tiếp theo trước khi thực hiện nhảy. Như vậy, sau khi
+thực hiện xong, hàm được gọi chỉ cần <code class="highlighter-rouge">jr $ra</code> để nhảy về đúng lệnh cần nhảy:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>die:
+    nor <span class="nv">$s0</span>, <span class="nv">$0</span>, <span class="nv">$0</span>
+    jr <span class="nv">$ra</span>
+
+man:
+    jal die
+    or <span class="nv">$s0</span>, <span class="nv">$0</span>, <span class="nv">$0</span>
+
+woman:
+    jal die
+    lui <span class="nv">$t0</span>, 0x0000
+    ori <span class="nv">$s0</span>, <span class="nv">$t0</span>, 0xffff
+</code></pre>
+</div>
+
+<h2 id="sp---bộ-nhớ-stack">$sp - Bộ nhớ stack</h2>
+
+<p>Giả sử có 3 hàm gọi nhau, sử dụng <code class="highlighter-rouge">$ra</code> như trên:</p>
+
+<div class="row"><div class="col-md-6">
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">baz</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">bar</span><span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+</div><div class="col-md-6">
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">baz:
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 0
+    jr <span class="nv">$ra</span>
+bar:
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 1
+    jal baz
+    slt <span class="nv">$s1</span>, <span class="nv">$0</span>, <span class="nv">$s0</span>
+    jr <span class="nv">$ra</span>
+foo:
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 2
+    jal bar
+    jr <span class="nv">$ra</span></code></pre></figure>
+
+</div></div>
+
+<p>Ta thấy ngay 2 vấn đề:</p>
+<ul>
+  <li>Thanh ghi <code class="highlighter-rouge">$ra</code> sẽ bị thay đổi khi <code class="highlighter-rouge">bar</code> gọi <code class="highlighter-rouge">baz</code>, vì vậy sau đó <code class="highlighter-rouge">bar</code> sẽ không trả về đúng địa chỉ nữa.</li>
+  <li>Thanh ghi <code class="highlighter-rouge">$s0</code> bị thay đổi trong hàm khác, vì thế code sẽ không chạy đúng như mong muốn nữa.</li>
+</ul>
+
+<p>Để giải quyết vấn đề này, MIPS đưa ra một số thỏa hiệp giữa hàm gọi (caller - R) và hàm được gọi (callee - E):</p>
+<ul>
+  <li>Đối với các thanh ghi <code class="highlighter-rouge">$s0</code> - <code class="highlighter-rouge">$s7</code> và <code class="highlighter-rouge">$sp</code>, E phải khôi phục lại đúng giá trị ban đầu sau khi thực thi xong.</li>
+  <li>Đối với các thanh ghi khác: <code class="highlighter-rouge">$t</code>, <code class="highlighter-rouge">$v</code>, <code class="highlighter-rouge">$a</code>, <code class="highlighter-rouge">$ra</code>, E có quyền thay đổi giá trị các thanh ghi này, vì vậy R có trách nhiệm
+sao lưu và khôi phục lại các thanh ghi này trước và sau khi gọi E (nếu cần sử dụng).</li>
+</ul>
+
+<p>Để quản lý sao lưu / khôi phục các thanh ghi như yêu cầu ở trên, ta dùng bộ nhớ stack.</p>
+
+<p>Trong MIPS, thanh ghi <code class="highlighter-rouge">$sp</code> có giá trị trỏ tới đỉnh stack. Ở đầu hàm, ta lưu các biến cần sao lưu vào stack, sau đó
+ở cuối hàm, ta khôi phục lại các biến đó. Viết lại đoạn chương trình trên như sau:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>baz:
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, -4 <span class="c"># Mở rộng stack để sử dụng</span>
+    sw <span class="nv">$s0</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>    <span class="c"># Lưu $s0 vào stack</span>
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 0    <span class="c"># Thay đổi $s0</span>
+    lw <span class="nv">$s0</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>    <span class="c"># Khôi phục lại $s0 như ban đầu</span>
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, 4  <span class="c"># Khôi phục lại $sp</span>
+    jr <span class="nv">$ra</span>
+
+bar:
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, -12 <span class="c"># Vì có 3 thanh ghi cần lưu nên ta mở rộng stack 12 bytes</span>
+    sw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Lưu $ra</span>
+    sw <span class="nv">$s0</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Lưu $s0</span>
+    sw <span class="nv">$s1</span>, 8<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Lưu $s1</span>
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 1     <span class="c"># Thay đổi $s0</span>
+    jal baz            <span class="c"># Gọi baz, $ra bị thay đổi</span>
+    slt <span class="nv">$s1</span>, <span class="nv">$0</span>, <span class="nv">$s0</span>   <span class="c"># Thay đổi $s1</span>
+    lw <span class="nv">$s1</span>, 8<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Khôi phục $s1</span>
+    lw <span class="nv">$s0</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Khôi phục $s0</span>
+    lw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>     <span class="c"># Khôi phục $ra</span>
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, 12  <span class="c"># Khôi phục $sp</span>
+    jr <span class="nv">$ra</span>
+
+foo:
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, -8
+    sw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    sw <span class="nv">$s0</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    ori <span class="nv">$s0</span>, <span class="nv">$0</span>, 2
+    jal bar
+    lw <span class="nv">$s0</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    lw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, 8
+    jr <span class="nv">$ra</span>
+</code></pre>
+</div>
+
+<h2 id="truyền-tham-số---giá-trị-trả-về">Truyền tham số - giá trị trả về</h2>
+
+<p>4 thanh ghi <code class="highlighter-rouge">$a0</code> đến <code class="highlighter-rouge">$a3</code> được quy ước dùng riêng cho các tham số truyền vào. Và 2 thanh ghi <code class="highlighter-rouge">$v0</code>, <code class="highlighter-rouge">$v1</code> được dùng cho
+giá trị trả về. Ví dụ:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">sub</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">sub</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sub:
+    sub <span class="nv">$v0</span>, <span class="nv">$a0</span>, <span class="nv">$a1</span>
+    jr <span class="nv">$ra</span>
+
+calc:
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, -8
+    sw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    sw <span class="nv">$a1</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>    <span class="c"># Lưu lại $a1 vì ta cần dùng nó sau khi gọi hàm sub</span>
+
+    or <span class="nv">$t0</span>, <span class="nv">$0</span>, <span class="nv">$a0</span>   <span class="c">#</span>
+    or <span class="nv">$a0</span>, <span class="nv">$0</span>, <span class="nv">$a1</span>   <span class="c"># Hoán đổi giá trị $a0 và $a1, dùng biến tạm $t0</span>
+    or <span class="nv">$a1</span>, <span class="nv">$0</span>, <span class="nv">$t0</span>   <span class="c">#</span>
+
+    jal sub
+    lw <span class="nv">$a1</span>, 4<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>    <span class="c"># Khôi phục lại $a1</span>
+    add <span class="nv">$v0</span>, <span class="nv">$v0</span>, <span class="nv">$a1</span>
+    lw <span class="nv">$ra</span>, 0<span class="o">(</span><span class="nv">$sp</span><span class="o">)</span>
+    addi <span class="nv">$sp</span>, <span class="nv">$sp</span>, 8
+    jr <span class="nv">$ra</span>
+</code></pre>
+</div>
+
+<h1 id="kham-khảo-thêm">Kham khảo thêm</h1>
+<ul>
+  <li>https://en.wikibooks.org/wiki/MIPS_Assembly</li>
+</ul>
 
         </div>
 </div>
