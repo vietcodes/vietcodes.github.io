@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title> Hợp ngữ MIPS - VietCodes </title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/all.css">
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script>
+
+        
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+        
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-112397632-1');
+</script>
+    </head>
+    <body>
+        <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>];
+</p>
+
+        <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2911647956237293" data-ad-slot="4249876710" data-ad-format="auto"></ins>
+<script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+
+
+      <div class="panel window" id="content">
+  <div class="panel-heading">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Hợp ngữ MIPS</span>
+  </div>
+  <div class="panel-body content">
+
+        <p class="content-title">Hợp ngữ MIPS</p>
+        <div class="well toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#cisc-và-risc">CISC và RISC</a></li>
+<li class="toc-entry toc-h1"><a href="#thanh-ghi">Thanh ghi</a></li>
+<li class="toc-entry toc-h1"><a href="#các-cấu-trúc-lệnh-của-mips">Các cấu trúc lệnh của MIPS</a></li>
+<li class="toc-entry toc-h2"><a href="#r-format">R-format</a></li>
+<li class="toc-entry toc-h2"><a href="#i-format">I-format</a></li>
+<li class="toc-entry toc-h2"><a href="#j-format">J-format</a></li>
+<li class="toc-entry toc-h1"><a href="#các-lệnh-tính-toán">Các lệnh tính toán</a></li>
+<li class="toc-entry toc-h2"><a href="#lệnh-cộng-và-trừ">Lệnh cộng và trừ</a></li>
+<li class="toc-entry toc-h2"><a href="#các-lệnh-tính-toán-logic">Các lệnh tính toán logic</a></li>
+<li class="toc-entry toc-h2"><a href="#tính-toán-với-các-hằng-số-32-bit">Tính toán với các hằng số 32 bit</a></li>
+<li class="toc-entry toc-h2"><a href="#lệnh-dịch">Lệnh dịch</a></li>
+<li class="toc-entry toc-h1"><a href="#các-lệnh-thao-tác-bộ-nhớ">Các lệnh thao tác bộ nhớ</a></li>
+<li class="toc-entry toc-h2"><a href="#mô-hình-bộ-nhớ-của-mips">Mô hình bộ nhớ của MIPS</a></li>
+<li class="toc-entry toc-h2"><a href="#lệnh-loadstore">Lệnh load/store</a></li>
+<li class="toc-entry toc-h1"><a href="#các-lệnh-điều-khiển">Các lệnh điều khiển</a></li>
+<li class="toc-entry toc-h2"><a href="#lệnh-nhảy">Lệnh nhảy</a></li>
+<li class="toc-entry toc-h2"><a href="#lệnh-rẽ-nhánh">Lệnh rẽ nhánh</a></li>
+</ul>
+        </div>
+        <p>Hợp ngữ (Assembly language) là ngôn ngữ có khả năng chuyển đổi 1-1 sang ngôn ngữ máy.
+Bài viết này sẽ trình bày hợp ngữ dành cho các dòng máy có kiến trúc MIPS.</p>
+
+<h1 id="cisc-và-risc">CISC và RISC</h1>
+
+<p>Hợp ngữ và kiến trúc máy tính được chi làm 2 loại: CICS và RISC.
+Đại diện tiêu biểu cho CISC là x86 - được sử dụng trên các máy tính cá nhân và server.
+Đại diện cho RISC là ARM và MIPS. ARM được sử dụng trong các thiết bị di động và MIPS
+được sử dụng trong một số siêu máy tính, và các thiết bị như router, Nintendo 64, Sony Playstation 2.</p>
+
+<p>Khác biệt giữa CISC và RISC:</p>
+
+<p>CISC là Complex insrtuction set computer và RICS là Reduced instruction set computer.
+Hợp ngữ của CISC rất phức tạp và ngược lại RISC thì đơn giản hơn, vì vậy các máy CISC tiêu
+tốn điện năng nhiều hơn các máy RISC.</p>
+
+<p>Các bạn có thể đọc thêm về so sánh CISC và RISC ở đây:
+<a href="https://cs.stanford.edu/people/eroberts/courses/soco/projects/risc/risccisc/" target="_blank">cs.stanford.edu/people/eroberts/courses/soco/projects/risc/risccisc/</a></p>
+
+<h1 id="thanh-ghi">Thanh ghi</h1>
+
+<p>MIPS có tổng cộng 32 thanh ghi (register) để lưu giá trị, được đánh số từ 0 đến 31.
+Để truy cập và thao tác trên một thanh ghi, ta dùng cú pháp <code class="highlighter-rouge">$</code> + số thứ tự thanh ghi. Ví dụ: <code class="highlighter-rouge">$0</code>, <code class="highlighter-rouge">$1</code>, <code class="highlighter-rouge">$10</code>,…</p>
+
+<p>Ngoài ra, MIPS có quy ước mục đích sử dụng của mỗi thanh ghi, khi lập trình nên tuân thủ các quy ước này.
+Vì thế, người ta thường truy cập thanh ghi thông qua tên của chúng:</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Tên</th>
+      <th>Thanh ghi</th>
+      <th>Ý nghĩa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$zero</td>
+      <td>0</td>
+      <td>Thanh ghi này luôn chứa giá trị 0</td>
+    </tr>
+    <tr>
+      <td>$at</td>
+      <td>1</td>
+      <td>Assembler Temporary - Được dành riêng cho các mục đích khác, khi viết hạn chế dùng thanh ghi này</td>
+    </tr>
+    <tr>
+      <td>$v0, $v1</td>
+      <td>2, 3</td>
+      <td>Lưu giá trị trả về của hàm</td>
+    </tr>
+    <tr>
+      <td>$a0 - $a3</td>
+      <td>4 - 7</td>
+      <td>Lưu tham số truyền vào của hàm</td>
+    </tr>
+    <tr>
+      <td>$t0 - $t7</td>
+      <td>8 - 15</td>
+      <td>Lưu biến tạm</td>
+    </tr>
+    <tr>
+      <td>$s0 - $s7</td>
+      <td>16 - 23</td>
+      <td>Lưu biến</td>
+    </tr>
+    <tr>
+      <td>$t8, $t9</td>
+      <td>24, 25</td>
+      <td>Như các $t ở trên</td>
+    </tr>
+    <tr>
+      <td>$k0, $k1</td>
+      <td>26, 27</td>
+      <td>Được dùng cho nhân HĐH sử dụng</td>
+    </tr>
+    <tr>
+      <td>$gp</td>
+      <td>28</td>
+      <td>Pointer to global area</td>
+    </tr>
+    <tr>
+      <td>$sp</td>
+      <td>29</td>
+      <td>Stack pointer</td>
+    </tr>
+    <tr>
+      <td>$fp</td>
+      <td>30</td>
+      <td>Frame pointer</td>
+    </tr>
+    <tr>
+      <td>$ra</td>
+      <td>31</td>
+      <td>Return address, sử dụng cho việc gọi hàm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>MIPS có tư tưởng <strong>register-to-register</strong> - <strong>load/store</strong>, nghĩa là các lệnh đều thao tác trên thanh ghi. Khi cần sử dụng bộ nhớ, ta
+sẽ có các lệnh riêng để nạp dữ liệu từ bộ nhớ vào thanh ghi.</p>
+
+<p>Mỗi thanh ghi lưu trữ một giá trị 32-bit. Không như khái niệm biến ngôn ngữ lập trình cấp cao, thanh ghi trong hợp ngữ không có kiểu
+dữ liệu, cách ta sử dụng thanh ghi sẽ quyết định kiểu dữ liệu là gì.</p>
+
+<h1 id="các-cấu-trúc-lệnh-của-mips">Các cấu trúc lệnh của MIPS</h1>
+
+<p>Phần này trình bày cấu trúc của các lệnh hợp ngữ khi được dịch sang ngôn ngữ máy.
+Mỗi lệnh trong MIPS đều có độ dài là 32 bit.</p>
+
+<p>Có thể xem mỗi lệnh như một hàm trong ngôn ngữ lập trình. Vì vậy, ta cần có tên lệnh, các tham số truyền vào
+và kiểu của các tham số truyền vào - trong trường hợp này là kích thước của mỗi tham số truyền vào
+(vì không có khái niệm kiểu dữ liệu trong hợp ngữ).</p>
+
+<p>MIPS chú trọng tính đơn giản của tập lệnh, vì vậy chỉ có 3 kiểu lệnh chính: R-format, I-format, J-format.</p>
+
+<h2 id="r-format">R-format</h2>
+
+<p>R-format có 6 tham số:</p>
+
+<table class="table table-bordered" style="width: auto;">
+  <thead>
+    <tr>
+      <th>Tên tham số</th>
+      <th>op</th>
+      <th>rs</th>
+      <th>rt</th>
+      <th>rd</th>
+      <th>shamt</th>
+      <th>funct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Độ dài (bit)</td>
+      <td>6</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Giải thích:</p>
+<ul>
+  <li>op: opcode, trường này sẽ cho máy biết lệnh này là lệnh nào. Trong trường hợp R-format thì các lệnh đều dùng chung opcode là 0.</li>
+  <li>rs, rt: source register và destination register, 2 thanh ghi cần thực hiện tính toán.</li>
+  <li>rd: register destination, thanh ghi lưu kết quả của lệnh.</li>
+  <li>shamt: shift amount, số bit cần dịch trong lệnh dịch trái và dịch phải.</li>
+  <li>funct: Vì các lệnh R-format đều có chung opcode bằng 0 nên ta thêm trường này để cho máy biết cần thực hiện lệnh nào.</li>
+</ul>
+
+<h2 id="i-format">I-format</h2>
+
+<p>Lệnh I-format dùng cho thao tác giữa thanh ghi và một hằng số được lưu sẵn trong lệnh. Cấu trúc như sau:</p>
+
+<table class="table table-bordered" style="width: auto;">
+  <thead>
+    <tr>
+      <th>Tên tham số</th>
+      <th>op</th>
+      <th>rs</th>
+      <th>rt</th>
+      <th>immediate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Độ dài (bit)</td>
+      <td>6</td>
+      <td>5</td>
+      <td>5</td>
+      <td>16</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Giải thích:</p>
+<ul>
+  <li>op: opcode, cho máy biết đây là lệnh gì. Vì I-format không có trường <code class="highlighter-rouge">funct</code>
+nên các lệnh I-format không dùng chung opcode như các lệnh R-format.</li>
+  <li>rs, rt: source register và target register.</li>
+  <li>immediate: Một giá trị hằng số mà lệnh sử dụng.</li>
+</ul>
+
+<h2 id="j-format">J-format</h2>
+
+<p>J-format dành cho các lệnh nhảy (<code class="highlighter-rouge">goto</code> trong C), có cấu trúc:</p>
+
+<table class="table table-bordered" style="width: auto;">
+  <thead>
+    <tr>
+      <th>Tên tham số</th>
+      <th>op</th>
+      <th>target address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Độ dài (bit)</td>
+      <td>6</td>
+      <td>26</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Giải thích:</p>
+<ul>
+  <li>op: opcode, cho máy biết đây là lệnh gì.</li>
+  <li>target address: Địa chỉ rút gọn của lệnh cần nhảy đến, địa chỉ gốc có 32 bit, ta rút gọn 6 bit như sau:
+    <ul>
+      <li>Xóa 2 bit thấp nhất của địa chỉ. Vì địa chỉ của các lệnh trong MIPS luôn chia hết cho 4 nên 2 bit thấp nhất luôn bằng 0.</li>
+      <li>4 bit cao nhất xem như bằng với 4 bit cao nhất của lệnh hiện tại.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="các-lệnh-tính-toán">Các lệnh tính toán</h1>
+
+<h2 id="lệnh-cộng-và-trừ">Lệnh cộng và trừ</h2>
+
+<p>4 lệnh <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">sub</code>, <code class="highlighter-rouge">addu</code>, <code class="highlighter-rouge">subu</code> dùng để cộng/trừ giá trị của 2 thanh ghi, và lưu kết quả vào thanh ghi đích. Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;tên lệnh&gt; &lt;thanh ghi đích&gt;, &lt;thanh ghi 1&gt;, &lt;thanh ghi 2&gt;
+</code></pre>
+</div>
+
+<p>2 lệnh <code class="highlighter-rouge">addi</code>, <code class="highlighter-rouge">addiu</code> dùng để cộng một thanh ghi với 1 hằng số, rồi lưu vào thanh ghi đích. Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;tên lệnh&gt; &lt;thanh ghi đích&gt;, &lt;thanh ghi&gt;, &lt;hằng số&gt;
+</code></pre>
+</div>
+
+<p>Ví dụ:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>add <span class="nv">$s0</span>, <span class="nv">$s1</span>, <span class="nv">$s2</span> <span class="c"># $s0 = $s1 + $s2</span>
+sub <span class="nv">$s0</span>, <span class="nv">$s1</span>, <span class="nv">$s2</span> <span class="c"># $s0 = $s1 - $s2 </span>
+addi <span class="nv">$s0</span>, <span class="nv">$s0</span>, 123 <span class="c"># $s0 = $s0 + 123</span>
+addi <span class="nv">$s0</span>, <span class="nv">$s2</span>, -123 <span class="c"># $s0 = $s2 - 123</span>
+</code></pre>
+</div>
+
+<p>Khác biệt giữa <code class="highlighter-rouge">addu</code> và <code class="highlighter-rouge">add</code>: <code class="highlighter-rouge">add</code> sẽ báo lỗi khi có tràn số, còn <code class="highlighter-rouge">addu</code> thì không.
+Tương tự với các lệnh có <code class="highlighter-rouge">u</code> và không có <code class="highlighter-rouge">u</code> khác.</p>
+
+<h2 id="các-lệnh-tính-toán-logic">Các lệnh tính toán logic</h2>
+
+<p>Có 3 lệnh: <code class="highlighter-rouge">and</code>, <code class="highlighter-rouge">or</code>, <code class="highlighter-rouge">nor</code>. NOR là thao tác “NOT OR”: <code class="highlighter-rouge">A nor B = not (A or B)</code>.
+Cú pháp của 3 lệnh này tương tự như lệnh <code class="highlighter-rouge">add</code> ở trên.</p>
+
+<p>Tương tự, ta cũng có lệnh <code class="highlighter-rouge">andi</code> và <code class="highlighter-rouge">ori</code> để tính AND/OR của một thanh ghi với một
+hằng số.</p>
+
+<p>Các phép toán logic khác có thể được tính từ 3 phép trên:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>not A = A nor 0
+A xor B = (A or B) and (not A or not B) = (A and not B) or (not A and B)
+</code></pre>
+</div>
+
+<h2 id="tính-toán-với-các-hằng-số-32-bit">Tính toán với các hằng số 32 bit</h2>
+
+<p>Dễ thấy các lệnh thao tác với hằng số ở trên đều có giới hạn 16 bit cho hằng số.
+Để giải quyết vấn đề này, MIPS cung cấp lệnh <code class="highlighter-rouge">lui</code> (load upper immediate) với chức
+năng ghi một hằng số 16-bit vào 2 byte cao của thanh ghi, 2 byte thấp sẽ được gán bằng 0.</p>
+
+<p>Ví dụ, ta cần cộng <code class="highlighter-rouge">$s0</code> cho giá trị <code class="highlighter-rouge">0x12345678</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>lui <span class="nv">$t0</span>, 0x1234
+ori <span class="nv">$t0</span>, <span class="nv">$t0</span>, 0x5678
+add <span class="nv">$s0</span>, <span class="nv">$s0</span>, <span class="nv">$t0</span>
+</code></pre>
+</div>
+
+<h2 id="lệnh-dịch">Lệnh dịch</h2>
+
+<p>2 lệnh <code class="highlighter-rouge">sll</code> và <code class="highlighter-rouge">srl</code> dùng để dịch trái và dịch phải. Đây là dịch logic, các giá trị
+trống sau khi dịch luôn là 0.</p>
+
+<p>Cú pháp tương tự như <code class="highlighter-rouge">addi</code> ở trên, tuy nhiên số bit cần dịch luôn là một số không âm
+từ 0 đến 31.</p>
+
+<h1 id="các-lệnh-thao-tác-bộ-nhớ">Các lệnh thao tác bộ nhớ</h1>
+
+<h2 id="mô-hình-bộ-nhớ-của-mips">Mô hình bộ nhớ của MIPS</h2>
+
+<p>Khi cần tính toán với các giá trị được lưu trên RAM, ta phải nạp giá trị lên thanh ghi trước khi tính,
+sau đó lưu lại kết quả vào RAM (nếu cần).</p>
+
+<p>Đơn vị nhớ nhỏ nhất mà MIPS có thể xử lý là byte (8 bit). MIPS cung cấp các lệng load/store với các kích thước
+1, 2 và 4 byte. Tuy nhiên có quy tắc Alignment Restriction sau: “Địa chỉ vùng nhớ cần truy cập phải chia hết cho kích thước cần truy cập”.
+Ví dụ, đọc 4 byte bắt đầu từ ô nhớ có địa chỉ 10 là không hợp lệ.</p>
+
+<p>Ngoài ra, MIPS lưu trữ dữ liệu theo dạng Big Endian, tức là byte cao sẽ được lưu ở địa chỉ thấp. Ví dụ, số
+12345678h (thập lục phân) khi được lưu trong bộ nhớ thì byte đầu tiên sẽ là 12h, byte tiếp theo là 34,…</p>
+
+<h2 id="lệnh-loadstore">Lệnh load/store</h2>
+
+<p>Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tên lệnh r1, offset(r2)
+</code></pre>
+</div>
+
+<p>Trong đó:</p>
+<ul>
+  <li>r1: thanh ghi cần nạp dữ liệu vào / lấy dữ liệu ra.</li>
+  <li>r2: thanh ghi lưu địa chỉ gốc.</li>
+  <li>offset: hằng số nguyên (16 bit), giá trị này sẽ được cộng với giá trị của r2 để được
+địa chỉ cần nạp vào / lấy ra.</li>
+</ul>
+
+<p>Tên các lệnh:</p>
+<ul>
+  <li><code class="highlighter-rouge">lw</code> (load word), <code class="highlighter-rouge">lh</code> (load halfword), <code class="highlighter-rouge">lb</code> (load byte): Đọc 4/2/1 byte. Đối với <code class="highlighter-rouge">lh</code> và <code class="highlighter-rouge">lb</code>,
+vì thanh ghi có độ dài 4 byte, nhiều hơn lượng dữ liệu đọc được nên các bit trống sẽ được gán bằng bit
+dấu của số đọc được.</li>
+  <li><code class="highlighter-rouge">lhu</code> (load halfword unsigned), <code class="highlighter-rouge">lbu</code> (load byte unsigned): tương tự như trên, tuy nhiên các bit trống được
+gán bằng 0.</li>
+  <li><code class="highlighter-rouge">sw</code> (store word), <code class="highlighter-rouge">sh</code> (store halfword), <code class="highlighter-rouge">sb</code> (store byte): lưu 4/2/1 byte dữ liệu trong thanh ghi vào bộ nhớ.</li>
+</ul>
+
+<p>Ví dụ, ta có một mảng <code class="highlighter-rouge">int *x</code> được lưu trong <code class="highlighter-rouge">$s0</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>lw <span class="nv">$s1</span>, 0<span class="o">(</span><span class="nv">$s0</span><span class="o">)</span> <span class="c"># $s1 = *x</span>
+lw <span class="nv">$s1</span>, 4<span class="o">(</span><span class="nv">$s0</span><span class="o">)</span> <span class="c"># $s1 = x[1]</span>
+sw <span class="nv">$s1</span>, 8<span class="o">(</span><span class="nv">$s0</span><span class="o">)</span> <span class="c"># x[2] = $s1</span>
+</code></pre>
+</div>
+
+<p>Một số lưu ý:</p>
+<ul>
+  <li>Các lệnh trên đều phải tuân theo quy tắc Alignment Restriction ở trên.</li>
+  <li>Đối với <code class="highlighter-rouge">sh</code> và <code class="highlighter-rouge">sb</code> sẽ lưu các byte thấp trong thanh ghi vào bộ nhớ.</li>
+  <li>Dữ liệu trong thanh ghi và bộ nhớ đều tuân theo quy tắc Big Endian.</li>
+</ul>
+
+<h1 id="các-lệnh-điều-khiển">Các lệnh điều khiển</h1>
+
+<p>Khi chương trình được thực thi, máy sẽ nạp chương trình lên bộ nhớ, đồng thời có một thanh ghi dành riêng để
+lưu địa chỉ của lệnh đang được thực thi, đây gọi là thanh ghi PC (program counter). Mỗi lần thực hiện xong một
+lệnh, mặc định PC sẽ được tự động tăng lên để chuyển sang lệnh tiếp theo.</p>
+
+<p>Công việc của các lệnh điều khiển như nhảy, rẽ nhánh là gán lại địa chỉ của thanh ghi PC, để chương trình chuyển
+sang một đoạn khác.</p>
+
+<h2 id="lệnh-nhảy">Lệnh nhảy</h2>
+
+<p>Lệnh nhảy tương tự như <code class="highlighter-rouge">goto</code> trong C, có 2 lệnh nhảy là <code class="highlighter-rouge">j</code> và <code class="highlighter-rouge">jr</code>, ngoài ra còn có <code class="highlighter-rouge">jal</code> nhưng ta sẽ tìm hiểu lệnh
+này sau.</p>
+
+<p>Cú pháp lệnh <code class="highlighter-rouge">j</code>:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>j &lt;đỉa chỉ cần nhảy tới hoặc nhãn&gt;
+</code></pre>
+</div>
+
+<p>Thông thường, khi viết hợp ngữ ta chỉ cần dùng nhãn, trình dịch hợp ngữ sẽ tự chuyển đổi sang địa chỉ, ví dụ:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>loop:
+    addi <span class="nv">$s0</span>, <span class="nv">$s0</span>, 1
+    j loop
+</code></pre>
+</div>
+
+<p>Đoạn chương trình tên là một vòng lặp vô hạn.</p>
+
+<p><code class="highlighter-rouge">jr</code> cũng tương tự như <code class="highlighter-rouge">j</code>, tuy nhiên ta đọc địa chỉ lệnh cần nhảy đến trong một thanh ghi. Ví dụ:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>jr <span class="nv">$ra</span>
+</code></pre>
+</div>
+
+<p>Cách hoạt động của lệnh nhảy:</p>
+
+<ul>
+  <li>Lệnh <code class="highlighter-rouge">jr</code> sẽ gán PC bằng với thanh ghi được chỉ định</li>
+  <li>Ở lệnh <code class="highlighter-rouge">j</code> vì, tham số truyền vào chỉ có 26 bit, mà PC lại có đến 32 bit nên ta tính lại PC như sau:
+<code class="highlighter-rouge">PC = (PC &amp; 0xf0000000) | (imm &lt;&lt; 2)</code>, với <code class="highlighter-rouge">imm</code> là tham số truyền vào.</li>
+</ul>
+
+<h2 id="lệnh-rẽ-nhánh">Lệnh rẽ nhánh</h2>
+
+<p>Lệnh rẽ nhánh sẽ thực hiện 2 thao tác: so sánh và nhảy khi thỏa điều kiện.</p>
+
+<p>Có 2 lệnh rẽ nhánh là <code class="highlighter-rouge">beq</code> (branch if equal) và <code class="highlighter-rouge">bne</code> (branch if not equal). Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;Tên lệnh&gt; &lt;thanh ghi 1&gt;, &lt;thanh ghi 2&gt;, &lt;địa chỉ hoặc nhãn&gt;
+</code></pre>
+</div>
+
+<p>Lệnh <code class="highlighter-rouge">beq</code> sẽ so sánh giá trị trong 2 thanh ghi, nếu bằng nhau thì nhảy đến nhãn chỉ định. Lệnh <code class="highlighter-rouge">bne</code> thì
+ngược lại, nhảy khi 2 giá trị khác nhau. Khi không nhảy, chương trình sẽ thực hiện lệnh tiếp theo.</p>
+
+<p>Địa chỉ truyền vào là địa chỉ tương đối và có dấu, PC sẽ được tính lại như sau:
+<code class="highlighter-rouge">PC = PC + 4 + imm</code>, với <code class="highlighter-rouge">imm</code> là địa chỉ truyền vào.</p>
+
+<p>Để so sánh lớn hơn/bé hơn, MIPS đưa thêm lệnh <code class="highlighter-rouge">slt</code> (set on less than). Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>slt rt, rs, rd
+</code></pre>
+</div>
+
+<p>Với rt, rs, rd là các thanh ghi. Lệnh này sẽ gán <code class="highlighter-rouge">rt</code> bằng 1 khi <code class="highlighter-rouge">rs &lt; rd</code>, bằng 0 trong trường hợp ngược lại.</p>
+
+<p>So sánh trong lệnh trên là so sánh có dấu (bù 2). Để so sánh không dấu, MIPS hỗ trợ lệnh <code class="highlighter-rouge">stlu</code>, cách dùng tương
+tự như trên.</p>
+
+<p>Ngoài ra, cũng có lệnh để so sánh với một hằng số, là <code class="highlighter-rouge">slti</code> và <code class="highlighter-rouge">sltiu</code>. Cú pháp tương tự như các lệnh tính toán
+với hằng số ở trên.</p>
+
+<p>Kết hợp các lệnh đã tìm hiểu, ta có thể dịch đoạn chương trình C sau sang hợp ngữ MIPS:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>addi <span class="nv">$s0</span>, <span class="nv">$0</span>, 1000 <span class="c"># n = 1000</span>
+addi <span class="nv">$s1</span>, <span class="nv">$0</span>, 0    <span class="c"># s = 0</span>
+addi <span class="nv">$s2</span>, <span class="nv">$0</span>, 1    <span class="c"># i = 1</span>
+FOR:
+slt <span class="nv">$t0</span>, <span class="nv">$s2</span>, <span class="nv">$s0</span>  <span class="c"># $t0 = i &lt; n?</span>
+bne <span class="nv">$t0</span>, <span class="nv">$0</span>, END   <span class="c"># if !(i &lt; n) goto END</span>
+add <span class="nv">$s1</span>, <span class="nv">$s1</span>, <span class="nv">$s2</span>  <span class="c"># s = s + i</span>
+addi <span class="nv">$s2</span>, <span class="nv">$s2</span>, 1   <span class="c"># i = i + 1</span>
+j FOR
+END:
+</code></pre>
+</div>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="panel window" id="">
+  <div class="panel-heading">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="panel-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/mips";
+    this.page.identifier = "https://vietcodes.github.io/algo/mips";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+        <script src="/js/all.js"></script>
+    </body>
+</html>
