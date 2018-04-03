@@ -301,13 +301,15 @@ pre code {
   white-space: pre; }
 
 pre {
-  border-radius: 0; }
+  border-radius: 0;
+  border: 1px solid #ccc;
+  padding: 0.8em; }
 
 .window {
   border: 0;
   box-shadow: 2px 2px 6px black;
   margin-bottom: 0.5em; }
-  .window .panel-heading {
+  .window .window-header {
     background: -moz-linear-gradient(top, #686661 0%, #3d3c38 100%);
     /* FF3.6-15 */
     background: -webkit-linear-gradient(top, #686661 0%, #3d3c38 100%);
@@ -318,22 +320,22 @@ pre {
     padding: 0.45em;
     color: white;
     font-weight: bold; }
-    .window .panel-heading .title {
+    .window .window-header .title {
       margin-left: 5px; }
-    .window .panel-heading .btn-close:hover, .window .panel-heading .btn-minimize:hover, .window .panel-heading .btn-maximize:hover {
+    .window .window-header .btn-close:hover, .window .window-header .btn-minimize:hover, .window .window-header .btn-maximize:hover {
       display: inline-block;
       box-sizing: border-box;
       width: 19px;
       height: 19px;
       padding-left: 19px;
       cursor: pointer; }
-    .window .panel-heading .btn-close:hover {
+    .window .window-header .btn-close:hover {
       background: url(/img/close_focused_prelight.svg) no-repeat; }
-    .window .panel-heading .btn-minimize:hover {
+    .window .window-header .btn-minimize:hover {
       background: url(/img/minimize_focused_prelight.svg) no-repeat; }
-    .window .panel-heading .btn-maximize:hover {
+    .window .window-header .btn-maximize:hover {
       background: url(/img/maximize_focused_prelight.svg) no-repeat; }
-  .window .panel-body {
+  .window .window-body {
     padding-top: 1em; }
 
 .page-footer {

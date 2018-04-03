@@ -8,7 +8,7 @@
         <title> Hợp ngữ MIPS - VietCodes </title>
         <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/css/all.css">
         
@@ -48,15 +48,15 @@
 <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
 
 
-      <div class="panel window" id="content">
-  <div class="panel-heading">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
     <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
     <span class="title">Hợp ngữ MIPS</span>
   </div>
-  <div class="panel-body content">
+  <div class="card-body window-body content">
 
         <p class="content-title">Hợp ngữ MIPS</p>
-        <div class="well toc">
+        <div class="card card-body bg-light toc">
           <p><b>Contents</b></p>
           <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#cisc-và-risc">CISC và RISC</a></li>
@@ -569,7 +569,7 @@ thi hàm <code class="highlighter-rouge">man</code>. Nhưng chuyện xảy ra n�
 </code></pre>
 </div>
 
-<p>Ta thấy nếu hàm <code class="highlighter-rouge">woman</code> gọi <code class="highlighter-rouge">die</code> thì địa chỉ nhảy về sẽ khác với khi <code class="highlighter-rouge">woman</code> gọi <code class="highlighter-rouge">die</code>.</p>
+<p>Ta thấy nếu hàm <code class="highlighter-rouge">woman</code> gọi <code class="highlighter-rouge">die</code> thì địa chỉ nhảy về sẽ khác với khi <code class="highlighter-rouge">man</code> gọi <code class="highlighter-rouge">die</code>.</p>
 
 <p>Để giải quyết vấn đề này, MIPS cung cấp lệnh <code class="highlighter-rouge">jal</code> (jump and link). <code class="highlighter-rouge">jal</code> sẽ gán giá trị
 thanh ghi <code class="highlighter-rouge">$ra</code> bằng với địa chỉ của lệnh tiếp theo trước khi thực hiện nhảy. Như vậy, sau khi
@@ -725,12 +725,12 @@ calc:
 
       <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
 <div class="hide" id="disqus-window">
-  <div class="panel window" id="">
-  <div class="panel-heading">
+  <div class="card window" id="">
+  <div class="card-header window-header">
     <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
     <span class="title">Comments</span>
   </div>
-  <div class="panel-body content">
+  <div class="card-body window-body content">
 
   <div id="disqus_thread"></div>
     </div>
