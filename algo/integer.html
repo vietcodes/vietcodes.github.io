@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Kiểu số nguyên trên máy tính - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Kiểu số nguyên trên máy tính</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Kiểu số nguyên trên máy tính</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#nhắc-lại-về-hệ-cơ-số">Nhắc lại về hệ cơ số</a></li>
+<li class="toc-entry toc-h1"><a href="#hệ-nhị-phân">Hệ nhị phân</a></li>
+<li class="toc-entry toc-h1"><a href="#các-cách-biểu-diễn-số-âm">Các cách biểu diễn số âm</a></li>
+<li class="toc-entry toc-h2"><a href="#số-lượng-dấu">Số lượng dấu</a></li>
+<li class="toc-entry toc-h2"><a href="#số-bù-1">Số bù 1</a></li>
+<li class="toc-entry toc-h2"><a href="#số-bù-2">Số bù 2</a></li>
+<li class="toc-entry toc-h2"><a href="#số-bias">Số bias</a></li>
+<li class="toc-entry toc-h1"><a href="#các-phép-toán-trên-hệ-nhị-phân-và-ứng-dụng">Các phép toán trên hệ nhị phân và ứng dụng</a></li>
+<li class="toc-entry toc-h2"><a href="#dịch-trái">Dịch trái</a></li>
+<li class="toc-entry toc-h2"><a href="#dịch-phải">Dịch phải</a></li>
+<li class="toc-entry toc-h2"><a href="#not">NOT</a></li>
+<li class="toc-entry toc-h3"><a href="#tính-số-đối">Tính số đối</a></li>
+<li class="toc-entry toc-h3"><a href="#tính-x1">Tính x+1</a></li>
+<li class="toc-entry toc-h2"><a href="#and">AND</a></li>
+<li class="toc-entry toc-h3"><a href="#giới-thiệu-bảng-chân-trị">Giới thiệu bảng chân trị</a></li>
+<li class="toc-entry toc-h3"><a href="#tính-mod-số-dư">Tính MOD (số dư)</a></li>
+<li class="toc-entry toc-h3"><a href="#lấy-giá-trị-của-bit">Lấy giá trị của bit</a></li>
+<li class="toc-entry toc-h3"><a href="#tắt-bit-tại-vị-trí-bất-kì">Tắt bit tại vị trí bất kì</a></li>
+<li class="toc-entry toc-h3"><a href="#tìm-bit-thấp-nhất-khác-0">Tìm bit thấp nhất khác 0</a></li>
+<li class="toc-entry toc-h3"><a href="#duyệt-tất-cả-các-tập-con">Duyệt tất cả các tập con</a></li>
+<li class="toc-entry toc-h2"><a href="#or">OR</a></li>
+<li class="toc-entry toc-h3"><a href="#bật-bit">Bật bit</a></li>
+<li class="toc-entry toc-h2"><a href="#phép-xor">Phép XOR</a></li>
+<li class="toc-entry toc-h3"><a href="#gán-một-số-bằng-0">Gán một số bằng 0</a></li>
+<li class="toc-entry toc-h3"><a href="#đảo-bit-tại-một-vị-trí-bất-kì">Đảo bit tại một vị trí bất kì</a></li>
+<li class="toc-entry toc-h1"><a href="#kham-khảo-thêm">Kham khảo thêm</a></li>
+</ul>
+        </div>
+        <h1 id="nhắc-lại-về-hệ-cơ-số">Nhắc lại về hệ cơ số</h1>
+
+<p>Số <script type="math/tex">X</script> có biểu diễn là <script type="math/tex">x_{n-1}x_{n-2} \dots x_0</script> trong hệ cơ số <script type="math/tex">B</script>, kí hiệu là
+<script type="math/tex">(x_{n-1}x_{n-2} \dots x_0)_B</script>, thì <script type="math/tex">X</script> sẽ có giá trị:</p>
+
+<script type="math/tex; mode=display">X = x_{n-1}B^{n-1} + x_{n-2}B^{n-2} + \dots + X_0 B^0</script>
+
+<p>Ví dụ: <script type="math/tex">(100)_2 = (4)_{10}</script> (số 100 trong hệ 2 bằng với số 4 trong hệ 10).</p>
+
+<p>Các hệ cơ số thường được dùng là 2, 8, 10, 16.</p>
+
+<ul>
+  <li>Hệ nhị phân sử dụng các chữ số là 0 và 1</li>
+  <li>Hệ bát phân sử dụng các chữ số từ 0 đến 7</li>
+  <li>Hệ thập phân sử dụng các chữ số từ 0 đến 9</li>
+  <li>Hệ thập lục phân sử dụng các chữ số từ 0 đến 9 và các chữ cái từ A đến F</li>
+</ul>
+
+<p>Bạn có thể dùng tool chuyển đổi giữa các hệ cơ số ở <a href="/tools/numbase">/tools/numbase</a>.</p>
+
+<h1 id="hệ-nhị-phân">Hệ nhị phân</h1>
+
+<p>Trên máy tính, số nguyên được biểu diễn dưới dạng nhị phân, với số lượng chữ số cố
+định (fixed width integer). Ví dụ, kiểu dữ liệu <code class="highlighter-rouge">longint</code> trên pascal lưu số nhị phân có
+32 chữ số.</p>
+
+<p>Vì vậy, khả năng lưu của mỗi kiểu dữ liệu sẽ bị giới hạn. Ví dụ, số nguyên không dấu
+32 bit lưu được các số từ 0 đến <script type="math/tex">2^{32} - 1</script>, tương đương 4294967295.</p>
+
+<p>Ta có 2 khái niệm cần quan tâm:</p>
+
+<ul>
+  <li>MSB: MSB là viết tắt cho “most significant bit”, nghĩa là bit có giá trị nhất. Đây
+là bit trái nhất của số.</li>
+  <li>LSB: Là viết tắt của “least significant bit”, nghĩa là bit ít có giá trị nhất. Đây
+là bit phải nhất của số.</li>
+</ul>
+
+<h1 id="các-cách-biểu-diễn-số-âm">Các cách biểu diễn số âm</h1>
+
+<p>Ta cần một cách để biểu diễn số âm trong hệ nhị phân trên máy tính, cách được dùng hiện tại
+là số bù 2, tuy nhiên ta cũng sẽ lướt sơ qua những cách biểu diễn khác.</p>
+
+<h2 id="số-lượng-dấu">Số lượng dấu</h2>
+
+<p>Ở số lượng dấu, MSB được dùng làm bit lưu dấu, 0 là dương và 1 là âm, phần còn lại lưu giá
+trị của số. Ví dụ, -2 trong số nhị phân 8 bit sẽ có biểu diễn lượng dấu là <script type="math/tex">10000010</script>.</p>
+
+<p>Vấn đề của số lượng dấu là có 2 số 0 khác nhau: âm 0 và dương 0. Ngoài ra, các phép cộng trừ
+trên số lượng dấu cũng khá phức tạp vì phải xét dấu của số.</p>
+
+<h2 id="số-bù-1">Số bù 1</h2>
+
+<p>Ở số bù 1, số dương được biểu diễn bình thường, còn số âm sẽ được lấy bù, nghĩa là đảo các bit lại.
+Ví dụ, xét số 8 bit, số 1 có biểu diễn là <script type="math/tex">00000001</script>, nên -1 sẽ là <script type="math/tex">11111110</script>.</p>
+
+<p>Số bù 1 có lợi thế hơn số lượng dấu vì phép cộng trừ thực hiện bình thường không cần
+xét đến dấu của số, các số bị tràn ra sẽ được lược bỏ.</p>
+
+<p>Tuy nhiên, số bù 1 vẫn có vấn đề vì có 2 biểu diễn của số 0: <script type="math/tex">00000000</script> và <script type="math/tex">11111111</script>.
+Để khắc phục việc này, người ta phát sinh ra số bù 2.</p>
+
+<h2 id="số-bù-2">Số bù 2</h2>
+
+<p>Số âm của số bù 2 cũng được đảo bit lại (tương tự như số bù 1), sau đó cộng thêm 1 vào kết quả. Cụ thể,
+số 1 có biểu diễn <script type="math/tex">00000001</script>, sau khi đảo bit là <script type="math/tex">11111110</script>, ta tiếp tục cộng cho 1: <script type="math/tex">11111111</script>.
+Cuối cùng, biểu diễn của 1 trong số bù 2 (8 bit) là <script type="math/tex">11111111</script>.</p>
+
+<p>Như số lượng dấu và bù 1, số bù 2 cũng có số dương bắt đầu bằng 0, số âm bắt đầu bằng 1.</p>
+
+<p>Tính giá trị của số lượng dấu:</p>
+
+<script type="math/tex; mode=display">x_{n-1}x_{n-2} \dots x_1 x_0 = -x_{n-1} 2^{n-1} + x_{n-2} 2^{n-2} + \dots + x_1 2^1 + x_0 2^0</script>
+
+<p>Ví dụ: <script type="math/tex">11010110 = -2^7 + 2^6 + 2^4 + 2^2 + 2^1 = -42</script></p>
+
+<p>Phạm vi biểu diễn của số bù 2 n-bit là từ <script type="math/tex">-2^{n-1}</script> (tương đương <script type="math/tex">1000...00</script>) đến <script type="math/tex">2^{n-1}-1</script> (tương đương
+<script type="math/tex">0111...11</script>).</p>
+
+<p>Chuyển đổi kích thước số bù 2: Khi cần chuyển từ số bù 2 n-bit sang số bù 2 m-bit (ví dụ khi ép kiểu từ
+<code class="highlighter-rouge">int</code> sang <code class="highlighter-rouge">long long</code>), với <script type="math/tex">m > n</script> ta làm như sau:</p>
+
+<ul>
+  <li>Các bit từ <script type="math/tex">n+1</script> đến <script type="math/tex">m</script> sẽ mang giá trị của MSB, nói cách khác, các bit thấp sẽ được giữ nguyên,
+các bit mới sẽ mang giá trị của MSB.</li>
+</ul>
+
+<h2 id="số-bias">Số bias</h2>
+
+<p>Ngoài số bù 2, còn một kiểu nữa cũng được dùng trong máy tính là số bias. Số bias đơn giản là chọn một giá
+trị làm số 0, các biểu diễn nhỏ hơn sẽ là số âm, lớn hơn là số dương.</p>
+
+<p>Giá trị bias cho số n-bit là <script type="math/tex">2^{n-1} - 1</script>. Ví dụ với số bias 8-bit, số 0 sẽ có biểu diễn là <script type="math/tex">01111111</script>,
+số 1 là <script type="math/tex">10000000</script>, -1 là <script type="math/tex">01111110</script>.</p>
+
+<p>Số bias dùng để lưu phần mũ trong kiểu số chấm động trên máy tính.</p>
+
+<h1 id="các-phép-toán-trên-hệ-nhị-phân-và-ứng-dụng">Các phép toán trên hệ nhị phân và ứng dụng</h1>
+
+<p>Phần này đi qua các phép toán như AND <code class="highlighter-rouge">&amp;</code>, OR <code class="highlighter-rouge">|</code>, XOR <code class="highlighter-rouge">^</code>, NOT <code class="highlighter-rouge">~</code>, dịch trái <code class="highlighter-rouge">&lt;&lt;</code>, dịch phải <code class="highlighter-rouge">&gt;&gt;</code> trong C++.</p>
+
+<h2 id="dịch-trái">Dịch trái</h2>
+
+<p>Kí hiệu: <code class="highlighter-rouge">x &lt;&lt; k</code>. Ý nghĩa là dịch các bit của x sang trái k đơn vị. Các bit bị dư
+ra sẽ bị mất, các bit mới được gán bằng 0.</p>
+
+<p>Ví dụ đối với số nhị phân 8-bit:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>00000101 &lt;&lt; 2 = 00010100
+00001000 &lt;&lt; 4 = 10000000
+10100111 &lt;&lt; 3 = 00111000
+00000000 &lt;&lt; k = 00000000
+</code></pre>
+</div>
+
+<p>Một số điểm cần lưu ý:</p>
+<ul>
+  <li>Sử dụng dịch trái cho số âm là một việc làm nguy hiểm. Kể từ C++11, đây là Undefined Behavior.</li>
+  <li>Khi không xảy ra tràn số, dịch trái K bit tương đương với nhân cho <script type="math/tex">2^K</script>.</li>
+  <li>Dịch trái với số bit cần dịch quá lớn sẽ gây ra Undefined Behavior.
+Cụ thể, với kiểu số nguyên K bit thì số bit có thể dịch tối đa là K-1.</li>
+</ul>
+
+<h2 id="dịch-phải">Dịch phải</h2>
+
+<p>Dịch phải ngược lại với dịch trái, là dịch bit sang bên phải. Kí hiệu: <code class="highlighter-rouge">x &gt;&gt; k</code>.</p>
+
+<p>Có 2 loại dịch phải là logical và arithmetic. Phép dịch phải trong C++ thuộc loại
+arithmetic, các bit mới thêm vào ở phía bên trái sẽ được gán bằng bit dấu, gán bằng
+0 khi dịch với kiểu số không dấu. Ví dụ:</p>
+<ul>
+  <li>Với kiểu số có dấu 8-bit, <code class="highlighter-rouge">10000000 &gt;&gt; 2 = 11100000</code>.</li>
+  <li>Với kiểu số không dấu 8-bit, <code class="highlighter-rouge">10000000 &gt;&gt; 2 = 00100000</code>.</li>
+</ul>
+
+<p>Một số điểm cần lưu ý:</p>
+<ul>
+  <li>Không như dịch trái, dịch phải với số bit cần dịch lớn không gây Undefined Behavior.</li>
+  <li>Dịch phải K bit tương đương với chia cho <script type="math/tex">2^K</script> (làm tròn xuống). Cần chú ý việc làm tròn xuống,
+ví dụ <code class="highlighter-rouge">5 &gt;&gt; 1 = 2</code> nhưng <code class="highlighter-rouge">-5 &gt;&gt; 1 = -3</code>.</li>
+</ul>
+
+<h2 id="not">NOT</h2>
+
+<p>Phép NOT đảo từng bit của một số. Bit 0 sẽ thành 1 và 1 thành 0.</p>
+
+<p>Trong C++ có 2 loại NOT là <code class="highlighter-rouge">!</code> và <code class="highlighter-rouge">~</code>. Phép <code class="highlighter-rouge">!</code> xem đối số là kiểu <code class="highlighter-rouge">bool</code> (Đúng/Sai). Còn phép <code class="highlighter-rouge">~</code>
+sẽ đảo từng bit của đối số. Ví dụ, xét kiểu số nhị phân 8-bit:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>~00000010 (2) = 11111101 (-3 với kiểu có dấu; 253 với kiểu không dấu)
+</code></pre>
+</div>
+
+<h3 id="tính-số-đối">Tính số đối</h3>
+
+<p>Thay vì ghi <code class="highlighter-rouge">-x</code>, ta có thể thay bằng <code class="highlighter-rouge">~x + 1</code>.</p>
+
+<h3 id="tính-x1">Tính x+1</h3>
+
+<p>Trong các vòng lặp, ta thường ghi <code class="highlighter-rouge">i++</code>. Tuy nhiên để hack não người đọc, ta có thể thay bằng <code class="highlighter-rouge">i=-~i</code>.</p>
+
+<h2 id="and">AND</h2>
+
+<p>Về cơ bản, phép AND cho kết quả là 1 khi và chỉ khi cả 2 số hạng là 1. Nếu coi 0 là sai và 1 là đúng thì
+có thể hiểu phép AND là “A AND B đúng khi cả A và B đều đúng”.</p>
+
+<p>Trong C++ có 2 phép AND là <code class="highlighter-rouge">&amp;</code> và <code class="highlighter-rouge">&amp;&amp;</code>.</p>
+
+<p><code class="highlighter-rouge">&amp;&amp;</code> xem 2 số hạng là kiểu <code class="highlighter-rouge">bool</code> (đúng/sai), còn <code class="highlighter-rouge">&amp;</code> thực hiện tính toán
+trên từng bit của 2 số hạng:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>  110010 (50)
+&amp; 011010 (26)
+  ------
+  010010 (18)
+</code></pre>
+</div>
+<p>Như vậy ta có <code class="highlighter-rouge">50 &amp; 26 = 16</code>.</p>
+
+<p>Đối với số âm, vì trên máy tính biểu diễn số âm bằng kiểu bù 2 nên kết quả sẽ khác
+số dương:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>  11111110 (-2)
+&amp; 00000111 (7)
+  --------
+  00000110 (6)
+</code></pre>
+</div>
+<p>Như vậy ta có <code class="highlighter-rouge">-2 &amp; 7 = 6</code>.</p>
+
+<h3 id="giới-thiệu-bảng-chân-trị">Giới thiệu bảng chân trị</h3>
+
+<p>Bảng chân trị cho phép định nghĩa các phép toán logic. Bảng chân trị của phép AND là:</p>
+
+<table class="table table-bordered table-sm" style="width: auto">
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>A AND B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tính-mod-số-dư">Tính MOD (số dư)</h3>
+
+<p>Khi cần tính số dư khi chia cho M, với M là lũy thừa của 2 ta có thể thay <code class="highlighter-rouge">x % M</code> bằng
+<code class="highlighter-rouge">x &amp; (M-1)</code>. Ví dụ:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>x % 8 =&gt; x &amp; 7
+x % 4 =&gt; x &amp; 3
+x % 2 =&gt; x &amp; 1
+</code></pre>
+</div>
+<p>Trong máy tính, AND được thực hiện nhanh hơn rất nhiều so với phép MOD,
+ta nên dùng AND khi có thể.</p>
+
+<h3 id="lấy-giá-trị-của-bit">Lấy giá trị của bit</h3>
+
+<p>Xét một bit <code class="highlighter-rouge">x</code>, ta thấy <code class="highlighter-rouge">x AND 1 = x</code>. Từ nhận xét này, có thể dùng AND để lấy giá
+trị của bit bất kì trong một số. Ví dụ:</p>
+
+<ul>
+  <li>Lấy giá trị bit thứ k của x: <code class="highlighter-rouge">x &amp; (1 &lt;&lt; k)</code></li>
+  <li>Lấy giá trị 4 bit cuối cùng của x: <code class="highlighter-rouge">x &amp; 15</code></li>
+</ul>
+
+<h3 id="tắt-bit-tại-vị-trí-bất-kì">Tắt bit tại vị trí bất kì</h3>
+
+<p>Tắt bit có nghĩa là gán bit tại vị trí đó bằng 0. Ta thấy <code class="highlighter-rouge">x &amp; 0 = 0</code>, nên có thể
+dùng AND để tắt bit.</p>
+
+<p>Giả sử cần tắt bit K trong số X. Ta thực hiện AND X với số MASK thỏa:</p>
+<ul>
+  <li>Bit ở vị trí K bằng 0</li>
+  <li>Tất cả các bit còn lại bằng 1</li>
+</ul>
+
+<p>Ví dụ, để tắt bit thứ 0, dùng <code class="highlighter-rouge">x &amp; -2</code>.</p>
+
+<p>Kết hợp với phép NOT, ta có thể tạo ra MASK để tắt bit tại vị trí K: <code class="highlighter-rouge">X &amp; ~(1 &lt;&lt; K)</code></p>
+
+<h3 id="tìm-bit-thấp-nhất-khác-0">Tìm bit thấp nhất khác 0</h3>
+
+<p>Đây chính là thao tác cơ bản nhất của <a href="/algo/fenwick">cây Fenwick</a>.
+Để cho ngắn gọn ta kí hiệu “bit thấp nhất khác 0” của x là <code class="highlighter-rouge">F(x)</code>.</p>
+
+<p>Một số ví dụ:</p>
+<ul>
+  <li><code class="highlighter-rouge">F(100) = 4</code>, 100 có biểu diễn nhị phân là <code class="highlighter-rouge">1100100</code>, bit thấp nhất khác 0 là <code class="highlighter-rouge">100</code> có giá trị là 4.</li>
+  <li><code class="highlighter-rouge">F(64) = 64</code>, mở rộng hơn, <code class="highlighter-rouge">F(x) = x</code> khi x là lũy thừa của 2.</li>
+  <li><code class="highlighter-rouge">F(số lẻ) = 1</code>, do số lẻ luôn có bit thấp nhất = 1.</li>
+</ul>
+
+<p>Công thức: <code class="highlighter-rouge">F(x) = x &amp; -x</code></p>
+
+<p>Phép tính này tận dụng cách biểu diễn bù 2 để tính toán. Để hiểu rõ, bạn đọc nên tính tay trên giấy.</p>
+
+<h3 id="duyệt-tất-cả-các-tập-con">Duyệt tất cả các tập con</h3>
+
+<p>Trong các bài toán duyệt, ta thường dùng số nhị phân để biểu diễn việc chọn/không chọn một phần tử.
+Ví dụ, số 13 có biểu diễn nhị phân là <code class="highlighter-rouge">1101</code>, nên 13 đại diện cho một tập hợp chứa 3 số là 0, 2, 3.</p>
+
+<p>Làm thế nào khi ta cần xét tất cả các tập con của 13: <code class="highlighter-rouge">1100</code>, <code class="highlighter-rouge">1001</code>, <code class="highlighter-rouge">0101</code>, <code class="highlighter-rouge">0001</code>,…?</p>
+
+<p>Việc này được thực hiện nhanh bằng phép AND như sau:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;bitset&gt;
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Đoạn code ở trên dùng <a href="http://www.cplusplus.com/reference/bitset/bitset/" target="_blank">std::bitset</a> để in ra biểu diễn nhị phân của k.
+Có một điều lạ là cả <code class="highlighter-rouge">printf</code> và <code class="highlighter-rouge">cout</code> đều không hỗ trợ việc in ra biểu diễn nhị phân của số.</p>
+
+<h2 id="or">OR</h2>
+
+<p>OR cho kết quả là đúng khi có ít nhất 1 trong 2 số hạng là đúng. Bảng chân trị:</p>
+
+<table class="table table-bordered table-sm" style="width: auto">
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>A OR B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Kí hiệu phép OR trong C++: <code class="highlighter-rouge">x | y</code>. Tương tự với AND, C++ cũng có 2 loại OR là <code class="highlighter-rouge">|</code> và <code class="highlighter-rouge">||</code>.</p>
+
+<h3 id="bật-bit">Bật bit</h3>
+
+<p>Bật bit có nghĩa là gán bit tại vị trí đó bằng 1.</p>
+
+<p>Xét bit x, ta thấy <code class="highlighter-rouge">x OR 1 = 1</code> và <code class="highlighter-rouge">x OR 0 = x</code>. Vì vậy có thể dùng OR để bật bit bất kì lên.</p>
+
+<p>Để bật bit thứ K trong số X: <code class="highlighter-rouge">X | (1 &lt;&lt; K)</code></p>
+
+<h2 id="phép-xor">Phép XOR</h2>
+
+<p>XOR cho kết quả là đúng khi 2 số hạng là khác nhau. Bảng chân trị:</p>
+
+<table class="table table-bordered table-sm" style="width: auto">
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>A XOR B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Phép XOR trong C++: <code class="highlighter-rouge">x ^ y</code></p>
+
+<h3 id="gán-một-số-bằng-0">Gán một số bằng 0</h3>
+
+<p>Ta thấy <code class="highlighter-rouge">x XOR x = 0</code>, nên khi lập trình, thay vì ghi <code class="highlighter-rouge">x = 0</code>, ta có thể thay bằng <code class="highlighter-rouge">x = x ^ x</code>.</p>
+
+<p>Trong thực tế thì khi dịch ra mã máy, <code class="highlighter-rouge">x = 0</code> sẽ được trình dịch chuyển thành <code class="highlighter-rouge">x = x ^ x</code>.</p>
+
+<h3 id="đảo-bit-tại-một-vị-trí-bất-kì">Đảo bit tại một vị trí bất kì</h3>
+
+<p>Có nghĩa là nếu bit tại vị trí đó đang là 1 thì ta gán bằng 0, đang là 0 thì ta gán bằng 1.
+Cách làm hoàn toàn tương tự như việc bật/tắt bit ở trên.</p>
+
+<p>Ta thấy <code class="highlighter-rouge">x XOR 0 = 0</code> và <code class="highlighter-rouge">x XOR 1 = NOT x</code>, vì vậy để đảo bit tại vị trí K của số X, dùng: <code class="highlighter-rouge">X ^ (1 &lt;&lt; K)</code>.</p>
+
+<h1 id="kham-khảo-thêm">Kham khảo thêm</h1>
+
+<p>Bạn đọc có thể kham khảo thêm ứng dụng của các phép toán nhị phân ở:</p>
+
+<ul>
+  <li><a href="http://graphics.stanford.edu/~seander/bithacks.html" target="_blank">http://graphics.stanford.edu/~seander/bithacks.html</a></li>
+  <li><a href="http://bits.stephan-brumme.com/" target="_blank">http://bits.stephan-brumme.com/</a></li>
+</ul>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/integer";
+    this.page.identifier = "https://vietcodes.github.io/algo/integer";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
