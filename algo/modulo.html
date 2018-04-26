@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Toán đồng dư - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Toán đồng dư</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Toán đồng dư</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#định-nghĩa">Định nghĩa</a></li>
+<li class="toc-entry toc-h2"><a href="#phép-lấy-phần-dư">Phép lấy phần dư</a></li>
+<li class="toc-entry toc-h2"><a href="#đồng-dư">Đồng dư</a></li>
+<li class="toc-entry toc-h1"><a href="#phép-toán-trên-vành-modulo-và-một-số-tính-chất">Phép toán trên vành modulo và một số tính chất</a></li>
+<li class="toc-entry toc-h1"><a href="#ví-dụ-ứng-dụng-toán-đồng-dư">Ví dụ ứng dụng toán đồng dư</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+</ul>
+        </div>
+        <h1 id="định-nghĩa">Định nghĩa</h1>
+
+<h2 id="phép-lấy-phần-dư">Phép lấy phần dư</h2>
+<p>Xét <script type="math/tex">a, b \in \mathbb{Z}, b \neq 0</script>, kí hiệu <script type="math/tex">a \bmod b</script> là số dư khi chia <script type="math/tex">a</script> cho <script type="math/tex">b</script>.
+Ví dụ:
+<script type="math/tex">30 \bmod 7 = 2\\
+10 \bmod 2 = 0\\
+-12 \bmod 5 = 3</script>
+Ta thấy, <script type="math/tex">-12 \bmod 5</script> có thể có 2 kết quả là <script type="math/tex">-2</script> hoặc <script type="math/tex">3</script>. Thông thường, khi làm toán thì
+số dương được ưu tiên, tuy nhiên khi lập trình phép mod này sẽ cho kết quả âm.</p>
+
+<p>Định nghĩa một cách chuẩn mực, xét phép chia Euclide <script type="math/tex">a</script> cho <script type="math/tex">b</script>:
+<script type="math/tex">% <![CDATA[
+q \in \mathbb{Z}\\
+a = bq + r\\
+|r| < |b| %]]></script>
+Thì ta có <script type="math/tex">a \bmod b = r</script>.</p>
+
+<h2 id="đồng-dư">Đồng dư</h2>
+
+<p>Xét số nguyên <script type="math/tex">n > 1</script> và 2 số nguyên <script type="math/tex">a, b</script>, ta kí hiệu <script type="math/tex">a \equiv b \pmod n</script> khi <script type="math/tex">a</script> và <script type="math/tex">b</script>
+có cùng số dư khi chia cho <script type="math/tex">n</script>, đọc là <script type="math/tex">a</script> đồng dư với <script type="math/tex">b</script> modulo <script type="math/tex">n</script>.</p>
+
+<p>Ví dụ:
+<script type="math/tex">12 \equiv 7 \equiv 2 \pmod 5 \\
+-3 \equiv 2 \pmod 5</script></p>
+
+<p>Như vậy, <script type="math/tex">a \equiv b \pmod n \iff a \bmod n = b \bmod n</script>.</p>
+
+<p>Kí hiệu <script type="math/tex">\bar{a}_n</script> là tập hợp tất cả các số đồng dư với <script type="math/tex">a</script> trong modulo <script type="math/tex">n</script>:</p>
+
+<script type="math/tex; mode=display">\bar{a}_n = \{x \mid x \equiv a \pmod n \}</script>
+
+<p>Ta có vành <script type="math/tex">\mathbb{Z}/n</script> là tập hợp tất cả các <script type="math/tex">\bar{a}_n</script>:</p>
+
+<script type="math/tex; mode=display">\mathbb{Z}/n = \{\bar{a}_n \mid a \in \mathbb{Z}\}</script>
+
+<p>Ví dụ:
+<script type="math/tex">\bar{8}_5 = \bar{3}_5 = \{\dots,-7, -2, 3, 8, 13,\dots\}\\
+\mathbb{Z}/5 = \{\bar{0}_5, \bar{1}_5, \bar{2}_5, \bar{3}_5, \bar{4}_5\}</script></p>
+
+<p>Xem thêm về vành - <a href="https://en.wikipedia.org/wiki/Ring_(mathematics)" target="_blank">Ring</a>.</p>
+
+<h1 id="phép-toán-trên-vành-modulo-và-một-số-tính-chất">Phép toán trên vành modulo và một số tính chất</h1>
+
+<p>Phần này xét phép cộng và phép nhân. Phép cộng và phép nhân được định nghĩa thông qua
+lý thuyết vành:</p>
+
+<script type="math/tex; mode=display">\bar{a}_n + \bar{b}_n = \overline{a + b}_n\\
+\bar{a}_n - \bar{b}_n = \overline{a - b}_n\\
+\bar{a}_n \bar{b}_n = \overline{a b}_n</script>
+
+<p>Ví dụ:</p>
+
+<p><script type="math/tex">\bar{6}_{10} + \bar{8}_{10} = \overline{6 + 8}_{10} = \overline{14}_{10} = \bar{4}_{10}</script>. Ý nghĩa là: “số chia 10 dư 6” cộng cho “số chia 10 dư 8”
+sẽ cho kết quả là “số chia 10 dư 4”.</p>
+
+<p>Ta cũng có thể sử dụng kí hiệu đồng dư: <script type="math/tex">6 + 8 \equiv 14 \equiv 4 \pmod{10}</script></p>
+
+<p>Dấu <script type="math/tex">\equiv</script> cũng có tính chất tương tự như dấu <script type="math/tex">=</script>:</p>
+<ul>
+  <li>
+    <script type="math/tex; mode=display">a \equiv a \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">a \equiv b \pmod n \iff b \equiv a \pmod n</script>
+  </li>
+  <li>Nếu <script type="math/tex">a \equiv b \pmod n</script> và <script type="math/tex">b \equiv c \pmod n</script> thì <script type="math/tex">a \equiv c \pmod n</script></li>
+</ul>
+
+<p>Xét <script type="math/tex">a, b, k \in \mathbb{Z}</script>, nếu <script type="math/tex">a \equiv b \pmod n</script> thì ta có các tính chất sau:</p>
+<ul>
+  <li>
+    <script type="math/tex; mode=display">-a \equiv -b \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">a + k \equiv b + k \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">ka \equiv kb \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">a^k \equiv b^k \pmod n</script>
+  </li>
+  <li>Tổng quát, ta có <script type="math/tex">p(a) \equiv p(b) \pmod n</script>, với <script type="math/tex">p</script> là đa thức có hệ số nguyên.</li>
+</ul>
+
+<p>Ngược lại, ta có:</p>
+<ul>
+  <li>
+    <script type="math/tex; mode=display">a + k \equiv b + k \pmod n \iff a \equiv b \pmod n</script>
+  </li>
+  <li>Nếu <script type="math/tex">ka \equiv kb \pmod n</script> và <script type="math/tex">k</script> nguyên tố cùng nhau với <script type="math/tex">n</script> thì <script type="math/tex">a \equiv b \pmod n</script></li>
+</ul>
+
+<p>Xét <script type="math/tex">a_1 \equiv b_1 \pmod n</script> và <script type="math/tex">a_2 \equiv b_2 \pmod n</script>, ta có:</p>
+<ul>
+  <li>
+    <script type="math/tex; mode=display">a_1 + a_2 \equiv b_1 + b_2 \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">a_1 - a_2 \equiv b_1 - b_2 \pmod n</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">a_1 a_2 \equiv b_1 b_2 \pmod n</script>
+  </li>
+</ul>
+
+<h1 id="ví-dụ-ứng-dụng-toán-đồng-dư">Ví dụ ứng dụng toán đồng dư</h1>
+
+<p>Trong ví dụ sau mình sẽ chứng minh “Một số chia hết cho 3 khi và chỉ khi tổng các chữ số của số đó chia hết cho 3”.</p>
+
+<p>Xét số <script type="math/tex">A</script> có <script type="math/tex">n</script> chữ số trong hệ thập phân: <script type="math/tex">a_0, a_1, a_2,\dots,a_{n-1}</script>, ta có:</p>
+
+<script type="math/tex; mode=display">A = a_0 + 10 a_1 + 10^2 a_2 + \dots + 10^{n-1} a_{n-1}</script>
+
+<p>Theo bài toán thì ta có <script type="math/tex">A</script> chia hết cho 3, có nghĩa là: <script type="math/tex">A \equiv 0 \pmod 3</script></p>
+
+<p>Tương đương với:</p>
+
+<script type="math/tex; mode=display">a_0 + 10 a_1 + 10^2 a_2 + \dots + 10^{n-1} a_{n-1} \equiv 0 \pmod 3</script>
+
+<p>Mặt khác, vì <script type="math/tex">10 \equiv 1 \pmod 3</script> nên ta có thể thay 10 bằng 1 trong biểu thức ở trên, ta có:</p>
+
+<script type="math/tex; mode=display">a_0 + 1 a_1 + 1^2 a_2 + \dots + 1^{n-1} a_{n-1} \equiv 0 \pmod 3\\
+\iff a_0 + a_1 + a_2 + \dots + a_{n-1} \equiv 0 \pmod 3</script>
+
+<p>Chứng minh xong. Áp dụng kĩ thuật tương tự ta cũng có thể chứng minh các số chia hết cho 9 sẽ có tổng các chữ số
+chia hết cho 9.</p>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse" target="_blank">Nghịch đảo modulo</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">Định lý Fermat nhỏ</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Euler%27s_theorem" target="_blank">Định lý Euler</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Chinese_remainder_theorem" target="_blank">Định lý số dư Trung Hoa</a></li>
+</ul>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/modulo";
+    this.page.identifier = "https://vietcodes.github.io/algo/modulo";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
