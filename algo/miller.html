@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Thuật toán Miller - Kiểm tra số nguyên tố - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Thuật toán Miller - Kiểm tra số nguyên tố</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Thuật toán Miller - Kiểm tra số nguyên tố</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#thuật-toán-miller">Thuật toán Miller</a></li>
+<li class="toc-entry toc-h1"><a href="#sử-dụng-miller-trong-thực-tế">Sử dụng Miller trong thực tế</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt-thuật-toán">Cài đặt thuật toán</a></li>
+</ul>
+        </div>
+        <p>Miller là một biến thể của <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test" target="_blank">thuật toán Rabin-Miller</a>,
+dùng để kiểm tra xem một số nguyên có phải là số nguyên tố hay không.</p>
+
+<p>Bài này có dùng các kiển thức về đồng dư, nếu bạn chưa biết thì nên đọc bài <a href="/algo/modulo">toán đồng dư</a>.</p>
+
+<h1 id="thuật-toán-miller">Thuật toán Miller</h1>
+
+<p>Xét số lẻ <script type="math/tex">n > 1</script>, để kiểm tra xem <script type="math/tex">n</script> có phải là số nguyên tố hay không, ta làm như
+sau:</p>
+
+<ul>
+  <li>Phân tích <script type="math/tex">n - 1</script> thành dạng <script type="math/tex">2 ^ s \times d</script> (<script type="math/tex">s</script> và <script type="math/tex">d</script> là số nguyên dương, <script type="math/tex">d</script> lẻ)</li>
+  <li>Xét mỗi số nguyên <script type="math/tex">a</script> trong khoảng <script type="math/tex">[2, \min(n-1, \lfloor 2(\ln n) ^ 2 \rfloor)]</script>
+    <ul>
+      <li>Nếu <script type="math/tex">a^d \not\equiv 1 \pmod n</script> và <script type="math/tex">(a ^ d)^{2^r} \not\equiv -1 \pmod n</script> với mọi <script type="math/tex">r</script> từ <script type="math/tex">0</script> đến <script type="math/tex">s-1</script>
+  thì <strong><script type="math/tex">n</script> không phải là số nguyên tố</strong>.</li>
+    </ul>
+  </li>
+  <li>Nếu <script type="math/tex">n</script> vượt qua được tất cả các lần thử với <script type="math/tex">a</script> ở trên thì <strong><script type="math/tex">n</script> là số nguyên tố</strong>.</li>
+</ul>
+
+<h1 id="sử-dụng-miller-trong-thực-tế">Sử dụng Miller trong thực tế</h1>
+
+<p>Một cách tổng quát thì thuật toán này chưa được chứng minh là đúng. Tính đúng đắn của nó phụ thuộc vào
+giả thuyết Reimann. Tuy nhiên, với <script type="math/tex">n</script> nhỏ thì thuật toán đã được kiểm tra và chứng minh là đúng.</p>
+
+<p>Ngoài ra, ta cũng không cần kiểm tra hết tất các các số nguyên <script type="math/tex">a</script> như ở trên, mà chỉ cần dùng một vài số là đủ.</p>
+
+<p>Bảng sau được sử dụng để kiểm tra số nguyên tố trong thực tế:</p>
+
+<table class="table table-bordered table-sm" style="width:auto">
+  <thead>
+    <tr>
+      <th>Giới hạn của <script type="math/tex">n</script></th>
+      <th>Các số <script type="math/tex">a</script> cần dùng</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 2,047 %]]></script></td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 1,373,653 %]]></script></td>
+      <td>2, 3</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 9,080,191 %]]></script></td>
+      <td>31, 73</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 4,759,123,141 %]]></script></td>
+      <td>2, 7, 61</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 1,122,004,669,633 %]]></script></td>
+      <td>2, 13, 23, 1662803</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 2,152,302,898,747 %]]></script></td>
+      <td>2, 3, 5, 7, 11</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 3,474,749,660,383 %]]></script></td>
+      <td>2, 3, 5, 7, 11, 13</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 341,550,071,728,321 %]]></script></td>
+      <td>2, 3, 5, 7, 11, 13, 17</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 3,825,123,056,546,413,051 %]]></script></td>
+      <td>2, 3, 5, 7, 11, 13, 17, 19, 23</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 318,665,857,834,031,151,167,461 %]]></script></td>
+      <td>2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37</td>
+    </tr>
+    <tr>
+      <td><script type="math/tex">% <![CDATA[
+n < 3,317,044,064,679,887,385,961,981 %]]></script></td>
+      <td>2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Để hiểu rõ hơn cách dùng, bạn đọc xem thêm phần dưới.</p>
+
+<h1 id="cài-đặt-thuật-toán">Cài đặt thuật toán</h1>
+
+<p>Trong phần này mình sẽ dùng Miller để giải 2 bài <a href="http://vn.spoj.com/problems/PNUMBER/" target="_blank">PNUMBER</a>
+và <a href="http://www.spoj.com/problems/PRIME1/" target="_blank">PRIME1</a>.</p>
+
+<p>Thuật toán gồm các giai đoạn chính:</p>
+<ul>
+  <li>Phân tích <script type="math/tex">n-1</script> thành dạng <script type="math/tex">2^s \times d</script>.</li>
+  <li>Thử lần lượt các số <script type="math/tex">a</script> trong bảng ở trên.
+    <ul>
+      <li>Khi thử, ta cần dùng hàm lũy thừa nhanh để tính <script type="math/tex">a^d \bmod n</script>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Ta sẽ lần lượt cài đặt các hàm cơ bản trên. Trước hết, ta khai báo các thư viện và kiểu dữ liệu cần
+sử dụng:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;tuple&gt;
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>Hàm phân tích thành dạng <script type="math/tex">2^x \times d</script>:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">pair</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span> <span class="n">ll</span><span class="o">&gt;</span> <span class="n">factor</span><span class="p">(</span><span class="n">ll</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ll</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">s</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Hàm tính <script type="math/tex">a^d \bmod n</script>:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">ll</span> <span class="nf">pow</span><span class="p">(</span><span class="n">ll</span> <span class="n">a</span><span class="p">,</span> <span class="n">ll</span> <span class="n">d</span><span class="p">,</span> <span class="n">ll</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ll</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Hàm kiểm tra xem “nếu <script type="math/tex">a^d \not\equiv 1 \pmod n</script> và <script type="math/tex">(a ^ d)^{2^r} \not\equiv -1 \pmod n</script> với mọi <script type="math/tex">r</script> từ <script type="math/tex">0</script> đến <script type="math/tex">s-1</script>
+thì <strong><script type="math/tex">n</script> không phải là số nguyên tố</strong>”:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="c1">// Trả về false nếu n không phải là số nguyên tố.
+</span><span class="kt">bool</span> <span class="nf">test_a</span><span class="p">(</span><span class="n">ll</span> <span class="n">s</span><span class="p">,</span> <span class="n">ll</span> <span class="n">d</span><span class="p">,</span> <span class="n">ll</span> <span class="n">n</span><span class="p">,</span> <span class="n">ll</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="n">a</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">p</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Hàm cuối cùng: Thử kiểm tra <script type="math/tex">n</script> với các <script type="math/tex">a</script> khác nhau. Vì ta đang giải bài <a href="http://vn.spoj.com/problems/PNUMBER/" target="_blank">PNUMBER</a>,
+giới hạn số trong bài này là <script type="math/tex">% <![CDATA[
+n < 200000 %]]></script>, tra bảng trên ta thấy chỉ cần kiểm tra với <script type="math/tex">a = 2</script> và <script type="math/tex">a = 3</script> là đủ:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="c1">// Trả về true nếu n là số nguyên tố,
+// false nếu n là hợp số.
+</span><span class="kt">bool</span> <span class="nf">miller</span><span class="p">(</span><span class="n">ll</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">tie</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">test_a</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">test_a</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Xem full code giải bài PNUMBER bằng thuật toán Miller: <a href="/code/139">/code/139</a></p>
+
+<p>Bài tương tự với PNUMBER nhưng có giới hạn cao hơn: <a href="http://www.spoj.com/problems/PRIME1/" target="_blank">PRIME1</a>.</p>
+
+<p>Giới hạn của bài PRIME1 là <script type="math/tex">n \leq 10^9</script>, nên ta cần dùng <script type="math/tex">a = 2</script>, <script type="math/tex">a = 7</script> và <script type="math/tex">a = 61</script>. Xem code: <a href="/code/138">/code/138</a>.</p>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/miller";
+    this.page.identifier = "https://vietcodes.github.io/algo/miller";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
