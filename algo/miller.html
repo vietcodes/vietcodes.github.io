@@ -58,6 +58,8 @@ gtag('config', 'UA-112397632-1');
 <li class="toc-entry toc-h1"><a href="#thuật-toán-miller">Thuật toán Miller</a></li>
 <li class="toc-entry toc-h1"><a href="#sử-dụng-miller-trong-thực-tế">Sử dụng Miller trong thực tế</a></li>
 <li class="toc-entry toc-h1"><a href="#cài-đặt-thuật-toán">Cài đặt thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#xử-lý-tràn-số">Xử lý tràn số</a></li>
+<li class="toc-entry toc-h1"><a href="#độ-phức-tạp">Độ phức tạp</a></li>
 </ul>
         </div>
         <p>Miller là một biến thể của <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test" target="_blank">thuật toán Rabin-Miller</a>,
@@ -84,9 +86,11 @@ sau:</p>
 <h1 id="sử-dụng-miller-trong-thực-tế">Sử dụng Miller trong thực tế</h1>
 
 <p>Một cách tổng quát thì thuật toán này chưa được chứng minh là đúng. Tính đúng đắn của nó phụ thuộc vào
-giả thuyết Reimann. Tuy nhiên, với <script type="math/tex">n</script> nhỏ thì thuật toán đã được kiểm tra và chứng minh là đúng.</p>
+giả thuyết Reimann.</p>
 
-<p>Ngoài ra, ta cũng không cần kiểm tra hết tất các các số nguyên <script type="math/tex">a</script> như ở trên, mà chỉ cần dùng một vài số là đủ.</p>
+<p>Tuy nhiên, với <script type="math/tex">n</script> nhỏ (<script type="math/tex">% <![CDATA[
+n < 3,317,044,064,679,887,385,961,981 %]]></script>) thì thuật toán đã được kiểm tra và chứng minh là đúng.
+Ngoài ra, ta cũng không cần kiểm tra hết tất các các số nguyên <script type="math/tex">a</script> như ở trên, mà chỉ cần dùng một vài số là đủ.</p>
 
 <p>Bảng sau được sử dụng để kiểm tra số nguyên tố trong thực tế:</p>
 
@@ -155,6 +159,9 @@ n < 3,317,044,064,679,887,385,961,981 %]]></script></td>
     </tr>
   </tbody>
 </table>
+
+<p>Xem bảng trên, ta thấy chỉ cần dùng 3 số thử: 2, 7, 61 là đủ để kiểm tra tính nguyên tố
+của mọi số nguyên 32-bit.</p>
 
 <p>Để hiểu rõ hơn cách dùng, bạn đọc xem thêm phần dưới.</p>
 
@@ -244,6 +251,77 @@ n < 200000 %]]></script>, tra bảng trên ta thấy chỉ cần kiểm tra vớ
 <p>Bài tương tự với PNUMBER nhưng có giới hạn cao hơn: <a href="http://www.spoj.com/problems/PRIME1/" target="_blank">PRIME1</a>.</p>
 
 <p>Giới hạn của bài PRIME1 là <script type="math/tex">n \leq 10^9</script>, nên ta cần dùng <script type="math/tex">a = 2</script>, <script type="math/tex">a = 7</script> và <script type="math/tex">a = 61</script>. Xem code: <a href="/code/138">/code/138</a>.</p>
+
+<h1 id="xử-lý-tràn-số">Xử lý tràn số</h1>
+
+<p>Bảng ở trên có thể kiểm tra đến các số lớn hơn 64-bit, tuy nhiên khi cài đặt,
+nếu không sử dụng kiểu số nguyên lớn thì ta chỉ có thể sử dụng thuật toán với
+các số 32-bit.</p>
+
+<p>Lý do là thuật toán có dùng phép nhân. Khi nhân 2 số 32-bit kết quả phải được
+chứa trong số 64-bit, nhân 2 số 64-bit thì kết quả phải được chứa trong số 128-bit.
+Vì vậy, để không bị tràn số thì thuật toán chỉ có thể dùng với số 32-bit.</p>
+
+<p>Để khắc phục điều này, ta có thể tự viết hàm để vừa thực hiện nhân vừa thực hiện mod.</p>
+
+<p>Đây là code tính <script type="math/tex">a \times b \bmod n</script> của Dana Jacobsen trong một
+<a href="https://www.quora.com/How-can-I-execute-A-*-B-mod-C-without-overflow-if-A-and-B-are-lesser-than-C" target="_blank">câu trả lời</a>
+trên Quora:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdint.h&gt;
+</span>
+<span class="kt">uint64_t</span> <span class="nf">mulmod</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">b</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// if (a &gt;= n) a %= n;   /* Careful attention from the caller */
+</span>    <span class="c1">// if (b &gt;= n) b %= n;   /* should make these unnecessary.    */
+</span>    <span class="kt">uint64_t</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">a</span><span class="o">|</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1ULL</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">))</span> <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="kt">uint64_t</span> <span class="n">t</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">1ULL</span> <span class="o">&lt;&lt;</span> <span class="mi">63</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>  <span class="p">{</span> <span class="n">r</span> <span class="o">+=</span> <span class="n">a</span><span class="p">;</span>  <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">)</span> <span class="n">r</span> <span class="o">-=</span> <span class="n">n</span><span class="p">;</span> <span class="p">}</span>
+            <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>      <span class="p">{</span> <span class="n">a</span> <span class="o">+=</span> <span class="n">a</span><span class="p">;</span>  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">)</span> <span class="n">a</span> <span class="o">-=</span> <span class="n">n</span><span class="p">;</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>  <span class="n">r</span> <span class="o">=</span> <span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="o">?</span> <span class="n">r</span><span class="o">+</span><span class="n">a</span> <span class="o">:</span> <span class="n">r</span><span class="o">+</span><span class="n">a</span><span class="o">-</span><span class="n">n</span><span class="p">;</span>    <span class="cm">/* r = (r + a) % n */</span>
+            <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>      <span class="n">a</span> <span class="o">=</span> <span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="o">?</span> <span class="n">a</span><span class="o">+</span><span class="n">a</span> <span class="o">:</span> <span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="o">-</span><span class="n">n</span><span class="p">;</span>    <span class="cm">/* a = (a + a) % n */</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Đoạn code trên hơi phức tạp, bạn đọc có thể đọc đoạn code sau để hiểu tư tưởng thuật toán:</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">uint64_t</span> <span class="nf">mulmod</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">b</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">uint64_t</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Đoạn code ở dưới đơn giản hơn, tuy nhiên nó chạy chậm hơn và chỉ chạy đúng
+vớn n có tối đa 63 bit.</p>
+
+<p>Thay thế các phép nhân trong code Miller ở phần trên bằng hàm <code class="highlighter-rouge">mulmod</code>, ta có thể sử dụng
+được Miller cho các số 64-bit.</p>
+
+<h1 id="độ-phức-tạp">Độ phức tạp</h1>
+
+<p>Độ phức tạp của hàm <code class="highlighter-rouge">mulmod</code> là <script type="math/tex">O(\log n)</script>.</p>
+
+<p>Mỗi lần kiểm tra tốn <script type="math/tex">O(s + \log d) = O(\log n)</script> phép nhân, kết hợp với phép ĐPT của phép nhân nữa
+là <script type="math/tex">O(\log ^ 2 n)</script>.</p>
+
+<p>Vậy độ phức tạp của Miller là <script type="math/tex">O(k \log ^ 2 n)</script> với <script type="math/tex">k</script> là số các số <script type="math/tex">a</script> cần kiểm tra.</p>
 
         </div>
 </div>
