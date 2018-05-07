@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Fourier Transform 1 - Fourier Series - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Fourier Transform 1 - Fourier Series</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Fourier Transform 1 - Fourier Series</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#lời-nói-đầu">Lời nói đầu</a></li>
+<li class="toc-entry toc-h1"><a href="#fourier-series">Fourier Series</a></li>
+<li class="toc-entry toc-h1"><a href="#ví-dụ">Ví dụ</a></li>
+<li class="toc-entry toc-h1"><a href="#code">Code</a></li>
+</ul>
+        </div>
+        <h1 id="lời-nói-đầu">Lời nói đầu</h1>
+
+<p>Đây là bài đầu tiên của loạt bài viết về Fourier Transform. Nội dung được kham khảo từ trang
+web <a href="http://thefouriertransform.com" target="_blank">http://thefouriertransform.com</a>.</p>
+
+<p>Mục đích của Fourier Transform là tách tín hiệu dạng sóng thành các tần số riêng lẻ tạo
+ra nó. Cụ thể hơn, Fourier Transform tách hàm số thành tổng các hàm <code class="highlighter-rouge">sin</code> và <code class="highlighter-rouge">cos</code>, mỗi hàm có tần số
+khác nhau.</p>
+
+<p>Ví dụ khi ta chơi đàn, nốt Đô có tần số 261.63Hz, nốt Rê có tần số 293.66Hz. Nếu ấn 2 nốt
+này cùng một lúc thì 2 tần số đó sẽ trộn lẫn vào nhau. Khi thu âm lại, ta có thể dùng
+Fourier Transform để tách âm thanh thu được thành 2 tần số Đô và Rê ban đầu.</p>
+
+<p>Gần như mọi thứ trên thế giới đều có thể biểu diễn bằng dạng sóng (waveform - hàm số biễu diễn
+biên độ theo thời gian). Âm thanh, tín hiệu điện, ánh sáng, các tín hiệu radio, 3G, wifi,… tất
+cả đều là sóng. Thông qua Fourier Transform, ta sẽ thấy mọi tín hiệu đều có thể phân tách thành
+tổng các hàm <code class="highlighter-rouge">sin</code>, <code class="highlighter-rouge">cos</code>. Vì vậy, Fourier Transform đóng vai trò quan trọng trong khoa học
+nói chung chứ không phải chỉ trong Tin học. Nhà toán học Gilbert Strang gọi Fast Fourier
+Transform là thuật toán quan trọng nhất của thế kỷ 20.</p>
+
+<p>Trong loạt bài sẽ sử dụng các kiến thức về tích phân, các hàm lượng giác, số phức và lũy thừa với số mũ phức.
+Ngoài ta, mình sẽ sử dụng ngôn ngữ lập trình R để minh họa code. Để dễ theo dõi, bạn đọc nên
+tải <a href="https://www.r-project.org/" target="_blank">R</a> và <a href="https://www.rstudio.com/" target="_blank">RStudio</a>.</p>
+
+<h1 id="fourier-series">Fourier Series</h1>
+
+<p>Dãy Fourier có nhiệm vụ tách hàm tuần hoàn thành tổng của các hàm <code class="highlighter-rouge">sin</code> và <code class="highlighter-rouge">cos</code>, có thể nói dãy Fourier
+là biến đổi Fourier cho các hàm tuần hoàn. Định nghĩa hàm tuần hoàn:</p>
+
+<p>Hàm F được gọi là tuần hoàn với chu kì T (<script type="math/tex">T > 0</script>) nếu:</p>
+<ul>
+  <li><script type="math/tex">F(t + T) = F(t)</script> với mọi <script type="math/tex">t</script></li>
+</ul>
+
+<p>Ta thấy, nếu F tuần hoàn với chu kì T thì cũng tuần hoàn với chu kì 2T. Vì vậy có thêm định nghĩa <strong>chu kì cơ bản</strong>,
+là chu kì ngắn nhất của F. Ví dụ, <script type="math/tex">\sin{2x}</script> là hàm tuần hoàn với chu kì cơ bản là <script type="math/tex">T = \pi</script>.</p>
+
+<p>Xét hàm số <script type="math/tex">f(t)</script> với chu kì cơ bản là T, ta có dãy Fourier của <script type="math/tex">f</script> là:</p>
+
+<script type="math/tex; mode=display">g(t) = a_0 + \sum_{m=1}^{\infty}a_m\cos\frac{2\pi m t}{T} + \sum_{n=1}^{\infty}b_n\sin\frac{2\pi n t}{T}</script>
+
+<p>Với:</p>
+
+<script type="math/tex; mode=display">a_0 = \frac{1}{T} \int_0^T f(t)\,\mathrm{d}t\\
+a_m = \frac{2}{T} \int_0^T f(t)\cos\frac{2\pi m t}{T}\,\mathrm{d}t\\
+b_n = \frac{2}{T} \int_0^T f(t)\sin\frac{2\pi n t}{T}\,\mathrm{d}t</script>
+
+<h1 id="ví-dụ">Ví dụ</h1>
+
+<p>Xét hàm <script type="math/tex">f(t)</script> với chu kì cơ bản <script type="math/tex">T=2</script> như sau:</p>
+
+<p><img src="img/ft1-1.png" alt="f" /></p>
+
+<p>Ta sẽ tính các hệ số của dãy Fourier của hàm trên:</p>
+
+<p>Tính <script type="math/tex">a_0</script>:
+<script type="math/tex">a_0 = \frac{1}{T} \int_0^T f(t)\,\mathrm{d}t\\
+= \frac{1}{2} \int_0^2 f(t)\,\mathrm{d}t\\
+= \frac{1}{2} \int_0^1 f(t)\,\mathrm{d}t + \frac{1}{2} \int_1^2 f(t)\,\mathrm{d}t\\
+= \frac{1}{2} \int_1^2 1\,\mathrm{d}t = \frac{1}{2}</script></p>
+
+<p>Tính <script type="math/tex">a_m</script>:</p>
+
+<script type="math/tex; mode=display">a_m = \frac{2}{T} \int_0^T f(t)\cos\frac{2\pi m t}{T}\,\mathrm{d}t\\
+= \int_0^2 f(t)\cos \pi m t\,\mathrm{d}t
+= \int_1^2 \cos \pi m t\,\mathrm{d}t\\
+= \frac{1}{\pi m} (\sin 2\pi m - \sin \pi m)
+= 0</script>
+
+<p>Tính <script type="math/tex">b_n</script>:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+b_n = \frac{2}{T} \int_0^T f(t)\sin\frac{2\pi n t}{T}\,\mathrm{d}t\\
+= \int_0^2 f(t)\sin \pi n t\,\mathrm{d}t
+= \int_1^2 \sin \pi n t\,\mathrm{d}t\\
+= \frac{1}{\pi n} \cos \pi n - \frac{1}{\pi n} cos 2 \pi n\\
+= \begin{cases}
+    \Large{-\frac{2}{\pi n}} & \quad \text{khi } n \text{ lẻ}\\
+    0                & \quad \text{khi } n \text{ chẵn}
+  \end{cases} %]]></script>
+
+<p>Vậy:</p>
+
+<script type="math/tex; mode=display">g(t) = \frac{1}{2} - \frac{2}{\pi}\sin \pi t - \frac{2}{3\pi}\sin 3\pi t - \frac{2}{5\pi}\sin 5\pi t - \dots</script>
+
+<p>Ta có thể thấy <script type="math/tex">g</script> ngày càng tiến gần đến <script type="math/tex">f</script>:</p>
+
+<p><img src="img/ft1-2.gif" alt="gif" /></p>
+
+<p>Code (R):</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">sapply</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="m">2</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="n">i</span><span class="m">+1</span><span class="p">)</span><span class="o">/</span><span class="nb">pi</span><span class="p">)</span><span class="o">*</span><span class="nf">sin</span><span class="p">((</span><span class="m">2</span><span class="o">*</span><span class="n">i</span><span class="m">+1</span><span class="p">)</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">plot</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">%%</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">),</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+  </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="w">
+  </span><span class="n">lines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="o">:</span><span class="m">15</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">draw</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">
+  </span><span class="n">Sys.sleep</span><span class="p">(</span><span class="m">0.2</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h1 id="code">Code</h1>
+
+<p>Sau đây là code tính dãy Fourier bằng công thức tổng quát ở trên, bạn đọc có thể dùng để thử nghiệm. Chỉ cần sửa
+hàm <code class="highlighter-rouge">f</code>, chu kì <code class="highlighter-rouge">T</code>, và độ chính xác <code class="highlighter-rouge">n</code> cho phù hợp:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">coeff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="n">integrate</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="nb">T</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="o">$</span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">T</span><span class="w">
+</span><span class="n">coeff_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="n">coeff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">cos</span><span class="p">)</span><span class="w">
+</span><span class="n">coeff_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="n">coeff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">sin</span><span class="p">)</span><span class="w">
+</span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="o">$</span><span class="n">value</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">T</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">coeff_a</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="nb">T</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">coeff_b</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="nb">T</span><span class="p">)))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w">
+  </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">-2</span><span class="o">*</span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">0.05</span><span class="p">)</span><span class="w">
+  </span><span class="n">yg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="w">
+  </span><span class="n">yf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w">
+  </span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">yf</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s1">'l'</span><span class="p">)</span><span class="w">
+  </span><span class="n">lines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">yg</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="w">
+</span><span class="n">draw</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Hiện tại thì đoạn code trên đang tính 1 phần của hàm <script type="math/tex">f(t) = t^2</script>, chu kì được chọn là <script type="math/tex">T=2</script>:</p>
+
+<p><img src="img/ft1-3.png" alt="f" /></p>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/ft1-fs";
+    this.page.identifier = "https://vietcodes.github.io/algo/ft1-fs";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
