@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Fourier Transform 2 - Fourier Series hệ số phức - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Fourier Transform 2 - Fourier Series hệ số phức</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Fourier Transform 2 - Fourier Series hệ số phức</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#giới-thiệu-sơ-về-số-phức">Giới thiệu sơ về số phức</a></li>
+<li class="toc-entry toc-h2"><a href="#dạng-chuẩn">Dạng chuẩn</a></li>
+<li class="toc-entry toc-h2"><a href="#vài-phép-tính-trên-số-phức">Vài phép tính trên số phức</a></li>
+<li class="toc-entry toc-h2"><a href="#dạng-lượng-giác">Dạng lượng giác</a></li>
+</ul>
+        </div>
+        <p>Trong <a href="/algo/ft1-fs">bài trước</a>, dãy Fourier được định nghĩa hoàn toàn bằng số thực:
+<script type="math/tex">g(t) = a_0 + \sum_{m=1}^{\infty}a_m\cos\frac{2\pi m t}{T} + \sum_{n=1}^{\infty}b_n\sin\frac{2\pi n t}{T}\\
+a_0 = \frac{1}{T} \int_0^T f(t)\,\mathrm{d}t\\
+a_m = \frac{2}{T} \int_0^T f(t)\cos\frac{2\pi m t}{T}\,\mathrm{d}t\\
+b_n = \frac{2}{T} \int_0^T f(t)\sin\frac{2\pi n t}{T}\,\mathrm{d}t</script></p>
+
+<p>Còn trong bài này ta sẽ định nghĩa dãy Fourier bằng số phức.</p>
+
+<h1 id="giới-thiệu-sơ-về-số-phức">Giới thiệu sơ về số phức</h1>
+
+<p>Nếu bạn đã biết số phức, có thể bỏ qua phần này.</p>
+
+<h2 id="dạng-chuẩn">Dạng chuẩn</h2>
+
+<p>Mỗi số phức gồm phần thực và phần ảo: <script type="math/tex">z = x + iy</script>. Với:</p>
+<ul>
+  <li><script type="math/tex">x, y \in \mathbb{R}</script> và <script type="math/tex">i = \sqrt{-1}</script>.</li>
+  <li><script type="math/tex">x</script> được gọi là phần thực của <script type="math/tex">z</script>: <script type="math/tex">x = \mathrm{Re}[z]</script>.</li>
+  <li><script type="math/tex">y</script> được gọi là phần ảo của <script type="math/tex">z</script>: <script type="math/tex">x = \mathrm{Im}[z]</script>.</li>
+</ul>
+
+<p>Như vậy, ta thấy mỗi số thực đều là số phức với phần ảo bằng 0.</p>
+
+<h2 id="vài-phép-tính-trên-số-phức">Vài phép tính trên số phức</h2>
+
+<p>Phép cộng và phép nhân trên số phức được thực hiện bình thường:</p>
+
+<script type="math/tex; mode=display">z_0 = x_0 + iy_0, z_1 = x_1 + iy_1 \\
+z_0 + z_1 = (x_0 + iy_0) + (x_1 + iy_1) = (x_0 + x_1) + i(y_0 + y_1) \\
+z_0z_1 = (x_0 + iy_0)(x_1 + iy_1) \\
+= x_0x_1 + ix_0y_1 + ix_1y_0 + i^2y_0y_1 \\
+= (x_0x_1 - y_0y_1) + i(x_1y_0 + x_0y_1)</script>
+
+<p>Số phức liên hợp (complex conjugate) của <script type="math/tex">z = x + iy</script> kí hiệu là <script type="math/tex">z^*</script>. Và có giá trị:</p>
+
+<script type="math/tex; mode=display">z^* = x - iy</script>
+
+<p>Module của số phức <script type="math/tex">z</script> là:</p>
+
+<script type="math/tex; mode=display">|z| = \sqrt{zz^*} = \sqrt{x^2 + y^2}</script>
+
+<h2 id="dạng-lượng-giác">Dạng lượng giác</h2>
+
+<p>Ngoài cách viết <script type="math/tex">z = x + iy</script>, còn có một cách viết khác để biểu diễn số phức, gọi là dạng lượng
+giác của số phức.</p>
+
+<p>Tuy nhiên, trước hết ta nhắc lại phương trình của Euler:</p>
+
+<script type="math/tex; mode=display">\mathrm{e}^{i\theta} = \cos\theta + i\sin\theta</script>
+
+<p>Như vậy, <script type="math/tex">\mathrm{e}^{i\theta}</script> là số phức với:</p>
+<ul>
+  <li>Phần thực <script type="math/tex">\mathrm{Re}[\mathrm{e}^{i\theta}] = \cos\theta</script></li>
+  <li>Phần ảo <script type="math/tex">\mathrm{Im}[\mathrm{e}^{i\theta}] = \sin\theta</script></li>
+  <li>Module <script type="math/tex">\vert \mathrm{e}^{i\theta}\vert = 1</script></li>
+</ul>
+
+<p>Nếu vẽ số phức lên mặt phẳng tọa độ,</p>
+
+        </div>
+</div>
+
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/ft2-fs-complex";
+    this.page.identifier = "https://vietcodes.github.io/algo/ft2-fs-complex";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
