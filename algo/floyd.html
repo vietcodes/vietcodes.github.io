@@ -59,6 +59,7 @@ gtag('config', 'UA-112397632-1');
 <li class="toc-entry toc-h1"><a href="#truy-vết-đường-đi">Truy vết đường đi</a></li>
 <li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
 <li class="toc-entry toc-h1"><a href="#phát-hiện-chu-trình-âm">Phát hiện chu trình âm</a></li>
+<li class="toc-entry toc-h1"><a href="#liệt-kê-tất-cả-đường-đi-đơn">Liệt kê tất cả đường đi đơn</a></li>
 </ul>
         </div>
         <p>Floyd hay còn gọi là Floyd-Warshall là thuật toán để tìm đường đi ngắn nhất
@@ -190,6 +191,79 @@ sử dụng thuật toán Floyd.</p>
 <p>Floyd có thể dùng để phát hiện chu trình âm. Sau khi chạy thuật toán, nếu <script type="math/tex">% <![CDATA[
 D[u][u] < 0 %]]></script> thì có
 chu trình âm đi qua đỉnh <script type="math/tex">u</script></p>
+
+<h1 id="liệt-kê-tất-cả-đường-đi-đơn">Liệt kê tất cả đường đi đơn</h1>
+
+<p>Floyd còn có thể được dùng để liệt kê tất cả các đường đi đơn (mỗi đỉnh đi qua nhiều nhất một lần).
+Ý tưởng như sau:</p>
+
+<ul>
+  <li>Kí hiệu <code class="highlighter-rouge">(a, b, c)</code> là một đường đi bắt đầu từ <code class="highlighter-rouge">a</code>, đi qua <code class="highlighter-rouge">b</code> rồi đến <code class="highlighter-rouge">c</code>.</li>
+  <li>Gọi <code class="highlighter-rouge">paths[u][v]</code> là danh sách tất cả các đường đi từ đỉnh <code class="highlighter-rouge">u</code> đến đỉnh <code class="highlighter-rouge">v</code>.</li>
+  <li>Ban đầu, nếu <code class="highlighter-rouge">u</code> và <code class="highlighter-rouge">v</code> không có cạnh nối thì <code class="highlighter-rouge">paths[u][v]</code> là danh sách rỗng,
+ngược lại ta thêm một đường đi trực tiếp từ <code class="highlighter-rouge">u</code> đến <code class="highlighter-rouge">v</code> vào danh sách này. Vậy, nếu
+<code class="highlighter-rouge">u</code> và <code class="highlighter-rouge">v</code> có cạnh nối thì <code class="highlighter-rouge">paths[u][v] = [(u, v)]</code>.</li>
+  <li>Duyệt 3 vòng for (k, i, j) như trong Floyd bình thường.
+    <ul>
+      <li>Đến đây, ta thấy kết hợp <code class="highlighter-rouge">paths[i][k]</code> và <code class="highlighter-rouge">paths[k][j]</code> lại sẽ cho ta thêm những
+  đường đi từ <code class="highlighter-rouge">i</code> đến <code class="highlighter-rouge">j</code>, qua trung gian là <code class="highlighter-rouge">k</code>.</li>
+      <li>Cần chú ý kiểm tra xem 2 đường đi có đỉnh trùng không trước khi kết hợp chúng.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Cụ thể, cài đặt trong Python 3 như sau:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="c"># Test bằng đồ thị này, không cần nhập file</span>
+<span class="c"># Đây là danh sách cạnh, đồ thị có hướng</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="p">[</span>
+<span class="mi">6</span><span class="p">,</span>      <span class="c"># 6 đỉnh</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="c"># cạnh từ 0 đi đến 1</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c"># Khởi tạo mảng 2 chiều, mỗi phần tử là 1 danh sách các đường đi</span>
+        <span class="c"># paths[u][v] là danh sách các đường đi từ u đến v</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[[[]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="c"># Ban đầu, nếu 2 đỉnh có cạnh nối trực tiếp thì</span>
+        <span class="c"># thì thêm vào danh sách đường đi</span>
+        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">paths</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="c"># Dùng Floyd để sinh tất cả các đường đi giữa mọi cặp đỉnh</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">],</span> <span class="n">paths</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]):</span>
+                <span class="c"># Dùng set để truy vấn nhanh hơn</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+                <span class="c"># Nếu 2 đường u và v không có cạnh chung thì</span>
+                <span class="c"># thêm 1 đường mới là u + v</span>
+                <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                    <span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paths</span> <span class="o">=</span> <span class="n">paths</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Các đường đi từ đỉnh 0 đến đỉnh 5"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">5</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Cá nhân mình thích cách làm này hơn duyệt đệ quy quay lui vì nó đẹp hơn, nhất là khi cài bằng Python.</p>
+
+<p>Kĩ thuật này đã được sử dụng trong <a href="https://github.com/juchiast/a3c" target="_blank">https://github.com/juchiast/a3c</a>.</p>
 
         </div>
 </div>
