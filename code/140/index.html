@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> ACMNB - ACM - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="acmnb---acm">ACMNB - ACM</h3>
+<ul>
+  <li>Đề bài: <a href="http://vnoi.info/problems/ACMNB/" target="blank">http://vnoi.info/problems/ACMNB/</a></li>
+  <li>Keywords: greedy</li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+        <div class="card window" id="problem.md">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">problem.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>SuperCoders là đội tuyển huyền thoại của trường XYZ đã nhiều lần vô địch cuộc thi lập trình viên vũ trụ
+ACM Universe Final. Theo thể thức cuộc thi, mỗi đội tham dự chỉ có đúng 3 thành viên và được giao duy
+nhất một máy tính, chính vì vậy việc điều phối công việc vô cùng quan trọng. Trong đội SuperCoders,
+PHUONGHD - đội trưởng - là người nắm giữ vai trò đó.</p>
+
+<p>Đề thi ACM năm nay gồm có 2n bài đánh số từ 1 tới 2n. Bằng kỹ năng thiết kế thuật toán siêu việt, chỉ vài
+giây sau khi đọc đề, PHUONGHD đã có lời giải cho cả 2n bài. Vấn đề còn lại là phân công hai người còn
+lại lập trình bởi PHUONGHD không quen với thứ ngôn ngữ lập trình mới được đưa vào sử dụng tại cuộc
+thi.</p>
+
+<p>Do rất hiểu hai lập trình viên Tí và Tèo trong đội, PHUONGHD biết rằng bài thứ i nếu giao cho Tí làm sẽ
+mất <script type="math/tex">a_i</script> giây, cũng bài đó nếu giao cho Tèo sẽ mất <script type="math/tex">b_i</script> giây để hoàn thành (∀i: 1 ≤ i ≤ 2n). Nhiệm vụ của
+bạn là hãy giúp PHUONGHD phân công cho hai lập trình viên, mỗi người làm đúng n bài sao cho tổng
+thời gian lập trình cả 2n bài là ít nhất.</p>
+
+<p>Dữ liệu: Vào từ file văn bản ACM.INP</p>
+<ul>
+  <li>Dòng 1 chứa số nguyên dương <script type="math/tex">n \le 4 \times 10^5</script></li>
+  <li><script type="math/tex">2n</script> dòng tiếp theo, dòng thứ i chứa hai số nguyên dương <script type="math/tex">a_i, b_i \le 100</script> cách nhau bởi dấu cách.</li>
+</ul>
+
+<p>Kết quả: Ghi ra file văn bản ACM.OUT một số nguyên duy nhất là tổng thời gian lập trình cả <script type="math/tex">2n</script> bài theo
+phương án phân công tìm được.</p>
+
+<p>Ví dụ:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>ACM.INP
+2
+2 1
+3 2
+5 3
+1 2
+
+ACM.OUT
+8
+</code></pre>
+</div>
+
+<ul>
+  <li>40% số điểm ứng với các test có <script type="math/tex">n \le 1000</script></li>
+  <li>30% số điểm ứng với các test có <script type="math/tex">n \in [10^4, 10^5]</script></li>
+  <li>30% số điểm ứng với các test có <script type="math/tex">n \in [3 \times 10^5, 4 \times 10^5]</script></li>
+</ul>
+
+          </div>
+</div>
+
+      
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>Ban đầu, giao tất cả các công việc cho B làm. Ta có:</p>
+
+<script type="math/tex; mode=display">kq = \sum_{i=1}^{2n} b_i</script>
+
+<p>Sau đó, tạo mảng <script type="math/tex">c: c_i = a_i - b_i</script>, với ý nghĩa là nếu chọn A làm công việc
+i thay cho B thì thời gian cần làm sẽ tăng lên một lượng là <script type="math/tex">c_i</script> (<script type="math/tex">c_i</script> có
+thể âm). Sắp xếp lại mảng <script type="math/tex">c</script> tăng dần rồi cộng thêm <script type="math/tex">n</script> phần tử đầu của <script type="math/tex">c</script>
+vào kết quả.</p>
+
+          </div>
+</div>
+
+      
+
+      
+        <div class="card window" id="main.cpp">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">main.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/140/">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">c</span><span class="o">:</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">c</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+          </div>
+</div>
+
+      
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/140/";
+    this.page.identifier = "https://vietcodes.github.io/code/140/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
