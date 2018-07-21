@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> C11HUM - Số khiêm tốn - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2911647956237293",
+    enable_page_level_ads: true
+  });
+</script-->
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/tools">Tools</a>"</span>];
+</p>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding: 1px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="c11hum---số-khiêm-tốn">C11HUM - Số khiêm tốn</h3>
+<ul>
+  <li>Đề bài: <a href="http://vnoi.info/problems/C11HUM/" target="blank">http://vnoi.info/problems/C11HUM/</a></li>
+  <li>Keywords: math</li>
+  <li>Ngôn ngữ: C++11</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>Xét ví dụ đề bài, dãy số khiêm tốn cho 4 só nguyên tố 2, 3, 5, 7 là:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 21 24 25 27 28 30 32 35 36 40 42 45 48 49 50 54 56 60 63 64 70 72 75 80 81 84 90 96 98 100 105 108 112 120 125,...
+</code></pre>
+</div>
+
+<p>Ta thấy các số chia hết cho 3 trong dãy trên là:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>3 6 9 12 15 18 21 24 27 30 36 42 45 48 54 60 63 72 75 81 84 90 96 105 108 120
+</code></pre>
+</div>
+
+<p>Thử chia dãy trên cho 3, ta được:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 21 24 25 27 28 30 32 35 36 40
+</code></pre>
+</div>
+
+<p>Ngoại trừ số 1 ở đầu ra thì dãy trên hoàn toàn giống với dãy số khiêm tốn ban đầu.
+Từ nhận xét này, ta có thể giải bài này bằng cách sau:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">p[x]</code> sẽ lần lượt lưu các số khiêm tốn chia hết cho <code class="highlighter-rouge">x</code>, ban đầu <code class="highlighter-rouge">p[x] = x</code>.</li>
+  <li>Ở mỗi lượt, ta chọn số khiêm tốn tiếp theo bằng cách tìm số nhỏ nhất trong <code class="highlighter-rouge">p</code>.</li>
+  <li>Gọi số vừa chọn được là <code class="highlighter-rouge">z</code>, ta cập nhật lại các <code class="highlighter-rouge">p[x]</code> có <code class="highlighter-rouge">p[x] == z</code>. Việc
+cập nhật này sẽ tăng <code class="highlighter-rouge">p[x]</code> lên thành phần tử tiếp theo trong dãy số khiêm tốn
+chia hết cho x.</li>
+</ul>
+
+<p>Độ phức tạp: O(NK).</p>
+
+          </div>
+</div>
+
+      
+
+      
+        <div class="card window" id="main.cpp">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">main.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/148/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">pack</span> <span class="p">{</span>
+    <span class="n">ll</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">prime</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">pack</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">pack</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">pack</span> <span class="o">&amp;</span><span class="n">p</span><span class="o">:</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">prime</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">prime</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">ll</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">min_element</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">p</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">pack</span> <span class="o">&amp;</span><span class="n">p</span><span class="o">:</span> <span class="n">p</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">res</span><span class="p">.</span><span class="n">back</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">p</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">prime</span> <span class="o">*</span> <span class="n">res</span><span class="p">[</span><span class="o">++</span><span class="n">p</span><span class="p">.</span><span class="n">index</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+          </div>
+</div>
+
+      
+
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/148/";
+    this.page.identifier = "https://vietcodes.github.io/code/148/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            &copy; 2017 VietCodes
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+  </body>
+</html>
