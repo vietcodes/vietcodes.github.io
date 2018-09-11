@@ -63,6 +63,35 @@ gtag('config', 'UA-112397632-1');
 
 
       
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <img class="btn-close" src="/img/close.svg"><img class="btn-minimize" src="/img/minimize.svg"><img class="btn-maximize" src="/img/maximize.svg">
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>Gọi F[i] là số cách sắp thành hình chữ nhật 3xi.</p>
+
+<p>Có 3 loại khối cơ bản:</p>
+
+<p><img src="tile.png" alt="tile" /></p>
+
+<p>Từ 3 loại này có thể sắp thành tất cả các hình chữ nhật có thể.</p>
+
+<p>Dòng sau sử dụng khối loại 2 và 3:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span> <span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">-=</span> <span class="mi">2</span><span class="p">)</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>Dòng sau sử dụng khối loại 1:</p>
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+</code></pre>
+</div>
+
+          </div>
+</div>
+
+      
 
       
         <div class="card window" id="main.cpp">
