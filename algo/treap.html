@@ -113,7 +113,7 @@ của cây không bị vi phạm.</li>
 
 <p>Cài đặt cây:</p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdlib.h&gt;
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span>
 <span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">priority</span><span class="p">;</span>
@@ -122,7 +122,7 @@ của cây không bị vi phạm.</li>
 <span class="p">};</span>
 </code></pre></div></div>
 
-<p>Khóa tìm kiếm là <code class="highlighter-rouge">key</code>, khóa heap là <code class="highlighter-rouge">priority</code>. Khi tạo mới một nút, ta tự động lấy ngẫu nhiên
+<p>Khóa tìm kiếm là <code class="language-plaintext highlighter-rouge">key</code>, khóa heap là <code class="language-plaintext highlighter-rouge">priority</code>. Khi tạo mới một nút, ta tự động lấy ngẫu nhiên
 giá trị của khóa heap.</p>
 
 <p>Khi tại một nút có tính chất heap bị vi phạm, ta gọi đó là mất cân bằng.</p>
@@ -142,7 +142,7 @@ giá trị của khóa heap.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Để code nhìn ngắn gọn, ta define <code class="highlighter-rouge">left</code> thành <code class="highlighter-rouge">root-&gt;left</code>, và <code class="highlighter-rouge">right</code> thành <code class="highlighter-rouge">root-&gt;right</code>.</p>
+<p>Để code nhìn ngắn gọn, ta define <code class="language-plaintext highlighter-rouge">left</code> thành <code class="language-plaintext highlighter-rouge">root-&gt;left</code>, và <code class="language-plaintext highlighter-rouge">right</code> thành <code class="language-plaintext highlighter-rouge">root-&gt;right</code>.</p>
 
 <h1 id="thao-tác-xoay-cây">Thao tác xoay cây</h1>
 
@@ -172,7 +172,7 @@ chất heap. Các thao tác này chính là thao tác xoay cây, gồm 2 loại:
 
 <h1 id="thao-tác-thêm">Thao tác thêm</h1>
 
-<p>Thao tác thêm một nút có khóa <code class="highlighter-rouge">K</code> được thực hiện tương tự như cây nhị phân tìm kiếm bình
+<p>Thao tác thêm một nút có khóa <code class="language-plaintext highlighter-rouge">K</code> được thực hiện tương tự như cây nhị phân tìm kiếm bình
 thường, sau khi thêm ta kiểm tra xem tính chất heap có bị vi phạm không. Nếu có, ta thực hiện
 phép quay phù hợp để cân bằng lại cây. Cụ thể, code như sau:</p>
 
@@ -185,7 +185,7 @@ phép quay phù hợp để cân bằng lại cây. Cụ thể, code như sau:</
         <span class="n">left</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">priority</span> <span class="o">&gt;</span> <span class="n">left</span><span class="o">-&gt;</span><span class="n">priority</span><span class="p">)</span>
             <span class="n">root</span> <span class="o">=</span> <span class="n">rotate_right</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">right</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">priority</span> <span class="o">&gt;</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">priority</span><span class="p">)</span>
             <span class="n">root</span> <span class="o">=</span> <span class="n">rotate_left</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>

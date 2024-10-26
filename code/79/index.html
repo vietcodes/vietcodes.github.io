@@ -84,9 +84,9 @@ gtag('config', 'UA-112397632-1');
 xét.</p>
 
 <p>Ta thấy một trạng thái \(s\) là hợp lệ nếu \(\)s không có các bit 1 kề nhau.
-Vì vậy ta có cách kiểm tra: s hợp lệ khi và chỉ khi <code class="highlighter-rouge">s &amp; (s&gt;&gt;1) == 0</code>.</p>
+Vì vậy ta có cách kiểm tra: s hợp lệ khi và chỉ khi <code class="language-plaintext highlighter-rouge">s &amp; (s&gt;&gt;1) == 0</code>.</p>
 
-<p>Tương tự, 2 trạng thái \(s\) và \(t\) có thể nằm ở 2 cột kề nhau nếu <code class="highlighter-rouge">s &amp; t == 0</code>.</p>
+<p>Tương tự, 2 trạng thái \(s\) và \(t\) có thể nằm ở 2 cột kề nhau nếu <code class="language-plaintext highlighter-rouge">s &amp; t == 0</code>.</p>
 
 <p>Vì đề yêu cầu phải chọn một tập khác rỗng, ta xử lý đoạn này như sau:</p>
 
@@ -111,10 +111,10 @@ tử lớn nhất của ma trận A làm kết quả mới.</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/79/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;climits&gt;
-#include &lt;algorithm&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;climits&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="cp">#define LL long long

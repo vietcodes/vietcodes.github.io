@@ -109,9 +109,9 @@ về:</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/76/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;numeric&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;numeric&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="cp">#define LL long long
@@ -148,7 +148,7 @@ về:</p>
                 <span class="n">c</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">n_child</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">low</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">low</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">low</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">trace</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">trace</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">low</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">low</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">index</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -172,8 +172,8 @@ về:</p>
         <span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">ke</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
     <span class="p">}</span>
     
-    <span class="kt">int</span> <span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">LL</span> <span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">index</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">LL</span> <span class="nf">count</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">visited</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">count_child</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">g</span><span class="p">);</span>
         <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">n_child</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">g</span><span class="p">);</span>

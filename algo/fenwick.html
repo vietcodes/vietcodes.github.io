@@ -90,13 +90,13 @@ tính tổng có độ phức tạp \(O(N)\).</p>
 
 <h1 id="định-nghĩa-bit">Định nghĩa BIT</h1>
 
-<p>Xem BIT như một mảng F có N phần tử, đánh số từ 1. \(F(i)\) lưu tổng của <code class="highlighter-rouge">i &amp; (-i)</code> phần tử, bắt đầu từ \(A(i)\)
-ngược về \(A(1)\). Tức là \(F(i)\) lưu tổng từ <code class="highlighter-rouge">A(i-(i&amp;-i)+1)</code> đến <code class="highlighter-rouge">A(i)</code>.</p>
+<p>Xem BIT như một mảng F có N phần tử, đánh số từ 1. \(F(i)\) lưu tổng của <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code> phần tử, bắt đầu từ \(A(i)\)
+ngược về \(A(1)\). Tức là \(F(i)\) lưu tổng từ <code class="language-plaintext highlighter-rouge">A(i-(i&amp;-i)+1)</code> đến <code class="language-plaintext highlighter-rouge">A(i)</code>.</p>
 
-<p><strong>Giải thích phép tính <code class="highlighter-rouge">i &amp; (-i)</code>:</strong></p>
+<p><strong>Giải thích phép tính <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code>:</strong></p>
 
-<p><code class="highlighter-rouge">i &amp; (-i)</code> sẽ trả về bit đầu tiên khác 0 của i, ví dụ \(i = 20\), có biểu diễn nhị phân là \(10100\), thì <code class="highlighter-rouge">i &amp; (-i)</code>
-sẽ có biểu diễn nhị phân là \(100\), tức là <code class="highlighter-rouge">20 &amp; (-20) = 4</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">i &amp; (-i)</code> sẽ trả về bit đầu tiên khác 0 của i, ví dụ \(i = 20\), có biểu diễn nhị phân là \(10100\), thì <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code>
+sẽ có biểu diễn nhị phân là \(100\), tức là <code class="language-plaintext highlighter-rouge">20 &amp; (-20) = 4</code>.</p>
 
 <p>Ví dụ mảng A có 10 phần tử và cây BIT tương ứng:</p>
 
@@ -150,7 +150,7 @@ sẽ có biểu diễn nhị phân là \(100\), tức là <code class="highlight
 
 <p>Để tính tổng từ \(A(1)\) đến \(A(i)\), ta lặp như sau:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
 while i &gt;= 1:
     result = result + F[i]
     i = i - (i &amp; -i)
@@ -162,7 +162,7 @@ số lượng bit 1 của \(i\), dẫn đến độ phức tạp là \(O(\log N)
 <p>Cách trên cho phép tính tổng từ đầu dãy đến \(A(i)\), nếu muốn tính tổng trên một đoạn từ \(A(j)\)
 đến \(A(i)\) thì phải thay đổi thao tác trên một ít:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
 while i &gt;= j:
     if i - (i &amp; -i) &gt;= j:
         result = result + F[i]
@@ -176,11 +176,11 @@ while i &gt;= j:
 
 <p>Trong truy vấn cập nhật, ta cần tăng giá trị của \(A(i)\) lên 1, vì vậy ta cũng
 cần phải tăng các giá trị \(F(j)\) mà trong dãy tổng của \(F(j)\) có chứa \(A(i)\). Để làm được điều này,
-chỉ cần làm ngược lại với thao tác truy xuất bên trên, tức là <code class="highlighter-rouge">i = i + (i &amp; -i)</code>.</p>
+chỉ cần làm ngược lại với thao tác truy xuất bên trên, tức là <code class="language-plaintext highlighter-rouge">i = i + (i &amp; -i)</code>.</p>
 
 <p>Đoạn code cập nhật như sau:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while i &lt;= n:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while i &lt;= n:
     F[i] = F[i] + 1
     i = i + (i &amp; -i)
 </code></pre></div></div>

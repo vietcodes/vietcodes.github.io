@@ -97,8 +97,8 @@ gtag('config', 'UA-112397632-1');
 <p>Bài này cần cài đặt xử lý số lớn, code mẫu dùng Python cho đơn giản.</p>
 
 <p>Có thể tính công thức trên trong \(O(n \times k)\), tuy nhiên để giảm số phép cộng cần thực hiện,
-ta lưu 2 biến tổng cộng dồn sum_f0 và sum_f1. Cập nhật <code class="highlighter-rouge">sum_f0 -= f0[i-k-1]</code> trước khi tính \(f0[i]\), sau khi tính
-\(f0[i]\), cập nhật lại <code class="highlighter-rouge">sum_f0 += f0[i]</code>.</p>
+ta lưu 2 biến tổng cộng dồn sum_f0 và sum_f1. Cập nhật <code class="language-plaintext highlighter-rouge">sum_f0 -= f0[i-k-1]</code> trước khi tính \(f0[i]\), sau khi tính
+\(f0[i]\), cập nhật lại <code class="language-plaintext highlighter-rouge">sum_f0 += f0[i]</code>.</p>
 
           </div>
 </div>
@@ -118,10 +118,10 @@ ta lưu 2 biến tổng cộng dồn sum_f0 và sum_f1. Cập nhật <code class
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/159/main.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.py">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">().</span><span class="n">split</span><span class="p">())</span>
+          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">input</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
 
-<span class="n">f0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-<span class="n">f1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">f0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
 
 <span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -129,7 +129,7 @@ ta lưu 2 biến tổng cộng dồn sum_f0 và sum_f1. Cập nhật <code class
 <span class="n">sum_f0</span> <span class="o">=</span> <span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">sum_f1</span> <span class="o">=</span> <span class="n">f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">sum_f1</span> <span class="o">-=</span> <span class="n">f1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">sum_f0</span> <span class="o">-=</span> <span class="n">f0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -139,7 +139,7 @@ ta lưu 2 biến tổng cộng dồn sum_f0 và sum_f1. Cập nhật <code class
     <span class="n">sum_f0</span> <span class="o">+=</span> <span class="n">f1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">sum_f1</span> <span class="o">+=</span> <span class="n">f0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">f1</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">f1</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
 </code></pre></div></div>
 
           </div>

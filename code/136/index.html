@@ -101,8 +101,8 @@ tại cộng thêm số tiền ít nhất đó lớn hơn số tiền tối đa 
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/136/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mi">1000000000</span><span class="p">;</span>
@@ -112,7 +112,7 @@ tại cộng thêm số tiền ít nhất đó lớn hơn số tiền tối đa 
     <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">edge</span><span class="o">&gt;&gt;</span> <span class="n">ke</span><span class="p">;</span>
     <span class="n">dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">n</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
     <span class="p">}</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">run</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
@@ -142,10 +142,10 @@ tại cộng thêm số tiền ít nhất đó lớn hơn số tiền tối đa 
     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
     <span class="n">graph</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span><span class="o">:</span> <span class="n">n</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">k</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">});</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">visit</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="n">dt</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">dl</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">res</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -158,7 +158,7 @@ tại cộng thêm số tiền ít nhất đó lớn hơn số tiền tối đa 
         <span class="p">}</span>
         <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">solve</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">solve</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">dijkstra</span> <span class="n">gl</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">gt</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">u</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">u</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">edge</span> <span class="n">e</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>

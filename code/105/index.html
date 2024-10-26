@@ -84,7 +84,7 @@ gtag('config', 'UA-112397632-1');
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/105/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">interval</span> <span class="p">{</span>
@@ -92,10 +92,10 @@ gtag('config', 'UA-112397632-1');
     <span class="kt">bool</span> <span class="n">inside</span><span class="p">(</span><span class="n">interval</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">l</span><span class="o">&lt;=</span><span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">bool</span> <span class="n">intersect</span><span class="p">(</span><span class="n">interval</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">interval</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">l</span> <span class="o">||</span> <span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="o">&lt;</span><span class="n">l</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">mid</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">mid</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -106,11 +106,11 @@ gtag('config', 'UA-112397632-1');
     <span class="kt">int</span> <span class="n">value</span><span class="p">,</span> <span class="n">lazy</span><span class="p">;</span>
     <span class="n">node</span><span class="p">(</span><span class="n">interval</span> <span class="n">range</span><span class="p">)</span><span class="o">:</span> <span class="n">range</span><span class="p">(</span><span class="n">range</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span> <span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lazy</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
     <span class="o">~</span><span class="n">node</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="n">left</span><span class="p">;</span> <span class="k">delete</span> <span class="n">right</span><span class="p">;</span> <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">lazy_down</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">lazy_down</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">left</span><span class="p">)</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">mid</span><span class="p">();</span>
             <span class="n">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">node</span><span class="p">({</span><span class="n">range</span><span class="p">.</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">});</span>
-            <span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">node</span><span class="p">({</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="n">r</span><span class="p">});</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">node</span><span class="p">({</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="n">r</span><span class="p">});</span>
         <span class="p">}</span>
         <span class="n">left</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">+=</span> <span class="n">lazy</span><span class="p">;</span>
         <span class="n">left</span><span class="o">-&gt;</span><span class="n">lazy</span> <span class="o">+=</span> <span class="n">lazy</span><span class="p">;</span>
@@ -118,7 +118,7 @@ gtag('config', 'UA-112397632-1');
         <span class="n">right</span><span class="o">-&gt;</span><span class="n">lazy</span> <span class="o">+=</span> <span class="n">lazy</span><span class="p">;</span>
         <span class="n">lazy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="n">interval</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">interval</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">range</span><span class="p">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">range</span><span class="p">.</span><span class="n">inside</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="n">value</span> <span class="o">+=</span> <span class="n">val</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
         <span class="k">else</span> <span class="p">{</span>
@@ -128,7 +128,7 @@ gtag('config', 'UA-112397632-1');
             <span class="n">value</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">get_max</span><span class="p">(</span><span class="n">interval</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">get_max</span><span class="p">(</span><span class="n">interval</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">range</span><span class="p">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">range</span><span class="p">.</span><span class="n">inside</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
         <span class="n">lazy_down</span><span class="p">();</span>

@@ -80,7 +80,7 @@ gtag('config', 'UA-112397632-1');
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/1/main.rs">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.rs">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-rust selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="k">extern</span> <span class="n">crate</span> <span class="n">cgmath</span><span class="p">;</span>
+          <div class="language-rust selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="k">extern</span> <span class="k">crate</span> <span class="n">cgmath</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nn">cgmath</span><span class="p">::</span><span class="n">Vector2</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">cgmath</span><span class="p">::</span><span class="n">vec2</span><span class="p">;</span>
@@ -122,7 +122,7 @@ gtag('config', 'UA-112397632-1');
     <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="nf">.lines</span><span class="p">()</span><span class="nf">.skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="n">s</span><span class="p">|</span> <span class="p">{</span>
         <span class="k">let</span> <span class="k">mut</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="nf">.split_whitespace</span><span class="p">();</span>
         <span class="nf">vec2</span><span class="p">(</span><span class="n">a</span><span class="nf">.next</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">()</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">f64</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">(),</span> <span class="n">a</span><span class="nf">.next</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">()</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">f64</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">())</span>
-    <span class="p">})</span><span class="py">.collect</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="mi">_</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+    <span class="p">})</span><span class="py">.collect</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;&gt;</span><span class="p">();</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">compute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div></div>

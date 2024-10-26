@@ -82,7 +82,7 @@ kết quả của bài toán là một trong các giá trị \(A[i]\).</p>
 <p>Giả sử đoạn \(A[l]\) đến \(A[r]\) có tấm ván ngắn nhất là \(A[i]\),
 ta có thể cắt một tấm ván vuông cạnh \(A[i]\) nếu \(r-l+1 \ge A[i]\).</p>
 
-<p>Từ nhận xét trên, ta có thể giải bài toán dùng 2 vòng lặp (code <code class="highlighter-rouge">n2.cpp</code>).</p>
+<p>Từ nhận xét trên, ta có thể giải bài toán dùng 2 vòng lặp (code <code class="language-plaintext highlighter-rouge">n2.cpp</code>).</p>
 
 <p>Để giảm độ phức tạp thuật toán về \(O(N)\), gọi \(L[i]\) là số nhỏ nhất sao
 cho \(A[i]\) là min trong đoạn \(A[L[i]]\) đến \(A[i]\). Tương tự,
@@ -104,7 +104,7 @@ do \(A[z] \ge A[i] \implies A[z] \ge A[k]\).</p>
 \(A[last]\) (\(last\) là phần tử cuối cùng của \(S\)), nếu \(A[last] \ge A[i]\) thì xóa \(last\) ra khỏi
 \(S\). Dừng khi tìm được \(A[last] &lt; A[i]\) hoặc mảng \(S\) đã rỗng. Sau đó thêm \(i\) vào cuối mảng \(S\).</p>
 
-<p>Để tìm \(R\) ta duyệt từ \(n\) về 1 và làm tương tự. Code <code class="highlighter-rouge">n.cpp</code> cài đặt thuật toán này.</p>
+<p>Để tìm \(R\) ta duyệt từ \(n\) về 1 và làm tương tự. Code <code class="language-plaintext highlighter-rouge">n.cpp</code> cài đặt thuật toán này.</p>
 
 <p>Xem thêm về kĩ thuật này ở
 <a href="https://vnoi.info/wiki/algo/data-structures/deque-min-max" target="_blank">Kĩ thuật sử dụng Deque tìm Min/Max trên đoạn tịnh tiến</a>.</p>
@@ -127,8 +127,8 @@ do \(A[z] \ge A[i] \implies A[z] \ge A[k]\).</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/156/n2.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="n2.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -165,8 +165,8 @@ do \(A[z] \ge A[i] \implies A[z] \ge A[k]\).</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/156/n.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="n.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>

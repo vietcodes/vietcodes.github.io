@@ -82,15 +82,15 @@ gtag('config', 'UA-112397632-1');
 
           <p>Xem cách sinh hoán vị ở <a href="/algo/permute">đây</a>.</p>
 
-<p>Sau đây là cách tính số hoán vị. Giả sử chuỗi đề cho là <code class="highlighter-rouge">aabbbcdd</code>, chuỗi
-dài 8 kí tự, <code class="highlighter-rouge">a</code> xuất hiện 2 lần, <code class="highlighter-rouge">b</code> 3 lần, <code class="highlighter-rouge">c</code> 1 lần và <code class="highlighter-rouge">d</code> 2 lần nên ta
+<p>Sau đây là cách tính số hoán vị. Giả sử chuỗi đề cho là <code class="language-plaintext highlighter-rouge">aabbbcdd</code>, chuỗi
+dài 8 kí tự, <code class="language-plaintext highlighter-rouge">a</code> xuất hiện 2 lần, <code class="language-plaintext highlighter-rouge">b</code> 3 lần, <code class="language-plaintext highlighter-rouge">c</code> 1 lần và <code class="language-plaintext highlighter-rouge">d</code> 2 lần nên ta
 có số hoán vị là:</p>
 
 \[P = \frac{8!}{2! \times 3! \times 1! \times 2!}\]
 
 <p>Ngoài cách làm “chuẩn” như trên, ta có thể dùng hàm 
 <a href="http://www.cplusplus.com/reference/algorithm/next_permutation/" target="_blank">next_permutation</a> của
-C++ để sinh hoán vị, vừa sinh vừa đếm như trong code <code class="highlighter-rouge">stl.cpp</code> ở dưới.</p>
+C++ để sinh hoán vị, vừa sinh vừa đếm như trong code <code class="language-plaintext highlighter-rouge">stl.cpp</code> ở dưới.</p>
 
           </div>
 </div>
@@ -110,8 +110,8 @@ C++ để sinh hoán vị, vừa sinh vừa đếm như trong code <code class="
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/59/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
@@ -162,8 +162,8 @@ C++ để sinh hoán vị, vừa sinh vừa đếm như trong code <code class="
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/59/stl.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="stl.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>

@@ -118,11 +118,11 @@ là số nguyên lớn nhất \(d\) thỏa mãn cả \(a\) và \(b\) đều chia
 
 <p>Thuật toán gồm các bước như sau:</p>
 <ul>
-  <li>Nếu <code class="highlighter-rouge">a = b</code> thì <code class="highlighter-rouge">gcd(a, b) = a = b</code>.</li>
-  <li><code class="highlighter-rouge">gcd(0, v) = v</code>, <code class="highlighter-rouge">gcd(u, 0) = u</code>.</li>
-  <li>Nếu cả <code class="highlighter-rouge">u</code> và <code class="highlighter-rouge">v</code> đều chẵn thì <code class="highlighter-rouge">gcd(u, v) = 2*gcd(u/2, v/2)</code>.</li>
-  <li>Nếu <code class="highlighter-rouge">u</code> chẵn và <code class="highlighter-rouge">v</code> lẻ thì <code class="highlighter-rouge">gcd(u, v) = gcd(u/2, v)</code>. Tương tự, nếu <code class="highlighter-rouge">u</code> lẻ và <code class="highlighter-rouge">v</code> chẵn thì <code class="highlighter-rouge">gcd(u, v) = gcd(u, v/2)</code>.</li>
-  <li>Nếu cả <code class="highlighter-rouge">u</code> và <code class="highlighter-rouge">v</code> đều lẻ và <code class="highlighter-rouge">u &gt; v</code> thì <code class="highlighter-rouge">gcd(u, v) = gcd((u-v)/2, v)</code>. Và ngược lại.</li>
+  <li>Nếu <code class="language-plaintext highlighter-rouge">a = b</code> thì <code class="language-plaintext highlighter-rouge">gcd(a, b) = a = b</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">gcd(0, v) = v</code>, <code class="language-plaintext highlighter-rouge">gcd(u, 0) = u</code>.</li>
+  <li>Nếu cả <code class="language-plaintext highlighter-rouge">u</code> và <code class="language-plaintext highlighter-rouge">v</code> đều chẵn thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = 2*gcd(u/2, v/2)</code>.</li>
+  <li>Nếu <code class="language-plaintext highlighter-rouge">u</code> chẵn và <code class="language-plaintext highlighter-rouge">v</code> lẻ thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd(u/2, v)</code>. Tương tự, nếu <code class="language-plaintext highlighter-rouge">u</code> lẻ và <code class="language-plaintext highlighter-rouge">v</code> chẵn thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd(u, v/2)</code>.</li>
+  <li>Nếu cả <code class="language-plaintext highlighter-rouge">u</code> và <code class="language-plaintext highlighter-rouge">v</code> đều lẻ và <code class="language-plaintext highlighter-rouge">u &gt; v</code> thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd((u-v)/2, v)</code>. Và ngược lại.</li>
   <li>Lặp lại các bước trên.</li>
 </ul>
 

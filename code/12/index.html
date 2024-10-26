@@ -87,7 +87,7 @@ Ta cần tìm max của \(xy\) với \(x + By \le N\).</p>
 
 <p>Hàm số trên đạt cực đại khi \(y = \frac{N}{2B}\).</p>
 
-<p>Vì \(y\) trong đề là số nguyên nên ta dùng hàm <code class="highlighter-rouge">round</code> để làm tròn về
+<p>Vì \(y\) trong đề là số nguyên nên ta dùng hàm <code class="language-plaintext highlighter-rouge">round</code> để làm tròn về
 giá trị nguyên gần nhất.</p>
 
           </div>
@@ -108,10 +108,10 @@ giá trị nguyên gần nhất.</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/12/main.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.py">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())):</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">().</span><span class="n">split</span><span class="p">()]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="nf">input</span><span class="p">())):</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="nf">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">input</span><span class="p">().</span><span class="nf">split</span><span class="p">()]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nf">round</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
 </code></pre></div></div>
 
           </div>

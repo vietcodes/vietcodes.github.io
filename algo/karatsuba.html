@@ -111,7 +111,7 @@ bằng cách chia mỗi mảng \(x, y\) thành 2 mảng con, \(x_0\) là \(m\) p
 
 <p>Vì ta cài đặt hoàn toàn bằng C nên cần tạo một kiểu dữ liệu để lưu mảng số và số chữ số của số,
 quy ước số 0 luôn có số chữ số là 0. Để tránh tràn số khi tính toán,
-ta lưu mỗi phần tử của mảng bằng kiểu <code class="highlighter-rouge">long long</code>:</p>
+ta lưu mỗi phần tử của mảng bằng kiểu <code class="language-plaintext highlighter-rouge">long long</code>:</p>
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define LL long long
 </span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
@@ -122,9 +122,9 @@ ta lưu mỗi phần tử của mảng bằng kiểu <code class="highlighter-ro
 
 <p>Full chương trình trong C như sau:</p>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-#include &lt;stdlib.h&gt;
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span>
 <span class="cp">#define LL long long
 #define min(x, y) ((x)&lt;(y)?(x):(y))

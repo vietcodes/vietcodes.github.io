@@ -19,12 +19,12 @@ function loadComments() {
         document.getElementById("disqus-window").classList.remove("hide");
     }
     function showError() {
-        document.getElementById("btn-load-cmt").innerHTML="Disqus is down :(";
+        document.getElementById("btn-load-cmt").innerHTML="Disqus is down.";
     }
 }
 
 (function() {
-    // if (window.location.hostname == "vietcodes.github.io") {
+    if (window.location.hostname == "vietcodes.github.io") {
         loadComments();
-    // }
+    }
 })();

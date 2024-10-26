@@ -106,14 +106,14 @@ có thể bị TLE.</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/129/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">value</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">min</span><span class="p">,</span> <span class="n">max</span><span class="p">;</span>
     <span class="n">value</span><span class="p">()</span><span class="o">:</span> <span class="n">min</span><span class="p">(</span><span class="mi">10000000</span><span class="p">),</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="k">const</span> <span class="n">value</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="k">const</span> <span class="n">value</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">min</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">.</span><span class="n">min</span><span class="p">)</span> <span class="n">min</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">min</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">max</span><span class="p">)</span> <span class="n">max</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">max</span><span class="p">;</span>
     <span class="p">}</span>
@@ -132,20 +132,20 @@ có thể bị TLE.</p>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">,</span> <span class="n">res</span><span class="p">;</span>
 
     <span class="n">Tarjan</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">n</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">k</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">q</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">queue</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">cha</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">done</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>  <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
         <span class="n">ke</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">u</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">add_query</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">add_query</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">q</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">});</span>
         <span class="n">q</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">u</span><span class="p">,</span> <span class="n">k</span><span class="p">});</span>
         <span class="n">k</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">solve</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">solve</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">res</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
         <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
             <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
@@ -153,7 +153,7 @@ có thể bị TLE.</p>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">e</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">v</span> <span class="o">!=</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">dfs</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>

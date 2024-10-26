@@ -86,7 +86,7 @@ gtag('config', 'UA-112397632-1');
 
 <p>Tại mọi thời điểm, số phần tử trong heap là 3N. Độ phức tạp: \(O(N\log N)\).</p>
 
-<p>Trong đoạn code bên dưới, <code class="highlighter-rouge">struct edge</code> chứa 2 con trỏ from và to trỏ đến 2 đỉnh của cạnh. Mỗi lần lấy một cạnh ra khỏi heap, ta thêm cạnh mới (from, to + 1) vào heap. Có một phần tử ảo <code class="highlighter-rouge">node { -1, 0 }</code> ở cuối mảng để khỏi bị tràn.</p>
+<p>Trong đoạn code bên dưới, <code class="language-plaintext highlighter-rouge">struct edge</code> chứa 2 con trỏ from và to trỏ đến 2 đỉnh của cạnh. Mỗi lần lấy một cạnh ra khỏi heap, ta thêm cạnh mới (from, to + 1) vào heap. Có một phần tử ảo <code class="language-plaintext highlighter-rouge">node { -1, 0 }</code> ở cuối mảng để khỏi bị tràn.</p>
 
           </div>
 </div>
@@ -106,10 +106,10 @@ gtag('config', 'UA-112397632-1');
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/149/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">node</span> <span class="p">{</span>

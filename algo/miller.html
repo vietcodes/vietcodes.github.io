@@ -172,8 +172,8 @@ và <a href="http://www.spoj.com/problems/PRIME1/" target="_blank">PRIME1</a>.</
 
 <p>Ta sẽ lần lượt cài đặt các hàm cơ bản trên. Trước hết, ta khai báo các thư viện và kiểu dữ liệu cần
 sử dụng:</p>
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;tuple&gt;
-#include &lt;iostream&gt;
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 </code></pre></div></div>
@@ -252,7 +252,7 @@ Vì vậy, để không bị tràn số thì thuật toán chỉ có thể dùng
 <a href="https://www.quora.com/How-can-I-execute-A-*-B-mod-C-without-overflow-if-A-and-B-are-lesser-than-C" target="_blank">câu trả lời</a>
 trên Quora:</p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdint.h&gt;
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
 </span>
 <span class="kt">uint64_t</span> <span class="nf">mulmod</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">b</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// if (a &gt;= n) a %= n;   /* Careful attention from the caller */</span>
@@ -293,12 +293,12 @@ trên Quora:</p>
 <p>Đoạn code ở dưới đơn giản hơn, tuy nhiên nó chạy chậm hơn và chỉ chạy đúng
 vớn n có tối đa 63 bit.</p>
 
-<p>Thay thế các phép nhân trong code Miller ở phần trên bằng hàm <code class="highlighter-rouge">mulmod</code>, ta có thể sử dụng
+<p>Thay thế các phép nhân trong code Miller ở phần trên bằng hàm <code class="language-plaintext highlighter-rouge">mulmod</code>, ta có thể sử dụng
 được Miller cho các số 64-bit.</p>
 
 <h1 id="độ-phức-tạp">Độ phức tạp</h1>
 
-<p>Độ phức tạp của hàm <code class="highlighter-rouge">mulmod</code> là \(O(\log n)\).</p>
+<p>Độ phức tạp của hàm <code class="language-plaintext highlighter-rouge">mulmod</code> là \(O(\log n)\).</p>
 
 <p>Mỗi lần kiểm tra tốn \(O(s + \log d) = O(\log n)\) phép nhân, kết hợp với phép ĐPT của phép nhân nữa
 là \(O(\log ^ 2 n)\).</p>

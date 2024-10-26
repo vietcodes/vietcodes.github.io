@@ -94,39 +94,39 @@ ví dụ như biểu thức \((x \land y) \to z\) được đưa về dạng chu
 <p>Sau khi đã đưa được về dạng chuẩn, ta đánh số các biến bắt đầu từ 1, sau đó tạo input cho MiniSat.
 Mỗi vế trong input được viết trên một dòng kết thúc bằng số 0, và \(\neg x\) được viết thành \(-x\).
 Ngoài ra, ở đầu file ta ghi dòng sau:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf &lt;số biến&gt; &lt;số vế&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf &lt;số biến&gt; &lt;số vế&gt;
 </code></pre></div></div>
 
 <p>Ví dụ biểu thức \((x \lor y) \land (\neg x \lor z) \land (y \lor z)\) cho input là:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 3 3
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 3 3
 1 2 0
 -1 3 0
 2 3 0
 </code></pre></div></div>
 
 <p>Biểu thức \(\neg x \lor \neg y \lor z\) cho input là:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 3 1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 3 1
 -1 -2 3 0
 </code></pre></div></div>
 
 <h2 id="output-của--minisat">Output của  MiniSat</h2>
 
 <p>Sau khi tạo được file input, ta chạy MiniSat và được file output. Ví dụ input:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 5 3
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p cnf 5 3
 1 -5 4 0
 -1 5 3 4 0
 -3 -4 0
 </code></pre></div></div>
 
 <p>Có output sau:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SAT
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SAT
 1 2 -3 4 5 0
 </code></pre></div></div>
 
 <p>Với ý nghĩa biến thứ 1, 2, 4, 5 có giá trị TRUE, biến thứ 3 có giá trị FALSE.</p>
 
-<p>Nếu không giải được, MiniSat sẽ xuất <code class="highlighter-rouge">UNSAT</code>.</p>
+<p>Nếu không giải được, MiniSat sẽ xuất <code class="language-plaintext highlighter-rouge">UNSAT</code>.</p>
 
 <h1 id="giải-bài-8-quân-hậu-bằng-minisat">Giải bài 8 quân hậu bằng MiniSat</h1>
 
@@ -144,66 +144,66 @@ với mỗi hàng \(i\).</p>
 
 <p>Làm tương tự với các ô khác, cột khác và các đường chéo. Xem code (Python 3):</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="n">it</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">itertools</span> <span class="k">as</span> <span class="n">it</span>
+<span class="kn">import</span> <span class="n">os</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
 
 <span class="n">clauses</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">def</span> <span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
-    <span class="k">assert</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="nf">assert</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="c1"># each row contains at least one queen
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">clauses</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">clauses</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
 
 <span class="c1"># each row contains at most one queen
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="n">clauses</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="nf">combinations</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">clauses</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
 
 <span class="c1"># each column contains at most one queen
-</span><span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="n">clauses</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j</span><span class="p">)])</span>
+</span><span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="nf">combinations</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">clauses</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j</span><span class="p">)])</span>
 
 <span class="c1"># no two queens stay on the same diagonal
-</span><span class="k">for</span> <span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
-    <span class="k">assert</span><span class="p">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i2</span> <span class="o">-</span> <span class="n">i1</span> <span class="o">==</span> <span class="nb">abs</span><span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">j1</span><span class="p">):</span>
-            <span class="n">clauses</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="n">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
+</span><span class="nf">for </span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="nf">combinations</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nf">assert</span><span class="p">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="p">)</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">.</span><span class="nf">product</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i2</span> <span class="o">-</span> <span class="n">i1</span> <span class="o">==</span> <span class="nf">abs</span><span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">j1</span><span class="p">):</span>
+            <span class="n">clauses</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">j1</span><span class="p">),</span> <span class="o">-</span><span class="nf">varnum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">)])</span>
 
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'tmp.cnf'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">"p cnf {} {}</span><span class="si">\</span><span class="se">n</span><span class="s">"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clauses</span><span class="p">)))</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">tmp.cnf</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="sh">"</span><span class="s">p cnf {} {}</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">clauses</span><span class="p">)))</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clauses</span><span class="p">:</span>
-        <span class="n">c</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="s">"</span><span class="si">\</span><span class="se">n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nf">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 
-<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"minisat tmp.cnf tmp.sat"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sh">"</span><span class="s">minisat tmp.cnf tmp.sat</span><span class="sh">"</span><span class="p">)</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"tmp.sat"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">satfile</span><span class="p">:</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">tmp.sat</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">satfile</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">satfile</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"UNSAT"</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">"There is no solution"</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"SAT"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">.</span><span class="nf">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">UNSAT</span><span class="sh">"</span><span class="p">:</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">There is no solution</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">.</span><span class="nf">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">SAT</span><span class="sh">"</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">assignment</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">()]</span>
+            <span class="n">assignment</span> <span class="o">=</span> <span class="p">[</span><span class="nf">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="p">.</span><span class="nf">split</span><span class="p">()]</span>
 
             <span class="c1">#print("-" * (2 * n + 1))
-</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">"|"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">assignment</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s">"x|"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">|</span><span class="sh">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">""</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nf">varnum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">assignment</span><span class="p">:</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">x|</span><span class="sh">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">""</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s">" |"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s"> |</span><span class="sh">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">""</span><span class="p">)</span>
 
-                <span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">)</span>
                 <span class="c1">#print("-" * (2 * n + 1))
 </span></code></pre></div></div>
 

@@ -133,8 +133,8 @@ xuống còn \(O(\log N)\).</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/114/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;vector&gt;
-#include &lt;iostream&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">value</span> <span class="p">{</span>
@@ -155,7 +155,7 @@ xuống còn \(O(\log N)\).</p>
     <span class="kt">bool</span> <span class="n">inside</span><span class="p">(</span><span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">l</span><span class="o">&lt;=</span><span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">bool</span> <span class="n">intersect</span><span class="p">(</span><span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">intersect</span><span class="p">(</span><span class="k">const</span> <span class="n">range</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">l</span> <span class="o">||</span> <span class="n">b</span><span class="p">.</span><span class="n">r</span><span class="o">&lt;</span><span class="n">l</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">};</span>

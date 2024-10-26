@@ -75,14 +75,14 @@ gtag('config', 'UA-112397632-1');
   </div>
   <div class="card-body window-body content">
 
-          <p>Bài này ta cần đếm số chu trình cơ bản của đồ thị đã cho. Công thức là <code class="highlighter-rouge">M-N+1</code> cho
+          <p>Bài này ta cần đếm số chu trình cơ bản của đồ thị đã cho. Công thức là <code class="language-plaintext highlighter-rouge">M-N+1</code> cho
 mỗi thành phần liên thông. Ngoài ra ta có thể DFS để đếm số cạnh nối ngược lên trên
 trong quá trình DFS.</p>
 
-<p>Code <code class="highlighter-rouge">dsu.cpp</code> sử dụng disjoin set để kết hợp việc tìm các TPLT với đếm số cạnh và đỉnh
-trong TPLT. Rồi dùng công thức <code class="highlighter-rouge">M-N+1</code> để tính kết quả.</p>
+<p>Code <code class="language-plaintext highlighter-rouge">dsu.cpp</code> sử dụng disjoin set để kết hợp việc tìm các TPLT với đếm số cạnh và đỉnh
+trong TPLT. Rồi dùng công thức <code class="language-plaintext highlighter-rouge">M-N+1</code> để tính kết quả.</p>
 
-<p>Code <code class="highlighter-rouge">dfs.cpp</code> dùng DFS như đã nói ở trên.</p>
+<p>Code <code class="language-plaintext highlighter-rouge">dfs.cpp</code> dùng DFS như đã nói ở trên.</p>
 
           </div>
 </div>
@@ -102,9 +102,9 @@ trong TPLT. Rồi dùng công thức <code class="highlighter-rouge">M-N+1</code
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/131/dsu.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="dsu.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;vector&gt;
-#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">dsu</span> <span class="p">{</span>
@@ -116,11 +116,11 @@ trong TPLT. Rồi dùng công thức <code class="highlighter-rouge">M-N+1</code
             <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
         <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">m</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
@@ -164,8 +164,8 @@ trong TPLT. Rồi dùng công thức <code class="highlighter-rouge">M-N+1</code
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/131/dfs.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="dfs.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dsk</span><span class="p">;</span>

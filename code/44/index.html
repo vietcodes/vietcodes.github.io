@@ -145,8 +145,8 @@ cạnh mới vào (-1 do trong C1 * C2 cạnh thì có một cạnh trùng với
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/44/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;cstdio&gt;
-#include &lt;vector&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="cp">#define LL long long
 </span>
@@ -179,7 +179,7 @@ cạnh mới vào (-1 do trong C1 * C2 cạnh thì có một cạnh trùng với
                 <span class="n">nBridge</span><span class="o">++</span><span class="p">;</span>
                 <span class="n">res</span> <span class="o">+=</span> <span class="p">(</span><span class="n">LL</span><span class="p">)</span><span class="n">nChildJ</span> <span class="o">*</span> <span class="p">(</span><span class="n">LL</span><span class="p">)(</span><span class="n">n</span><span class="o">-</span><span class="n">nChildJ</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1ll</span><span class="p">;</span>
             <span class="p">}</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="n">trace</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="n">trace</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">nChild</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
@@ -202,7 +202,7 @@ cạnh mới vào (-1 do trong C1 * C2 cạnh thì có một cạnh trùng với
             <span class="n">dfs2</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">num_bridge</span><span class="p">);</span>
             <span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">low</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">num_bridge</span><span class="o">++</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="n">trace</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="n">trace</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -232,8 +232,8 @@ cạnh mới vào (-1 do trong C1 * C2 cạnh thì có một cạnh trùng với
 
     <span class="kt">int</span> <span class="n">num_ccs</span> <span class="o">=</span> <span class="n">count_ccs</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">num_ccs</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"0"</span><span class="p">);</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">num_ccs</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="n">solve2</span><span class="p">();</span>
-    <span class="k">else</span> <span class="n">solve1</span><span class="p">();</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">num_ccs</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="n">solve2</span><span class="p">();</span>
+    <span class="k">else</span> <span class="nf">solve1</span><span class="p">();</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>

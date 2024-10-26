@@ -126,17 +126,17 @@ còn lại.</li>
 
 <p>Trong đó:</p>
 <ul>
-  <li><code class="highlighter-rouge">left</code> là con trỏ đến nút con bên trái</li>
-  <li><code class="highlighter-rouge">right</code> là con trỏ đến nút con bên phải</li>
-  <li><code class="highlighter-rouge">key</code> là khóa của nút</li>
+  <li><code class="language-plaintext highlighter-rouge">left</code> là con trỏ đến nút con bên trái</li>
+  <li><code class="language-plaintext highlighter-rouge">right</code> là con trỏ đến nút con bên phải</li>
+  <li><code class="language-plaintext highlighter-rouge">key</code> là khóa của nút</li>
 </ul>
 
 <p>Để cho thuận tiện, ta thêm một constructor cho kiểu dữ liệu vừa tạo.</p>
 
 <h1 id="thao-tác-thêm">Thao tác thêm</h1>
 
-<p>Phần này sẽ trình bày thao tác thêm một nút có khóa <code class="highlighter-rouge">K</code> vào cây nhị phân tìm kiếm.
-Vì các khóa trong cây phải khác nhau nên nếu <code class="highlighter-rouge">K</code> đã tồn tại trên cây thì sẽ không có nút
+<p>Phần này sẽ trình bày thao tác thêm một nút có khóa <code class="language-plaintext highlighter-rouge">K</code> vào cây nhị phân tìm kiếm.
+Vì các khóa trong cây phải khác nhau nên nếu <code class="language-plaintext highlighter-rouge">K</code> đã tồn tại trên cây thì sẽ không có nút
 nào được thêm vào.</p>
 
 <p>Việc thêm một khóa được thực hiện một cách đệ quy:</p>
@@ -145,10 +145,10 @@ nào được thêm vào.</p>
   <li>Nếu vị trí đang xét chưa tồn tại nút nào thì ta tạo tại đó một nút mới với khóa là khóa cần thêm.</li>
   <li>Ngược lại, khi nút đang xét đã tồn tại thì có 3 trường hợp:
     <ul>
-      <li>Khóa của nút đang xét bằng <code class="highlighter-rouge">K</code>, trong trường hợp này ta dừng, không thêm nữa.</li>
-      <li>Khóa của nút đang xét lớn hơn <code class="highlighter-rouge">K</code>, ta thấy nút cần thêm phải nằm trong cây con bên phải của nút
+      <li>Khóa của nút đang xét bằng <code class="language-plaintext highlighter-rouge">K</code>, trong trường hợp này ta dừng, không thêm nữa.</li>
+      <li>Khóa của nút đang xét lớn hơn <code class="language-plaintext highlighter-rouge">K</code>, ta thấy nút cần thêm phải nằm trong cây con bên phải của nút
   đang xét, vì vậy ta gọi đệ quy xuống cây con bên phải.</li>
-      <li>Khóa của nút đang xét nhỏ hơn <code class="highlighter-rouge">K</code>, ta gọi đệ quy xuống cây con bên trái.</li>
+      <li>Khóa của nút đang xét nhỏ hơn <code class="language-plaintext highlighter-rouge">K</code>, ta gọi đệ quy xuống cây con bên trái.</li>
     </ul>
   </li>
 </ul>
@@ -182,14 +182,14 @@ nào được thêm vào.</p>
 
 <h1 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h1>
 
-<p>Phần này trình bày thao tác tìm một nút có khóa bằng <code class="highlighter-rouge">K</code> trên cây. Trong trường hợp
-không tìm thấy, trả về <code class="highlighter-rouge">NULL</code>.</p>
+<p>Phần này trình bày thao tác tìm một nút có khóa bằng <code class="language-plaintext highlighter-rouge">K</code> trên cây. Trong trường hợp
+không tìm thấy, trả về <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
 
 <p>Thao tác tìm kiếm cũng được thực hiện đệ quy tương tự như trên. Cụ thể:</p>
 
 <ul>
-  <li>Nếu vị trí đang xét chưa có nút nào, trả về <code class="highlighter-rouge">NULL</code> với ý nghĩa là không tìm thấy.</li>
-  <li>Ngược lại, ta so sánh <code class="highlighter-rouge">K</code> với khóa của nút đang xét, sau đó đệ quy sang trái/phải
+  <li>Nếu vị trí đang xét chưa có nút nào, trả về <code class="language-plaintext highlighter-rouge">NULL</code> với ý nghĩa là không tìm thấy.</li>
+  <li>Ngược lại, ta so sánh <code class="language-plaintext highlighter-rouge">K</code> với khóa của nút đang xét, sau đó đệ quy sang trái/phải
 hoặc trả về nút hiện tại tùy thuộc vào kết quả so sánh lớn hơn/bé hơn hoặc bằng.</li>
 </ul>
 

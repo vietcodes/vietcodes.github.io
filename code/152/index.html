@@ -76,8 +76,8 @@ gtag('config', 'UA-112397632-1');
   <div class="card-body window-body content">
 
           <p>Để giảm số lần kiểm tra tính nguyên tố cần thực hiện, ta <strong>xắp sếp lại
-các truy vấn theo chiều tăng dần</strong>, sau đó duyệt từng truy vấn <code class="highlighter-rouge">A[i]</code>,
-chạy hàm kiểm tra tính nguyên tố cho các số từ <code class="highlighter-rouge">A[i] - 1</code> đến <code class="highlighter-rouge">A[i-1]</code>,
+các truy vấn theo chiều tăng dần</strong>, sau đó duyệt từng truy vấn <code class="language-plaintext highlighter-rouge">A[i]</code>,
+chạy hàm kiểm tra tính nguyên tố cho các số từ <code class="language-plaintext highlighter-rouge">A[i] - 1</code> đến <code class="language-plaintext highlighter-rouge">A[i-1]</code>,
 cho đến khi gặp số nguyên tố đầu tiên thì dừng.</p>
 
 <p>Cần dùng Rabin-Miller hoặc <a href="/algo/miller">Miller</a> để kiểm tra cho nhanh.</p>
@@ -102,10 +102,10 @@ cho đến khi gặp số nguyên tố đầu tiên thì dừng.</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/152/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 

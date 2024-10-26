@@ -3,12 +3,12 @@
 	"file": "all.css",
 	"sources": [
 		"all.scss",
-		"source/_scss/brand.scss",
-		"source/_scss/emacs.scss",
-		"source/_scss/main.scss",
-		"source/_scss/window.scss",
-		"source/_scss/footer.scss",
-		"source/_scss/content.scss"
+		"_scss/brand.scss",
+		"_scss/emacs.scss",
+		"_scss/main.scss",
+		"_scss/window.scss",
+		"_scss/footer.scss",
+		"_scss/content.scss"
 	],
 	"sourcesContent": [
 		"@import \"brand.scss\";\n@import \"emacs.scss\";\n@import \"main.scss\";\n@import \"window.scss\";\n@import \"footer.scss\";\n@import \"content.scss\";\n",

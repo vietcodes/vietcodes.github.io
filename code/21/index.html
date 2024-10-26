@@ -87,8 +87,8 @@ trên cây khung lớn nhất.</p>
 
 <p>Vì vậy, bài này ta cần tìm cây khung lớn nhất, sau đó với mỗi cạnh
 (u,v) không thuộc cây khung, ta tìm trọng số nhỏ nhất trên đường đi
-từ u đến v trong cây khung. Để không bị quá thời gian, code <code class="highlighter-rouge">hld.cpp</code> dùng
-heavy-light decomposition, còn code <code class="highlighter-rouge">tarjan.cpp</code> dùng Tarjan’s offline LCA (Xem
+từ u đến v trong cây khung. Để không bị quá thời gian, code <code class="language-plaintext highlighter-rouge">hld.cpp</code> dùng
+heavy-light decomposition, còn code <code class="language-plaintext highlighter-rouge">tarjan.cpp</code> dùng Tarjan’s offline LCA (Xem
 các tài liệu đính kèm bên trên).</p>
 
           </div>
@@ -109,9 +109,9 @@ các tài liệu đính kèm bên trên).</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/21/tarjan.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="tarjan.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="cp">#define LL long long
 #define BLACK true
@@ -126,11 +126,11 @@ các tài liệu đính kèm bên trên).</p>
     <span class="n">dsu</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">cha</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
         <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
         <span class="n">cha</span><span class="p">[</span><span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">)]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
     <span class="p">}</span>
@@ -145,7 +145,7 @@ các tài liệu đính kèm bên trên).</p>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;</span> <span class="n">ke</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
     <span class="k">struct</span> <span class="nc">queue_type</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="p">};</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">queue_type</span><span class="o">&gt;</span> <span class="n">queue</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
             <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
@@ -153,7 +153,7 @@ các tài liệu đính kèm bên trên).</p>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">pack</span> <span class="n">p</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">v</span> <span class="o">!=</span> <span class="n">dad</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">dfs</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>
@@ -169,7 +169,7 @@ các tài liệu đính kèm bên trên).</p>
             <span class="n">res</span> <span class="o">+=</span> <span class="n">min</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">u</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">v</span><span class="p">]);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">solve</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">solve</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000000</span><span class="p">;</span>
         <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
@@ -217,9 +217,9 @@ các tài liệu đính kèm bên trên).</p>
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/21/hld.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="hld.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-#include &lt;iostream&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="cp">#define LL long long
@@ -231,11 +231,11 @@ các tài liệu đính kèm bên trên).</p>
     <span class="n">universe</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">cha</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rank</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="p">)</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
         <span class="k">return</span> <span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">bool</span> <span class="n">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">rank</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">rank</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">cha</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
@@ -263,7 +263,7 @@ các tài liệu đính kèm bên trên).</p>
         <span class="n">hld</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nChain</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="kt">int</span> <span class="n">prepare</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">prepare</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">nChild</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">nChild</span><span class="p">[</span><span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]])</span> <span class="p">{</span>
             <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">back</span><span class="p">();</span>
@@ -277,7 +277,7 @@ các tài liệu đính kèm bên trên).</p>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">nChild</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">hld</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">nChain</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">hld</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">nChain</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">count</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">chainHead</span><span class="p">[</span><span class="n">nChain</span><span class="p">])</span> <span class="n">chainHead</span><span class="p">[</span><span class="n">nChain</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
         <span class="n">chain</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">nChain</span><span class="p">;</span>
         <span class="n">pos</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">count</span><span class="p">;</span>
@@ -291,11 +291,11 @@ các tài liệu đính kèm bên trên).</p>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="kt">void</span> <span class="n">bitUp</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">bitUp</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
         <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">)</span> <span class="n">minimize</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">bitGet</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">bitGet</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
         <span class="n">u</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
@@ -311,7 +311,7 @@ các tài liệu đính kèm bên trên).</p>
         <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">chain</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">cha</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="n">w</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
             <span class="k">else</span> <span class="n">w</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
@@ -321,7 +321,7 @@ các tài liệu đính kèm bên trên).</p>
         <span class="p">}</span> 
     <span class="p">}</span>
 
-    <span class="kt">int</span> <span class="n">query</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">query</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
         <span class="k">while</span> <span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">chain</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">hu</span> <span class="o">=</span> <span class="n">chainHead</span><span class="p">[</span><span class="n">chain</span><span class="p">[</span><span class="n">u</span><span class="p">]],</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">chainHead</span><span class="p">[</span><span class="n">chain</span><span class="p">[</span><span class="n">v</span><span class="p">]];</span>
@@ -343,7 +343,7 @@ các tài liệu đính kèm bên trên).</p>
     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">e</span><span class="o">:</span> <span class="n">edges</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">c</span><span class="p">;</span>
     <span class="n">sort</span><span class="p">(</span><span class="n">edges</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">edges</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[](</span><span class="n">pack</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">pack</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">c</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">c</span><span class="p">;});</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">,</span> <span class="n">tree</span><span class="p">;</span>
-    <span class="n">dsk</span> <span class="n">ke</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">dsk</span> <span class="nf">ke</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">e</span><span class="o">:</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">u</span><span class="p">),</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">)))</span> <span class="p">{</span>
             <span class="n">ke</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">);</span>
@@ -351,7 +351,7 @@ các tài liệu đính kèm bên trên).</p>
             <span class="n">tree</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="n">Hld</span> <span class="n">hld</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">move</span><span class="p">(</span><span class="n">ke</span><span class="p">));</span>
+    <span class="n">Hld</span> <span class="nf">hld</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">move</span><span class="p">(</span><span class="n">ke</span><span class="p">));</span>
     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">tree</span><span class="p">)</span> <span class="n">hld</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">c</span><span class="p">);</span>
     <span class="n">LL</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">q</span><span class="o">:</span> <span class="n">q</span><span class="p">)</span> <span class="n">res</span> <span class="o">+=</span> <span class="p">(</span><span class="n">LL</span><span class="p">)(</span><span class="n">hld</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">u</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">c</span><span class="p">);</span>

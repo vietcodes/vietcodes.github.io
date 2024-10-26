@@ -85,9 +85,9 @@ gtag('config', 'UA-112397632-1');
           <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/127/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
           &bull;
           <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
-          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">matcher</span> <span class="p">{</span>
@@ -103,11 +103,11 @@ gtag('config', 'UA-112397632-1');
         <span class="n">ke</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
         <span class="n">matched</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
 
-    <span class="kt">void</span> <span class="n">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">add_edge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="kt">bool</span> <span class="n">bfs</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">bfs</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Q</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">u</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="n">u</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mx</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
@@ -124,7 +124,7 @@ gtag('config', 'UA-112397632-1');
             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
                     <span class="n">found</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">==</span> <span class="n">oo</span><span class="p">)</span> <span class="p">{</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">==</span> <span class="n">oo</span><span class="p">)</span> <span class="p">{</span>
                     <span class="n">dist</span><span class="p">[</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
                     <span class="n">Q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]);</span>
                 <span class="p">}</span>
@@ -134,7 +134,7 @@ gtag('config', 'UA-112397632-1');
         <span class="k">return</span> <span class="n">found</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kt">bool</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">oo</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span><span class="o">==</span><span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">dfs</span><span class="p">(</span><span class="n">my</span><span class="p">[</span><span class="n">v</span><span class="p">])))</span> <span class="p">{</span>
@@ -146,7 +146,7 @@ gtag('config', 'UA-112397632-1');
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kt">void</span> <span class="n">match</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">match</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">while</span><span class="p">(</span><span class="n">bfs</span><span class="p">())</span> <span class="p">{</span>
             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">u</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="n">u</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mx</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="n">matched</span> <span class="o">+=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
         <span class="p">}</span>
