@@ -25,7 +25,7 @@ function loadComments() {
 }
 
 (function() {
-    if (window.location.hostname == "vietcodes.github.io") {
+    if (window.location.hostname == "vietcodes.github.io" || window.location.hostname == "blog.vietcodes.com") {
         loadComments();
     }
 })();
