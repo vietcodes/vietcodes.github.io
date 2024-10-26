@@ -18,7 +18,8 @@ function loadComments() {
         // Show disqus-window a.k.a remove .hide class
         document.getElementById("disqus-window").classList.remove("hide");
     }
-    function showError() {
+    function showError(error) {
+        console.error(error);
         document.getElementById("btn-load-cmt").innerHTML="Disqus is down.";
     }
 }
