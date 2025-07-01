@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Duyệt đồ thị theo chiều sâu (DFS) - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Duyệt đồ thị theo chiều sâu (DFS)</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Duyệt đồ thị theo chiều sâu (DFS)</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#thuật-toán">Thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#một-số-điểm-cần-lưu-ý">Một số điểm cần lưu ý</a></li>
+</ul>
+        </div>
+        <p>Duyệt đồ thị theo chiều sâu (DFS) là một thuật toán có nhiều ứng dụng trong
+tin học, đặt biệt là trong lý thuyết đồ thị. Một vài ứng dụng của DFS:</p>
+<ul>
+  <li>Tìm đường đi trên đồ thị</li>
+  <li>Tìm chu trình</li>
+  <li>Xác định thứ tự cha-con trên cây</li>
+  <li>Xác định các thành phần liên thông (TPLT)</li>
+  <li>Tìm TPLT mạnh</li>
+  <li>Tìm cầu, khớp</li>
+  <li>Tìm thành phần song liên thông</li>
+  <li>Sắp xếp topo</li>
+  <li>Quy hoạch động trên cây</li>
+  <li>Tìm LCA, truy vấn trên đường đi trên cây</li>
+  <li>Tạo mê cung ngẫu nhiên (Maze generation)</li>
+  <li>Kiểm tra tính phẳng của đồ thị (Planarity testing)</li>
+</ul>
+
+<p>Và còn nhiều ứng dụng khác.</p>
+
+<h1 id="thuật-toán">Thuật toán</h1>
+
+<p>DFS sẽ lần lượt ghé thăm các đỉnh của đồ thị một cách đệ quy. Các bước trong một lần ghé thăm đỉnh \(u\)
+được mô tả như sau:</p>
+
+<ul>
+  <li>Đánh dấu \(u\) đã được thăm</li>
+  <li>Duyệt trong các đỉnh \(v\) kề với \(u\):
+    <ul>
+      <li>Nếu \(v\) chưa được thăm, gọi đệ quy để ghé thăm \(v\)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Cài đặt thuật toán trong C++ như sau:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mảng để đánh dấu một đỉnh đã được thăm hay chưa</span>
+<span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="c1">// Kiểu dữ liệu để lưu danh sách kề</span>
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dsk</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">dsk</span> <span class="o">&amp;</span><span class="n">ke</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Đánh dấu đỉnh u đã được ghé thăm</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+    <span class="c1">// Duyệt qua các đỉnh v kề với u</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">:</span> <span class="n">ke</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+        <span class="c1">// Nếu v chưa được thăm, gọi đệ quy dfs đỉnh v</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">ke</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Với đồ thị vô hướng, mỗi lần duyệt DFS sẽ duyệt qua tất cả các đỉnh chung một thành phần liên thông.</p>
+
+<p>Trang sau cho phép xem quá trình hoạt động của DFS:
+<a href="https://www.cs.usfca.edu/~galles/visualization/DFS.html" target="_blank">Depth-First Search Visualization</a></p>
+
+<h1 id="một-số-điểm-cần-lưu-ý">Một số điểm cần lưu ý</h1>
+
+<p>Phần sau xét DFS trên đồ thị vô hướng.</p>
+
+<p>Sau khi chạy thuật toán, ta sẽ có được một cây từ đồ thị ban đầu. Cụ thể hơn, nếu đỉnh \(v\) được ghé thăm từ đỉnh \(u\) thì
+\(v\) sẽ là con của \(u\) trên cây.</p>
+
+<p>Phần sau sẽ trình bày tính chất của cây được sinh ra bởi thuật toán DFS. Đây là cơ sở cho
+một số thuật toán sử dụng DFS như thuật toán tìm cầu và khớp.</p>
+
+<p>Giả sử cây sau là kết quả của một đồ thị sau khi DFS:</p>
+
+<p><img src="img/dfs-1.png" alt="DFS result" /></p>
+
+<p>Tất nhiên, đồ thị ban đầu còn nhiều cạnh khác nữa, tuy nhiên các cạnh đó đều phải <strong>là cạnh nối từ nút 
+con lên nút tổ tiên</strong>. Ví dụ, các cạnh sau không thể tồn tại trong đồ thị ban đầu:</p>
+
+<p><img src="img/dfs-2.png" alt="Invalid edges" /></p>
+
+<p>Ví dụ một số cạnh hợp lệ:</p>
+
+<p><img src="img/dfs-3.png" alt="Valid edges" /></p>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/dfs";
+    this.page.identifier = "https://vietcodes.github.io/algo/dfs";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

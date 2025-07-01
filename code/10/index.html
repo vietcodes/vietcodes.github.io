@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Codechef July 17 - Whats in the name - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="codechef-july-17---whats-in-the-name">Codechef July 17 - Whats in the name</h3>
+<ul>
+  <li>Đề bài: <a href="https://www.codechef.com/problems/NITIKA" target="blank">https://www.codechef.com/problems/NITIKA</a></li>
+  <li>Keywords: simple, string</li>
+  <li>Ngôn ngữ: Python 3</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <h3 id="tóm-tắt-đề">Tóm tắt đề</h3>
+
+<p>Cho chuỗi là tên của một người, gồm 1 hoặc nhiều từ,
+cách nhau bằng khoảng trắng. Chuẩn hoá tên bằng cách viết hoa kí tự
+đầu tiên của mỗi từ. Sau đó thực hiện rút rọn tên như sau:
+các từ ngoại trừ từ cuối cùng đề được viết tắt bằng 2 kí tự,
+kí tự đầu tiên của từ và dấu chấm. Ví dụ:</p>
+
+<ul>
+  <li>Jon Snow: J. Snow</li>
+  <li>John VoN neuMan: J. V. Neumann</li>
+  <li>Bronn: Bronn</li>
+  <li>Mohndas KaramChand ganDh: M. K. Gandhi</li>
+</ul>
+
+<h3 id="cách-giải">Cách giải</h3>
+<p>Bài này khá đơn giản, chỉ cần tách chuỗi thành nhiều từ rồi
+xử lý từng từ một như trong đề.</p>
+
+          </div>
+</div>
+
+      
+
+      
+        <div class="card window" id="main.py">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">main.py</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/10/main.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="main.py">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="nf">input</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nf">input</span><span class="p">().</span><span class="nf">split</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nf">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:].</span><span class="nf">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sh">'</span><span class="s">.</span><span class="sh">'</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/10/";
+    this.page.identifier = "https://vietcodes.github.io/code/10/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

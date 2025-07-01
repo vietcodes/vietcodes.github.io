@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> KPLANK - Bán dừa - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="kplank---bán-dừa">KPLANK - Bán dừa</h3>
+<ul>
+  <li>Đề bài: <a href="https://vnoi.info/problems/KPLANK/" target="blank">https://vnoi.info/problems/KPLANK/</a></li>
+  <li>Keywords: dp, stack</li>
+  <li>Ngôn ngữ: C++</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>Gọi \(A[i]\) là dãy input.</p>
+
+<p>Do ta chỉ có thể cắt ngang theo một cạnh của tấm ván,
+kết quả của bài toán là một trong các giá trị \(A[i]\).</p>
+
+<p>Giả sử đoạn \(A[l]\) đến \(A[r]\) có tấm ván ngắn nhất là \(A[i]\),
+ta có thể cắt một tấm ván vuông cạnh \(A[i]\) nếu \(r-l+1 \ge A[i]\).</p>
+
+<p>Từ nhận xét trên, ta có thể giải bài toán dùng 2 vòng lặp (code <code class="language-plaintext highlighter-rouge">n2.cpp</code>).</p>
+
+<p>Để giảm độ phức tạp thuật toán về \(O(N)\), gọi \(L[i]\) là số nhỏ nhất sao
+cho \(A[i]\) là min trong đoạn \(A[L[i]]\) đến \(A[i]\). Tương tự,
+\(R[i]\) là số lớn nhất sao cho \(A[i]\) là min trong đoạn \(A[i]\) đến \(A[R[i]]\).
+Khi đó, ta có thể cắt một tấm ván vuông dài \(A[i]\) nếu \(R[i] - L[i] + 1 \ge A[i]\).</p>
+
+<p>\(L\) và \(R\) được tìm bằng stack.</p>
+
+<p>Duyệt \(i\) từ 1 đến N, để tìm \(L[i]\) ta sẽ lặp \(j\) từ \(i\) về 1, dừng khi tìm được
+\(A[j] &lt; A[i]\), ta có \(L[i] = j + 1\).</p>
+
+<p><strong>Nhận xét:</strong> ta có thể bỏ đi những giá trị ở giữa \(A[i]\) và \(A[j]\) trong lần duyệt sau.</p>
+
+<p><strong>Chứng minh:</strong> xét \(k &gt; i\), nếu \(A[i] &lt; A[k]\) thì việc lặp để tìm \(L[k]\) sẽ dừng tại \(i\) hoặc sớm hơn.
+Ngược lại, nếu \(A[i] \ge A[k]\), có thể bỏ qua những giá trị \(z, j &lt; z &lt; i\),
+do \(A[z] \ge A[i] \implies A[z] \ge A[k]\).</p>
+
+<p>Từ nhận xét trên, ta lưu mảng \(S\) chứa những chỉ số cần duyệt. Khi duyệt, ta so sánh \(A[i]\) với
+\(A[last]\) (\(last\) là phần tử cuối cùng của \(S\)), nếu \(A[last] \ge A[i]\) thì xóa \(last\) ra khỏi
+\(S\). Dừng khi tìm được \(A[last] &lt; A[i]\) hoặc mảng \(S\) đã rỗng. Sau đó thêm \(i\) vào cuối mảng \(S\).</p>
+
+<p>Để tìm \(R\) ta duyệt từ \(n\) về 1 và làm tương tự. Code <code class="language-plaintext highlighter-rouge">n.cpp</code> cài đặt thuật toán này.</p>
+
+<p>Xem thêm về kĩ thuật này ở
+<a href="https://vnoi.info/wiki/algo/data-structures/deque-min-max" target="_blank">Kĩ thuật sử dụng Deque tìm Min/Max trên đoạn tịnh tiến</a>.</p>
+
+          </div>
+</div>
+
+      
+
+      
+        <div class="card window" id="n2.cpp">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">n2.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/156/n2.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="n2.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">min_a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">min_a</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_a</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="n">min_a</span><span class="p">)</span> <span class="n">result</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">min_a</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+        <div class="card window" id="n.cpp">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">n.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/156/n.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="n.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span>
+    
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">stack</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">[</span><span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">()]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">stack</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">stack</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">r</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">[</span><span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">()]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">stack</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">?</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/156/";
+    this.page.identifier = "https://vietcodes.github.io/code/156/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

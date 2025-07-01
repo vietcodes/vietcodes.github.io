@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Dijkstra Heap cải tiến - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Dijkstra Heap cải tiến</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Dijkstra Heap cải tiến</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#mô-tả-thuật-toán">Mô tả thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#đánh-giá-thuật-toán">Đánh giá thuật toán</a></li>
+<li class="toc-entry toc-h1"><a href="#cài-đặt">Cài đặt</a></li>
+</ul>
+        </div>
+        <p>Như đã biết, trong các kì thi, thuật toán Dijkstra thường được cài
+bằng cấu trúc Binary Heap hoặc <code class="language-plaintext highlighter-rouge">priority_queue</code> của C++, cách cài
+đặt này cho độ phức tạp là \(O((E+V)\log V)\), \(E\) là số cạnh,
+\(V\) là số đỉnh.</p>
+
+<p>Với một số bài, cách này sẽ không chạy được trong thời gian cho phép
+(Ví dụ bài <a href="http://vn.spoj.com/problems/TOURS13" target="_blank">TOURS13</a>). Trong trường
+hợp đó ta có thể dùng Fibonacci Heap để đạt được độ phức tạp là
+\(O(E+V\log V)\), tuy nhiên cách cài này rất phức tạp, không phù
+hợp để sử dụng khi thi.</p>
+
+<p>Bài viết này sẽ giới thiệu một kĩ thuật cải tiến Dijkstra Heap thông
+thường để có độ phức tạp tương đương với Fibonacci Heap.</p>
+
+<h1 id="mô-tả-thuật-toán">Mô tả thuật toán</h1>
+
+<p>Trước tiên ta xét một cách cài đặt Dijkstra hơi khác như sau:</p>
+
+<p>Ở bước sửa nhãn, thay vì sửa nhãn đỉnh v: \(d(v) = d(u) + c(u, v)\) rồi cập
+nhật lại heap, ta thêm một cặp \((v, d(u)+c(u, v))\) vào heap.</p>
+
+<p>Trong bước cố định nhãn, ta chỉ cần tìm phần tử \((u, c)\) có đỉnh \(u\)
+chưa được cố định nhãn và \(c\) nhỏ nhất.</p>
+
+<p>Từ cách cài đặt trên, ta có thể cải tiến như sau: trước tiên ta sắp xếp danh
+sách kề của mỗi đỉnh theo trọng số cạnh tăng dần. Ở bước sửa nhãn, ta thấy không
+cần thêm tất cả các đỉnh kề với u vào heap mà chỉ cần thêm đỉnh có trọng số
+cạnh nhỏ nhất, sau khi đỉnh đó bị loại ra khỏi heap thì ta mới thêm đỉnh tiếp
+theo trong danh sách kề. Cách cải tiến này sẽ giúp giảm bớt số thao tác update
+trên heap.</p>
+
+<h1 id="đánh-giá-thuật-toán">Đánh giá thuật toán</h1>
+
+<p>Phần sắp xếp lại cạnh có độ phức tạp khoảng \(O(E\log E)\).</p>
+
+<p>Phần thuật toán Dijkstra có độ phức tạp trong trường hợp tốt nhất là \(O(V\log V)\)
+hoặc \(O(V\log E)\) tùy theo cách cài đặt, và trong trường hợp xấu nhất là \(O(E\log V)\).</p>
+
+<p>Vì vậy thuật toán này chỉ hiệu quả hơn trong trường hợp cần chạy Dijkstra nhiều lần.</p>
+
+<h1 id="cài-đặt">Cài đặt</h1>
+
+<p>Xem cài đặt trong code của bài <a href="/code/33/">TOURS13</a>.</p>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/improved-dijkstra";
+    this.page.identifier = "https://vietcodes.github.io/algo/improved-dijkstra";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

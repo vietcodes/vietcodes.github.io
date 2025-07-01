@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Fenwick tree - Cây chỉ số nhị phân (Binary Indexed Tree) - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Fenwick tree - Cây chỉ số nhị phân (Binary Indexed Tree)</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Fenwick tree - Cây chỉ số nhị phân (Binary Indexed Tree)</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#bài-toán">Bài toán</a></li>
+<li class="toc-entry toc-h1"><a href="#định-nghĩa-bit">Định nghĩa BIT</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-truy-xuất">Thao tác truy xuất</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-cập-nhật">Thao tác cập nhật</a></li>
+<li class="toc-entry toc-h1"><a href="#một-số-bài-tập-áp-dụng-và-code-giải">Một số bài tập áp dụng (và code giải)</a></li>
+</ul>
+        </div>
+        <p>Fenwick Tree, hay còn gọi là cây chỉ số nhị phân (Binary Indexed Tree - BIT), là một
+cấu trúc dữ liệu tối ưu cho việc cập nhật giá trị một phần tử và tìm tổng, min/max
+giữa 2 vị trí bất kì trong mảng. Độ phức tạp cho mỗi lần cập nhật, truy xuất là \(O(\log N)\)
+với N là độ dài dãy cần quản lý. Ngoài thao tác tính tổng, tìm min/max thì BIT còn có
+thể sử dụng được cho nhiều thao thác khác nữa.</p>
+
+<p>BIT là một cây, tuy nhiên trong phạm vi bài viết này sẽ không đề cập tới khái niệm gốc hoặc
+chứng minh tính đúng đắn của nó, mà chỉ dừng lại ở mức kiến thức đủ để cài đặt và sử dụng
+trong thực tế.</p>
+
+<h1 id="bài-toán">Bài toán</h1>
+
+<p>Cho dãy số A có N phần tử, giá trị ban đầu của các phần tử bằng 0. Có 2 loại truy vấn cần thực hiện:</p>
+
+<ul>
+  <li>Tăng \(A(i)\) lên một đơn vị</li>
+  <li>Tính tổng của mảng từ \(A(1)\) đến \(A(i)\).</li>
+</ul>
+
+<p>Nếu sử dụng cách tính tổng như bình thường thì thao tác cập nhật có độ phức tạp là \(O(1)\), còn thao tác
+tính tổng có độ phức tạp \(O(N)\).</p>
+
+<p>Nếu sử dụng BIT cho bài này thì cả 2 thao tác có chung độ phức tạp là \(O(\log N)\).</p>
+
+<h1 id="định-nghĩa-bit">Định nghĩa BIT</h1>
+
+<p>Xem BIT như một mảng F có N phần tử, đánh số từ 1. \(F(i)\) lưu tổng của <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code> phần tử, bắt đầu từ \(A(i)\)
+ngược về \(A(1)\). Tức là \(F(i)\) lưu tổng từ <code class="language-plaintext highlighter-rouge">A(i-(i&amp;-i)+1)</code> đến <code class="language-plaintext highlighter-rouge">A(i)</code>.</p>
+
+<p><strong>Giải thích phép tính <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code>:</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">i &amp; (-i)</code> sẽ trả về bit đầu tiên khác 0 của i, ví dụ \(i = 20\), có biểu diễn nhị phân là \(10100\), thì <code class="language-plaintext highlighter-rouge">i &amp; (-i)</code>
+sẽ có biểu diễn nhị phân là \(100\), tức là <code class="language-plaintext highlighter-rouge">20 &amp; (-20) = 4</code>.</p>
+
+<p>Ví dụ mảng A có 10 phần tử và cây BIT tương ứng:</p>
+
+<table class="table table-bordered" style="width:400px">
+  <thead>
+    <tr>
+      <th> </th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>5</td>
+      <td>3</td>
+      <td>6</td>
+      <td>2</td>
+      <td>0</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>3</td>
+      <td>5</td>
+      <td>1</td>
+      <td>11</td>
+      <td>3</td>
+      <td>9</td>
+      <td>2</td>
+      <td>22</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="thao-tác-truy-xuất">Thao tác truy xuất</h1>
+
+<p>Để tính tổng từ \(A(1)\) đến \(A(i)\), ta lặp như sau:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
+while i &gt;= 1:
+    result = result + F[i]
+    i = i - (i &amp; -i)
+</code></pre></div></div>
+
+<p>Có thể thấy, sau mỗi lần lặp thì một bit 1 trong \(i\) sẽ bị loại bỏ, vì thế số lần lặp là
+số lượng bit 1 của \(i\), dẫn đến độ phức tạp là \(O(\log N)\).</p>
+
+<p>Cách trên cho phép tính tổng từ đầu dãy đến \(A(i)\), nếu muốn tính tổng trên một đoạn từ \(A(j)\)
+đến \(A(i)\) thì phải thay đổi thao tác trên một ít:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = 0
+while i &gt;= j:
+    if i - (i &amp; -i) &gt;= j:
+        result = result + F[i]
+        i = i - (i &amp; -i)
+    else:
+        result = result + A[i]
+        i = i - 1
+</code></pre></div></div>
+
+<h1 id="thao-tác-cập-nhật">Thao tác cập nhật</h1>
+
+<p>Trong truy vấn cập nhật, ta cần tăng giá trị của \(A(i)\) lên 1, vì vậy ta cũng
+cần phải tăng các giá trị \(F(j)\) mà trong dãy tổng của \(F(j)\) có chứa \(A(i)\). Để làm được điều này,
+chỉ cần làm ngược lại với thao tác truy xuất bên trên, tức là <code class="language-plaintext highlighter-rouge">i = i + (i &amp; -i)</code>.</p>
+
+<p>Đoạn code cập nhật như sau:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while i &lt;= n:
+    F[i] = F[i] + 1
+    i = i + (i &amp; -i)
+</code></pre></div></div>
+
+<h1 id="một-số-bài-tập-áp-dụng-và-code-giải">Một số bài tập áp dụng (và code giải)</h1>
+
+<ul>
+  <li>Bài <a href="http://vn.spoj.com/problems/NKINV/" target="_blank">NKINV Dãy nghịch thế</a> - <a href="/code/83/index.html">Lời giải</a></li>
+  <li>Bài <a href="http://vn.spoj.com/problems/NKLINEUP/" target="_blank">NKLINEUP Xếp hàng</a> - <a href="/code/84/index.html">Lời giải</a></li>
+  <li><a href="/algo/lis#cải-tiến-bằng-bit">Tìm dãy con tăng dài nhất bằng BIT</a> - <a href="/code/82/index.html#bit.cpp">Code</a></li>
+</ul>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/fenwick";
+    this.page.identifier = "https://vietcodes.github.io/algo/fenwick";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

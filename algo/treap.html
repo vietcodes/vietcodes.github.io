@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Treap - Cây tìm kiếm nhị phân ngẫu nhiên - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Treap - Cây tìm kiếm nhị phân ngẫu nhiên</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Treap - Cây tìm kiếm nhị phân ngẫu nhiên</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#nhắc-lại-về-heap">Nhắc lại về heap</a></li>
+<li class="toc-entry toc-h1"><a href="#định-nghĩa-treap">Định nghĩa treap</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-tìm-kiếm">Thao tác tìm kiếm</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-xoay-cây">Thao tác xoay cây</a></li>
+<li class="toc-entry toc-h1"><a href="#thao-tác-thêm">Thao tác thêm</a></li>
+<li class="toc-entry toc-h1"><a href="#ứng-dụng">Ứng dụng</a></li>
+</ul>
+        </div>
+        <p>Treap là một cấu trúc kết hợp giữa <a href="/algo/bst">cây tìm kiếm nhị phân</a> và heap. Nếu bạn chưa biết
+về cây tìm kiếm nhị phân, có thể đọc bài viết này: <a href="/algo/bst">/algo/bst</a>.</p>
+
+<p>Treap kết hợp với khóa ngẫu nhiên sẽ cho ta một cấu trúc gọi là
+“Cây tìm kiếm nhị phân ngẫu nhiên”, có độ phức tạp trung bình cho các thao tác
+là \(O(\log N)\). Vì vậy, treap có thể dùng để thay thế các cấu trúc như Slay tree, Red-black tree,…</p>
+
+<p>Bài viết này sẽ bỏ qua các khái niệm cũng như cách cài đặt một cây tìm kiếm nhị
+phân cơ bản vì đã được đề cập ở <a href="/algo/bst">đây</a>.</p>
+
+<h1 id="nhắc-lại-về-heap">Nhắc lại về heap</h1>
+
+<p>Heap cũng là một cây nhị phân, khác với cây tìm kiếm nhị phân, heap có tính chất:</p>
+
+<ul>
+  <li>Khóa của nút cha luôn luôn lớn hơn các nút con (đối với max heap)</li>
+</ul>
+
+<p>Đối với min heap, khóa của nút cha nhỏ hơn của các nút con.</p>
+
+<p>Mục đích của heap là để tìm min/max, thường được dùng trong thuật toán như Dijsktra, Prim.
+Cấu trúc <a href="http://www.cplusplus.com/reference/queue/priority_queue/" target="_blank">priority_queue</a> của
+C++ được cài bằng cấu trúc heap.</p>
+
+<h1 id="định-nghĩa-treap">Định nghĩa treap</h1>
+
+<p>Như đã nói ở trên, treap là kết hợp giữa cây tìm kiếm nhị phân và heap. Treap đơn
+giản là một cây nhị phân có 2 khóa, trong đó một khóa thỏa mãn tính chất của heap, còn
+một khóa thỏa mãn tính chất của cây tìm kiếm.</p>
+
+<p>Ví dụ:</p>
+
+<p><img src="img/treap-0.png" alt="treap" /></p>
+
+<p>Hình trên là cây treap với số bên trái là khóa tìm kiếm, bên phải là khóa heap.</p>
+
+<p>Treap thường được dùng làm cây nhị phân tìm kiếm ngẫu nhiên, khóa heap có vai trò giữ
+cho cây không quá cao. Cụ thể như sau:</p>
+
+<ul>
+  <li>Khi cần thêm một nút có khóa \(K\) vào cây, ta chọn ngẫu nhiên một số để làm khóa heap.</li>
+  <li>Các thao tác thêm, xóa, tìm kiếm được thực hiện như trên cây tìm kiếm bình thường.</li>
+  <li>Sau khi thêm, xóa nút trên cây, ta sẽ thực hiện một vài thao tác để đảm bảo tính chất heap
+của cây không bị vi phạm.</li>
+</ul>
+
+<p>Cài đặt cây:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span>
+<span class="k">struct</span> <span class="nc">Node</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">priority</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">priority</span><span class="p">(</span><span class="n">rand</span><span class="p">())</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Khóa tìm kiếm là <code class="language-plaintext highlighter-rouge">key</code>, khóa heap là <code class="language-plaintext highlighter-rouge">priority</code>. Khi tạo mới một nút, ta tự động lấy ngẫu nhiên
+giá trị của khóa heap.</p>
+
+<p>Khi tại một nút có tính chất heap bị vi phạm, ta gọi đó là mất cân bằng.</p>
+
+<h1 id="thao-tác-tìm-kiếm">Thao tác tìm kiếm</h1>
+
+<p>Thao tác tìm kiếm được thực hiện như bình thường, không cần quan tâm đến khóa heap:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define left root-&gt;left
+#define right root-&gt;right
+</span>
+<span class="n">Node</span> <span class="o">*</span><span class="nf">find</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Để code nhìn ngắn gọn, ta define <code class="language-plaintext highlighter-rouge">left</code> thành <code class="language-plaintext highlighter-rouge">root-&gt;left</code>, và <code class="language-plaintext highlighter-rouge">right</code> thành <code class="language-plaintext highlighter-rouge">root-&gt;right</code>.</p>
+
+<h1 id="thao-tác-xoay-cây">Thao tác xoay cây</h1>
+
+<p>Như đã nói ở trên, sau khi thêm hoặc xóa nút, ta sẽ thực hiện một vài thao tác để cây không vi phạm tính
+chất heap. Các thao tác này chính là thao tác xoay cây, gồm 2 loại: xoay trái và xoay phải.</p>
+
+<p>Hình sau minh họa việc xoay trái và phải tại nút gốc:</p>
+
+<p><img src="img/treap-1.png" alt="rotate" /></p>
+
+<p>Cài đặt (C++):</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span> <span class="o">*</span><span class="nf">rotate_right</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+    <span class="n">x</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+    <span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Node</span> <span class="o">*</span><span class="nf">rotate_left</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+    <span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+    <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="thao-tác-thêm">Thao tác thêm</h1>
+
+<p>Thao tác thêm một nút có khóa <code class="language-plaintext highlighter-rouge">K</code> được thực hiện tương tự như cây nhị phân tìm kiếm bình
+thường, sau khi thêm ta kiểm tra xem tính chất heap có bị vi phạm không. Nếu có, ta thực hiện
+phép quay phù hợp để cân bằng lại cây. Cụ thể, code như sau:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define left root-&gt;left                   
+#define right root-&gt;right                 
+</span>
+<span class="n">Node</span> <span class="o">*</span><span class="nf">insert</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">priority</span> <span class="o">&gt;</span> <span class="n">left</span><span class="o">-&gt;</span><span class="n">priority</span><span class="p">)</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">rotate_right</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">priority</span> <span class="o">&gt;</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">priority</span><span class="p">)</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">rotate_left</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ví dụ:</p>
+
+<p><img src="img/treap-2.png" alt="treap insert rebalance" /></p>
+
+<p>Trong hình trên, khóa tìm kiếm nằm bên trái, còn khóa heap nằm bên phải. Nút màu xanh nút vừa
+được thêm vào và nút màu đỏ là nút bị mất cân bằng và ta sẽ thực hiện xuay tại đó.
+Ta thấy sau 3 lần xoay thì cây đã trở nên cân bằng.</p>
+
+<h1 id="ứng-dụng">Ứng dụng</h1>
+
+<p>Một số bài tập có thể dùng Treap để giải:</p>
+<ul>
+  <li>C11SEQ - Dãy số: <a href="/code/135/index.html">/code/135/</a></li>
+  <li><a href="https://www.hackerrank.com/challenges/array-and-simple-queries/problem" target="_blank">Array and simple queries</a></li>
+  <li><a href="https://www.hackerrank.com/challenges/median/problem" target="_blank">Median Updates</a></li>
+</ul>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/treap";
+    this.page.identifier = "https://vietcodes.github.io/algo/treap";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

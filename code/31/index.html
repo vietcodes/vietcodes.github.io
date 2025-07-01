@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> VOI 2013 BONUS13 - Phần thưởng - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="voi-2013-bonus13---phần-thưởng">VOI 2013 BONUS13 - Phần thưởng</h3>
+<ul>
+  <li>Đề bài: <a href="https://vnoi.info/problems/BONUS13/" target="blank">https://vnoi.info/problems/BONUS13/</a></li>
+  <li>Keywords: bruteforce</li>
+  <li>Ngôn ngữ: C++11, Python 3</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+
+      
+        <div class="card window" id="main.cpp">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">main.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/31/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="c1">// Bài này chỉ cần duyệt 5 vòng for là AC</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define LL long long
+#define rep(i, a, b) for (int i=a; i&lt;b; i++)
+</span>
+<span class="k">struct</span> <span class="nc">pack</span> <span class="p">{</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span> <span class="n">LL</span> <span class="n">w</span><span class="p">;};</span>
+
+<span class="kr">inline</span> <span class="n">LL</span> <span class="nf">calc</span><span class="p">(</span><span class="n">LL</span> <span class="n">state</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">LL</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">x</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">res</span> <span class="o">+=</span> <span class="n">x</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+        <span class="n">state</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pack</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">frei</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">a</span><span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+        <span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">--</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">frei</span><span class="p">[</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">LL</span><span class="o">&gt;</span> <span class="n">xe</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tuong</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ma</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">hau</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">frei</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">rep</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">].</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">].</span><span class="n">y</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="n">i</span> <span class="o">||</span> <span class="n">y</span><span class="o">==</span><span class="n">j</span><span class="p">)</span> <span class="n">xe</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1ll</span><span class="o">&lt;&lt;</span><span class="n">k</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="o">-</span><span class="n">j</span> <span class="o">||</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">)</span> <span class="n">tuong</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1ll</span><span class="o">&lt;&lt;</span><span class="n">k</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="o">&amp;&amp;</span><span class="n">abs</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">abs</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">ma</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1ll</span><span class="o">&lt;&lt;</span><span class="n">k</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">hau</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">xe</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">|</span> <span class="n">tuong</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
+        <span class="n">c</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="n">c</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="n">LL</span> <span class="n">kq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rep</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">frei</span><span class="p">[</span><span class="n">h</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">LL</span> <span class="n">s</span> <span class="o">=</span> <span class="n">hau</span><span class="p">[</span><span class="n">h</span><span class="p">];</span>
+        <span class="n">frei</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">rep</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">frei</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">LL</span> <span class="n">bk</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+            <span class="n">s</span> <span class="o">|=</span> <span class="n">xe</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+            <span class="n">frei</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="n">rep</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">frei</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">LL</span> <span class="n">bk</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+                <span class="n">frei</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="n">s</span> <span class="o">|=</span> <span class="n">tuong</span><span class="p">[</span><span class="n">t</span><span class="p">];</span>
+                <span class="n">rep</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">frei</span><span class="p">[</span><span class="n">m</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="n">kq</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">kq</span><span class="p">,</span> <span class="n">calc</span><span class="p">(</span><span class="n">s</span> <span class="o">|</span> <span class="n">ma</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">a</span><span class="p">));</span>
+                <span class="p">}</span>
+                <span class="n">frei</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">bk</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">frei</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">bk</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">frei</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">kq</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+        <div class="card window" id="testgen.py">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">testgen.py</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/31/testgen.py">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="testgen.py">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-python selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sinh test
+</span><span class="kn">import</span> <span class="n">random</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="nf">randrange</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="nf">sample</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">k</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">u</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">%</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">random</span><span class="p">.</span><span class="nf">randrange</span><span class="p">(</span><span class="mi">1000000000</span><span class="p">))</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/31/";
+    this.page.identifier = "https://vietcodes.github.io/code/31/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

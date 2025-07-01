@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Toán đồng dư - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Toán đồng dư</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Toán đồng dư</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#định-nghĩa">Định nghĩa</a></li>
+<li class="toc-entry toc-h2"><a href="#phép-lấy-phần-dư">Phép lấy phần dư</a></li>
+<li class="toc-entry toc-h2"><a href="#đồng-dư">Đồng dư</a></li>
+<li class="toc-entry toc-h1"><a href="#phép-toán-trên-vành-modulo-và-một-số-tính-chất">Phép toán trên vành modulo và một số tính chất</a></li>
+<li class="toc-entry toc-h1"><a href="#ví-dụ-ứng-dụng-toán-đồng-dư">Ví dụ ứng dụng toán đồng dư</a></li>
+<li class="toc-entry toc-h1"><a href="#xem-thêm">Xem thêm</a></li>
+</ul>
+        </div>
+        <h1 id="định-nghĩa">Định nghĩa</h1>
+
+<h2 id="phép-lấy-phần-dư">Phép lấy phần dư</h2>
+<p>Xét \(a, b \in \mathbb{Z}, b \neq 0\), kí hiệu \(a \bmod b\) là số dư khi chia \(a\) cho \(b\).
+Ví dụ:
+\(30 \bmod 7 = 2\\
+10 \bmod 2 = 0\\
+-12 \bmod 5 = 3\)
+Ta thấy, \(-12 \bmod 5\) có thể có 2 kết quả là \(-2\) hoặc \(3\). Thông thường, khi làm toán thì
+số dương được ưu tiên, tuy nhiên khi lập trình phép mod này sẽ cho kết quả âm.</p>
+
+<p>Định nghĩa một cách chuẩn mực, xét phép chia Euclide \(a\) cho \(b\):
+\(q \in \mathbb{Z}\\
+a = bq + r\\
+|r| &lt; |b|\)
+Thì ta có \(a \bmod b = r\).</p>
+
+<h2 id="đồng-dư">Đồng dư</h2>
+
+<p>Xét số nguyên \(n &gt; 1\) và 2 số nguyên \(a, b\), ta kí hiệu \(a \equiv b \pmod n\) khi \(a\) và \(b\)
+có cùng số dư khi chia cho \(n\), đọc là \(a\) đồng dư với \(b\) modulo \(n\).</p>
+
+<p>Ví dụ:
+\(12 \equiv 7 \equiv 2 \pmod 5 \\
+-3 \equiv 2 \pmod 5\)</p>
+
+<p>Như vậy, \(a \equiv b \pmod n \iff a \bmod n = b \bmod n\).</p>
+
+<p>Kí hiệu \(\bar{a}_n\) là tập hợp tất cả các số đồng dư với \(a\) trong modulo \(n\):</p>
+
+\[\bar{a}_n = \{x \mid x \equiv a \pmod n \}\]
+
+<p>Ta có vành \(\mathbb{Z}/n\) là tập hợp tất cả các \(\bar{a}_n\):</p>
+
+\[\mathbb{Z}/n = \{\bar{a}_n \mid a \in \mathbb{Z}\}\]
+
+<p>Ví dụ:
+\(\bar{8}_5 = \bar{3}_5 = \{\dots,-7, -2, 3, 8, 13,\dots\}\\
+\mathbb{Z}/5 = \{\bar{0}_5, \bar{1}_5, \bar{2}_5, \bar{3}_5, \bar{4}_5\}\)</p>
+
+<p>Xem thêm về vành - <a href="https://en.wikipedia.org/wiki/Ring_(mathematics)" target="_blank">Ring</a>.</p>
+
+<h1 id="phép-toán-trên-vành-modulo-và-một-số-tính-chất">Phép toán trên vành modulo và một số tính chất</h1>
+
+<p>Phần này xét phép cộng và phép nhân. Phép cộng và phép nhân được định nghĩa thông qua
+lý thuyết vành:</p>
+
+\[\bar{a}_n + \bar{b}_n = \overline{a + b}_n\\
+\bar{a}_n - \bar{b}_n = \overline{a - b}_n\\
+\bar{a}_n \bar{b}_n = \overline{a b}_n\]
+
+<p>Ví dụ:</p>
+
+<p>\(\bar{6}_{10} + \bar{8}_{10} = \overline{6 + 8}_{10} = \overline{14}_{10} = \bar{4}_{10}\). Ý nghĩa là: “số chia 10 dư 6” cộng cho “số chia 10 dư 8”
+sẽ cho kết quả là “số chia 10 dư 4”.</p>
+
+<p>Ta cũng có thể sử dụng kí hiệu đồng dư: \(6 + 8 \equiv 14 \equiv 4 \pmod{10}\)</p>
+
+<p>Dấu \(\equiv\) cũng có tính chất tương tự như dấu \(=\):</p>
+<ul>
+  <li>
+\[a \equiv a \pmod n\]
+  </li>
+  <li>
+\[a \equiv b \pmod n \iff b \equiv a \pmod n\]
+  </li>
+  <li>Nếu \(a \equiv b \pmod n\) và \(b \equiv c \pmod n\) thì \(a \equiv c \pmod n\)</li>
+</ul>
+
+<p>Xét \(a, b, k \in \mathbb{Z}\), nếu \(a \equiv b \pmod n\) thì ta có các tính chất sau:</p>
+<ul>
+  <li>
+\[-a \equiv -b \pmod n\]
+  </li>
+  <li>
+\[a + k \equiv b + k \pmod n\]
+  </li>
+  <li>
+\[ka \equiv kb \pmod n\]
+  </li>
+  <li>
+\[a^k \equiv b^k \pmod n\]
+  </li>
+  <li>Tổng quát, ta có \(p(a) \equiv p(b) \pmod n\), với \(p\) là đa thức có hệ số nguyên.</li>
+</ul>
+
+<p>Ngược lại, ta có:</p>
+<ul>
+  <li>
+\[a + k \equiv b + k \pmod n \iff a \equiv b \pmod n\]
+  </li>
+  <li>Nếu \(ka \equiv kb \pmod n\) và \(k\) nguyên tố cùng nhau với \(n\) thì \(a \equiv b \pmod n\)</li>
+</ul>
+
+<p>Xét \(a_1 \equiv b_1 \pmod n\) và \(a_2 \equiv b_2 \pmod n\), ta có:</p>
+<ul>
+  <li>
+\[a_1 + a_2 \equiv b_1 + b_2 \pmod n\]
+  </li>
+  <li>
+\[a_1 - a_2 \equiv b_1 - b_2 \pmod n\]
+  </li>
+  <li>
+\[a_1 a_2 \equiv b_1 b_2 \pmod n\]
+  </li>
+</ul>
+
+<h1 id="ví-dụ-ứng-dụng-toán-đồng-dư">Ví dụ ứng dụng toán đồng dư</h1>
+
+<p>Trong ví dụ sau mình sẽ chứng minh “Một số chia hết cho 3 khi và chỉ khi tổng các chữ số của số đó chia hết cho 3”.</p>
+
+<p>Xét số \(A\) có \(n\) chữ số trong hệ thập phân: \(a_0, a_1, a_2,\dots,a_{n-1}\), ta có:</p>
+
+\[A = a_0 + 10 a_1 + 10^2 a_2 + \dots + 10^{n-1} a_{n-1}\]
+
+<p>Theo bài toán thì ta có \(A\) chia hết cho 3, có nghĩa là: \(A \equiv 0 \pmod 3\)</p>
+
+<p>Tương đương với:</p>
+
+\[a_0 + 10 a_1 + 10^2 a_2 + \dots + 10^{n-1} a_{n-1} \equiv 0 \pmod 3\]
+
+<p>Mặt khác, vì \(10 \equiv 1 \pmod 3\) nên ta có thể thay 10 bằng 1 trong biểu thức ở trên, ta có:</p>
+
+\[a_0 + 1 a_1 + 1^2 a_2 + \dots + 1^{n-1} a_{n-1} \equiv 0 \pmod 3\\
+\iff a_0 + a_1 + a_2 + \dots + a_{n-1} \equiv 0 \pmod 3\]
+
+<p>Chứng minh xong. Áp dụng kĩ thuật tương tự ta cũng có thể chứng minh các số chia hết cho 9 sẽ có tổng các chữ số
+chia hết cho 9.</p>
+
+<h1 id="xem-thêm">Xem thêm</h1>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse" target="_blank">Nghịch đảo modulo</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">Định lý Fermat nhỏ</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Euler%27s_theorem" target="_blank">Định lý Euler</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Chinese_remainder_theorem" target="_blank">Định lý số dư Trung Hoa</a></li>
+</ul>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/modulo";
+    this.page.identifier = "https://vietcodes.github.io/algo/modulo";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

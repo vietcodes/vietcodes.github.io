@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> QBBUILD - Xây dựng đường - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="overview">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Overview</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <h3 id="qbbuild---xây-dựng-đường">QBBUILD - Xây dựng đường</h3>
+<ul>
+  <li>Đề bài: <a href="https://vnoi.info/problems/QBBUILD/" target="blank">https://vnoi.info/problems/QBBUILD/</a></li>
+  <li>Keywords: bruteforce, floyd, graph</li>
+  <li>Tài liệu: <a href="/algo/floyd">Thuật toán Floyd - Tìm đường đi ngắn nhất giữa mọi cặp đỉnh</a></li>
+  <li>Ngôn ngữ: C++</li>
+</ul>
+
+        </div>
+</div>
+
+
+      
+        <div class="card window" id="solution.md">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">solution.md</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <p>Đề bài yêu cầu tìm một đồ thị con sao cho đồ thị đó chứa đủ các đỉnh
+đặc biệt, và tổng trọng số các cạnh trên đồ thị là nhỏ nhất.</p>
+
+<p>Gọi \(G = (V, E)\) là đồ thị đề cho, \(S \subset V\) là tập các đỉnh đặt biệt.
+Gọi \(G' = (V', E')\) là đồ thị kết quả.
+Ta thấy ngay 2 điều sau:</p>
+<ul>
+  <li>\(G'\) là cây.</li>
+  <li>Các đỉnh treo của \(G'\) phải là đỉnh đặc biệt.
+Nói cách khác: \(\forall u \in V', \mathrm{deg}(u) = 1 \implies u \in S\).</li>
+</ul>
+
+<p>Sở dĩ có 2 điều trên là do mọi cạnh không cần thiết trong \(G\) sẽ bị loại bỏ.</p>
+
+<p>Ngoài ra, ta có thêm nhận xét sau về đồ thị dạng cây:
+<strong>Nếu cây có một đỉnh bậc \(k\), thì cây đó có ít nhất \(k\) đỉnh treo</strong>.</p>
+
+<p>Từ đó, suy ra \(G'\) sẽ có một trong những dạng sau:</p>
+
+<p>(Lưu ý, trong các hình bên dưới, đỉnh trắng là đỉnh đặc biệt, đỉnh đen là đỉnh
+ở các giao lộ trên cây, các đỉnh nằm trên một đường thẳng sẽ không được vẽ)</p>
+
+<p>(1) <strong>2 đỉnh bậc 1, tất cả các đỉnh còn lại bậc 2</strong></p>
+
+<p><img src="1.png" alt="alt" /></p>
+
+<p>(2) <strong>3 đỉnh bậc 1, 1 đỉnh bậc 3, các đỉnh còn lại bậc 2</strong></p>
+
+<p><img src="2.png" alt="alt" /></p>
+
+<p>(3) <strong>4 đỉnh bậc 1, 1 đỉnh bậc 4, các đỉnh còn lại bậc 2</strong></p>
+
+<p><img src="3.png" alt="alt" /></p>
+
+<p>(4) <strong>4 đỉnh bậc 1, 2 đỉnh bậc 3, các đỉnh còn lại bậc 2</strong></p>
+
+<p><img src="4.png" alt="alt" /></p>
+
+<p>Trong các hình trên, mỗi cạnh được hiểu là một dãy các đỉnh bậc 2,
+tạo thành dạng đường thẳng.</p>
+
+<p>Ta có nhận xét quan trọng sau: <strong>Các cạnh trong những hình minh họa trên
+là đường đi ngắn nhất trên \(G\)</strong>. Từ nhận xét này, ta có thuật toán duyệt như sau:</p>
+<ul>
+  <li>Dùng Floyd để tính đường đi ngắn nhất giữa mọi cặp đỉnh.</li>
+  <li>Với mỗi dạng trong 4 dạng đồ thị, thực hiện duyệt để gán nhãn các đỉnh và tính tổng
+các đường đi ngắn nhất để được trọng số của đồ thị.</li>
+  <li>Kết quả của bài toán sẽ là cách gán cho tổng nhỏ nhất.</li>
+</ul>
+
+<p>Tuy nhiên, cài đặt cách giải này quá dài do có đến 4 trường hợp cần xét. Nếu để ý kĩ,
+có thể thấy <strong>trường hợp (4) là dạng tổng quát của tất cả các trường hợp còn lại</strong>.
+Ví dụ, nếu gộp 2 đỉnh đen của (4) lại, thì ta có được trường hợp (3).</p>
+
+<p>Vậy, chỉ cần duyệt trường hợp (4), tức là chọn 2 đỉnh đen (u, v) sau đó duyệt các hoán
+vị của 4 đỉnh đặc biệt và tính tổng các cạnh trên hình minh họa. Lưu ý <strong>không</strong> cần xét \(u \ne v\);
+u, v không phải đỉnh đặc biệt hoặc bất cứ điều kiện gì khác.</p>
+
+<p>Độ phức tạp thuật toán: \(O(n^3 + 4! n^2)\)</p>
+
+          </div>
+</div>
+
+      
+
+      
+        <div class="card window" id="main.cpp">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">main.cpp</span>
+  </div>
+  <div class="card-body window-body content">
+
+          <a href="https://github.com/vietcodes/vietcodes.github.io/blob/master/code/150/main.cpp">Open in Github <i class="fa fa-lg fa-github"></i></a>
+          &bull;
+          <a href="main.cpp">Download <i class="fa fa-lg fa-download"></i></a>
+          <div class="language-c++ selectable-code highlighter-rouge" contenteditable="true"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+ 
+<span class="cp">#define forn(i) for (int i = 1; i &lt;= n; i++)
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">u</span> <span class="o">:</span> <span class="n">s</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span><span class="p">;</span>
+
+    <span class="n">forn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">forn</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e8</span><span class="p">;</span>
+    <span class="n">forn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">w</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Floyd</span>
+    <span class="n">forn</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="n">forn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">forn</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Create all permutation of `s` and put them in `permute`</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">permute</span><span class="p">[</span><span class="mi">96</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">next_permutation</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">permute</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mf">1e8</span><span class="p">;</span>
+    <span class="n">forn</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="n">forn</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">];</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">permute</span><span class="p">[</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">i</span><span class="p">]];</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">permute</span><span class="p">[</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">i</span><span class="p">]];</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">permute</span><span class="p">[</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">i</span><span class="p">]];</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">permute</span><span class="p">[</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">i</span><span class="p">]];</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+          </div>
+</div>
+
+      
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/code/150/";
+    this.page.identifier = "https://vietcodes.github.io/code/150/";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/codeview.js"></script>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

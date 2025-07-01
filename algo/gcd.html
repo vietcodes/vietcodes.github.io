@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Tìm ước chung lớn nhất của 2 số - VietCodes </title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7341625737995843",
+          enable_page_level_ads: true
+     });
+</script>
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML' defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112397632-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-112397632-1');
+    </script>
+  </head>
+  <body>
+    <p class="brand">
+<span class="keyword">let</span> menu <span class="op">=</span>
+[<span class="string">"<a href="/">Home</a>"</span>,
+<span class="string">"<a href="/algorithms">Algorithms</a>"</span>,
+<span class="string">"<a href="/codehub">CodeHub</a>"</span>,
+<span class="string">"<a href="/status">VNOI Statistics</a>"</span>];
+</p>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" style="padding-left:7px; padding-right:7px">
+      <div class="card window" id="content">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Tìm ước chung lớn nhất của 2 số</span>
+  </div>
+  <div class="card-body window-body content">
+
+        <p class="content-title">Tìm ước chung lớn nhất của 2 số</p>
+        <div class="card card-body bg-light toc">
+          <p><b>Contents</b></p>
+          <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#thuật-toán-trừ-dần">Thuật toán trừ dần</a></li>
+<li class="toc-entry toc-h1"><a href="#thuật-toán-euclide">Thuật toán Euclide</a></li>
+<li class="toc-entry toc-h2"><a href="#công-thức">Công thức</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt-đệ-qui-c">Cài đặt đệ qui (C)</a></li>
+<li class="toc-entry toc-h2"><a href="#cài-đặt-không-đệ-qui-c">Cài đặt không đệ qui (C)</a></li>
+<li class="toc-entry toc-h1"><a href="#thuật-toán-nhị-phân-binary-gcd-algorithm">Thuật toán nhị phân (Binary GCD Algorithm)</a></li>
+</ul>
+        </div>
+        <p>Ước chung lớn nhất (GCD - Greatest Common Divisor) của 2 số nguyên \(a\) và \(b\)
+là số nguyên lớn nhất \(d\) thỏa mãn cả \(a\) và \(b\) đều chia hết cho \(d\).</p>
+
+<h1 id="thuật-toán-trừ-dần">Thuật toán trừ dần</h1>
+
+<p>Mã nguồn (C):</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="thuật-toán-euclide">Thuật toán Euclide</h1>
+
+<h2 id="công-thức">Công thức</h2>
+
+<p>Công thức Euclide để tính ước chung lớn nhất:</p>
+
+\[gcd(a, 0) = a\]
+
+\[gcd(a, b) = gcd(b, a \bmod b)\]
+
+<p>Trong đó \(a \bmod b\) là số dư khi chi \(a\) cho \(b\).</p>
+
+<h2 id="cài-đặt-đệ-qui-c">Cài đặt đệ qui (C)</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="cài-đặt-không-đệ-qui-c">Cài đặt không đệ qui (C)</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="thuật-toán-nhị-phân-binary-gcd-algorithm">Thuật toán nhị phân (Binary GCD Algorithm)</h1>
+
+<p>Thuật toán gồm các bước như sau:</p>
+<ul>
+  <li>Nếu <code class="language-plaintext highlighter-rouge">a = b</code> thì <code class="language-plaintext highlighter-rouge">gcd(a, b) = a = b</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">gcd(0, v) = v</code>, <code class="language-plaintext highlighter-rouge">gcd(u, 0) = u</code>.</li>
+  <li>Nếu cả <code class="language-plaintext highlighter-rouge">u</code> và <code class="language-plaintext highlighter-rouge">v</code> đều chẵn thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = 2*gcd(u/2, v/2)</code>.</li>
+  <li>Nếu <code class="language-plaintext highlighter-rouge">u</code> chẵn và <code class="language-plaintext highlighter-rouge">v</code> lẻ thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd(u/2, v)</code>. Tương tự, nếu <code class="language-plaintext highlighter-rouge">u</code> lẻ và <code class="language-plaintext highlighter-rouge">v</code> chẵn thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd(u, v/2)</code>.</li>
+  <li>Nếu cả <code class="language-plaintext highlighter-rouge">u</code> và <code class="language-plaintext highlighter-rouge">v</code> đều lẻ và <code class="language-plaintext highlighter-rouge">u &gt; v</code> thì <code class="language-plaintext highlighter-rouge">gcd(u, v) = gcd((u-v)/2, v)</code>. Và ngược lại.</li>
+  <li>Lặp lại các bước trên.</li>
+</ul>
+
+<p>Độ phức tạp : \(O(\log(\max(u, v))^2)\)</p>
+
+<p>Cài đặt đệ qui (C):</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">a</span> <span class="o">|</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">b</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">))</span> <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">b</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="o">&amp;</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">b</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">))</span> <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="k">return</span> <span class="n">gcd</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="n">gcd</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+        </div>
+</div>
+
+    </div>
+    <div class="col-md-4" style="padding-left:7px; padding-right:7px">
+      <button onclick="loadComments()" class="btn btn-lg btn-success btn-block btn-load-cmt" id="btn-load-cmt">Load comments</button>
+<div class="hide" id="disqus-window">
+  <div class="card window" id="">
+  <div class="card-header window-header">
+    <div class="btn-close"></div>
+    <div class="btn-minimize"></div>
+    <div class="btn-maximize"></div>
+    <span class="title">Comments</span>
+  </div>
+  <div class="card-body window-body content">
+
+  <div id="disqus_thread"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+var disqus_config = function () {
+    this.page.url = "https://vietcodes.github.io/algo/gcd";
+    this.page.identifier = "https://vietcodes.github.io/algo/gcd";
+};
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+</div>
+
+    <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container-fluid">
+          &copy; 2019 VietCodes &bullet; <a href="/products">Products</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/all.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "445251a6fd794cef8c068d77e55a8f8a"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>
